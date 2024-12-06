@@ -9,17 +9,20 @@ using System;
 public class PlayerInputManager : MonoBehaviour {
   public event Action<Vector2> OnMovePerformed;
   public event Action OnMoveCanceled;
-  public event Action<Vector2> OnMoveY;
-  public event Action OnMoveYCanceled;
-  public event Action OnJump;
-  public event Action OnJumpReleased;
-  public event Action OnShoot;
-  public event Action OnShootReleased;
-  public event Action OnCrouch;
-  public event Action OnCrouchReleased;
-  public event Action OnLock;
-  public event Action OnLockReleased;
-  public event Action OnDash;
+  public event Action OnJumpPerformed;
+  public event Action OnJumpCanceled;
+  public event Action OnShootPerformed;
+  public event Action OnShootCanceled;
+  public event Action OnCrouchPerformed;
+  public event Action OnCrouchCanceled;
+  public event Action OnLockPerformed;
+  public event Action OnLockCanceled;
+  public event Action OnDashPerformed;
+  public event Action OnDashCanceled;
+  public event Action OnShootEXPerformed;
+  public event Action OnShootEXCanceled;
+  public event Action OnSwitchWeaponPerformed;
+  public event Action OnSwitchWeaponCanceled;
 
   private PlayerInput playerInput;
   private InputAction moveAction;
@@ -28,80 +31,105 @@ public class PlayerInputManager : MonoBehaviour {
   private InputAction lockAction;
   private InputAction dashAction;
   private InputAction crouchAction;
-  //private InputAction shootEXAction;
-  //private InputAction switchWeaponAction;
+  private InputAction shootEXAction;
+  private InputAction switchWeaponAction;
 
   void Awake() {
     playerInput = GetComponent<PlayerInput>();
-
     moveAction = playerInput.actions["Move"];
     jumpAction = playerInput.actions["Jump"];
     shootAction = playerInput.actions["Shoot"];
     lockAction = playerInput.actions["Lock"];
     dashAction = playerInput.actions["Dash"];
     crouchAction = playerInput.actions["Crouch"];
-    //shootEXAction = playerInput.actions["ShootEX"];
-    //switchWeaponAction = playerInput.actions["SwitchWeapon"];
+    shootEXAction = playerInput.actions["ShootEX"];
+    switchWeaponAction = playerInput.actions["SwitchWeapon"];
   }
 
   void OnEnable() {
     moveAction.performed += OnMoveActionPerformed;
     moveAction.canceled += OnMoveActionCanceled;
+    jumpAction.performed += OnJumpActionPerformed;
+    jumpAction.canceled += OnJumpActionCanceled;
+    shootAction.performed += OnShootActionPerformed;
+    shootAction.canceled += OnShootActionCanceled;
+    lockAction.performed += OnLockActionPerformed;
+    lockAction.canceled += OnLockActionCanceled;
+    dashAction.performed += OnDashActionPerformed;
+    dashAction.canceled += OnDashActionCanceled;
+    crouchAction.performed += OnCrouchActionPerformed;
+    crouchAction.canceled += OnCrouchActionCanceled;
+    shootEXAction.performed += OnShootEXActionPerformed;
+    shootEXAction.canceled += OnShootEXActionCanceled;
+    switchWeaponAction.performed += OnSwitchWeaponActionPerformed;
+    switchWeaponAction.canceled += OnSwitchWeaponActionCanceled;
   }
 
   void OnDisable() {
     moveAction.performed -= OnMoveActionPerformed;
     moveAction.canceled -= OnMoveActionCanceled;
+    jumpAction.performed -= OnJumpActionPerformed;
+    jumpAction.canceled -= OnJumpActionCanceled;
+    shootAction.performed -= OnShootActionPerformed;
+    shootAction.canceled -= OnShootActionCanceled;
+    lockAction.performed -= OnLockActionPerformed;
+    lockAction.canceled -= OnLockActionCanceled;
+    dashAction.performed -= OnDashActionPerformed;
+    dashAction.canceled -= OnDashActionCanceled;
+    crouchAction.performed -= OnCrouchActionPerformed;
+    crouchAction.canceled -= OnCrouchActionCanceled;
+    shootEXAction.performed -= OnShootEXActionPerformed;
+    shootEXAction.canceled -= OnShootEXActionCanceled;
+    switchWeaponAction.performed -= OnSwitchWeaponActionPerformed;
+    switchWeaponAction.canceled -= OnSwitchWeaponActionCanceled;
   }
 
   private void OnMoveActionPerformed(InputAction.CallbackContext context) {
-    OnMove?.Invoke(context.ReadValue<Vector2>());
+    OnMovePerformed?.Invoke(context.ReadValue<Vector2>());
   }
-  
   private void OnMoveActionCanceled(InputAction.CallbackContext context) {
     OnMoveCanceled.Invoke();
   }
-
-  private bool resetMoveCanceled = true;
-  void FixedUpdate() {
-    // Here I'll need to take into account even the y axis, especially for the y movement
-    if (moveAction.ReadValue<Vector2>().x != 0) {
-      OnMove?.Invoke(moveAction.ReadValue<Vector2>());
-      resetMoveCanceled = true;
-    } else {
-      if (resetMoveCanceled) {
-        OnMoveCanceled?.Invoke();
-        resetMoveCanceled = false;
-      } 
-    }
-    if (moveAction.ReadValue<Vector2>().y != 0) {
-      OnMoveY?.Invoke(moveAction.ReadValue<Vector2>());
-    } else {
-      OnMoveYCanceled?.Invoke();
-    }
-    if (jumpAction.ReadValue<float>() != 0) {
-      OnJump?.Invoke();
-    } else {
-      OnJumpReleased?.Invoke();
-    }
-    if (shootAction.ReadValue<float>() != 0) {
-      OnShoot?.Invoke();
-    } else {
-      OnShootReleased?.Invoke();
-    }
-    if (crouchAction.ReadValue<float>() != 0) {
-      OnCrouch?.Invoke();
-    } else {
-      OnCrouchReleased?.Invoke();
-    }
-    if (lockAction.ReadValue<float>() != 0) {
-      OnLock?.Invoke();
-    } else {
-      OnLockReleased?.Invoke();
-    }
-    // TODO: Create a minimum cooldown for this state
-    if (dashAction.ReadValue<float>() != 0) {
-      OnDash?.Invoke();
-    }
+  private void OnJumpActionPerformed(InputAction.CallbackContext context) {
+    OnJumpPerformed?.Invoke();
+  }
+  private void OnJumpActionCanceled(InputAction.CallbackContext context) {
+    OnJumpCanceled.Invoke();
+  }
+  private void OnShootActionPerformed(InputAction.CallbackContext context) {
+    OnShootPerformed?.Invoke();
+  }
+  private void OnShootActionCanceled(InputAction.CallbackContext context) {
+    OnShootCanceled.Invoke();
+  }
+  private void OnLockActionPerformed(InputAction.CallbackContext context) {
+    OnLockPerformed?.Invoke();
+  }
+  private void OnLockActionCanceled(InputAction.CallbackContext context) {
+    OnLockCanceled.Invoke();
+  }
+  private void OnDashActionPerformed(InputAction.CallbackContext context) {
+    OnDashPerformed?.Invoke();
+  }
+  private void OnDashActionCanceled(InputAction.CallbackContext context) {
+    OnDashCanceled.Invoke();
+  }
+  private void OnCrouchActionPerformed(InputAction.CallbackContext context) {
+    OnCrouchPerformed?.Invoke();
+  }
+  private void OnCrouchActionCanceled(InputAction.CallbackContext context) {
+    OnCrouchCanceled?.Invoke();
+  }
+  private void OnShootEXActionPerformed(InputAction.CallbackContext context) {
+    OnShootEXPerformed?.Invoke();
+  }
+  private void OnShootEXActionCanceled(InputAction.CallbackContext context) {
+    OnShootEXCanceled.Invoke();
+  }
+  private void OnSwitchWeaponActionPerformed(InputAction.CallbackContext context) {
+    OnSwitchWeaponPerformed?.Invoke();
+  }
+  private void OnSwitchWeaponActionCanceled(InputAction.CallbackContext context) {
+    OnSwitchWeaponCanceled.Invoke();
   }
 }

@@ -66,7 +66,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Characters\Cuphead\Scripts\Input\PlayerInputManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerIdleState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\Animator\PlayerAnimatorManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerLockState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerNoneState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\Movement\PlayerMovementManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerMovementState.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDashingState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerDamagedState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerShootingState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerMovingState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerJumpingState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\PlayerStateManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerActionState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
