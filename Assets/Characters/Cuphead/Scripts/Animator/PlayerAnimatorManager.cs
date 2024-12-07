@@ -5,9 +5,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
   private PlayerInputManager inputManager;
   private Animator animator;
 
-  private int AnimatorMovementX;
-  private int AnimatorMovementY;
-  private int AnimatorIsRunning;
+  private int AnimatorXVelocity;
+  private int AnimatorYVelocity;
+  private int AnimatorIsMoving;
   private int AnimatorIsJumping;
   private int AnimatorIsCrouching;
   private int AnimatorIsCrouchingLoop;
@@ -18,9 +18,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
     stateManager = GetComponent<PlayerStateManager>();
 
     animator = GetComponent<Animator>();
-    AnimatorMovementX = Animator.StringToHash("xVelocity");
-    AnimatorMovementY = Animator.StringToHash("yVelocity");
-    AnimatorIsRunning = Animator.StringToHash("IsRunning");
+    AnimatorXVelocity = Animator.StringToHash("xVelocity");
+    AnimatorYVelocity = Animator.StringToHash("yVelocity");
+    AnimatorIsMoving = Animator.StringToHash("IsMoving");
     AnimatorIsJumping = Animator.StringToHash("IsJumping");
     AnimatorIsCrouching = Animator.StringToHash("IsCrouching");
     AnimatorIsCrouchingLoop = Animator.StringToHash("IsCrouchingLoop");
@@ -40,7 +40,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public void ResetMovementParameters() {
     animator.SetBool(AnimatorIsCrouching, false);
     animator.SetBool(AnimatorIsCrouchingLoop, false);
-    animator.SetBool(AnimatorIsRunning, false);
+    //animator.SetBool(AnimatorIsMoving, false);
     animator.SetBool(AnimatorIsJumping, false);
   }
 
@@ -50,8 +50,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
     // animator.SetBool(AnimatorIsShootingEX, false);
   }
 
-  public void SetParameterIsRunning() {
-    animator.SetBool(AnimatorIsRunning, true);
+  public void SetParameterIsMoving() {
+    animator.SetBool(AnimatorIsMoving, true);
   }
 
   public void SetParameterIsJumping() {
@@ -70,7 +70,10 @@ public class PlayerAnimatorManager : MonoBehaviour {
 
 
   void HandleOnMovePerformed(Vector2 vector) {
-    //animator.SetFloat(AnimatorMovementX, vector.x);
+    animator.SetFloat(AnimatorXVelocity, vector.x);
+    animator.SetFloat(AnimatorYVelocity, vector.y);
+    animator.SetBool(AnimatorIsMoving, true);
+    //animator.SetFloat(AnimatorXVelocity, vector.x);
     //animator.SetFloat(AnimatorMovementY, vector.y);
     //if (vector.x != 0) {
     //  animator.SetBool(AnimatorIsMoving, true);
@@ -80,6 +83,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
   }
 
   void HandleOnMoveCanceled() {
+    animator.SetFloat(AnimatorXVelocity, 0f);
+    animator.SetFloat(AnimatorYVelocity, 0f);
+    animator.SetBool(AnimatorIsMoving, false);
     //animator.SetFloat(AnimatorMovementX, 0);
     //animator.SetFloat(AnimatorMovementY, 0);
     //animator.SetBool(AnimatorIsMoving, false);

@@ -18,8 +18,9 @@ public class PlayerMovingState : IPlayerMovementState {
     inputManager.OnMoveCanceled += HandleMoveCanceled;
     inputManager.OnJumpPerformed += HandleJump;
     inputManager.OnLockPerformed += HandleLock;
+    inputManager.OnCrouchPerformed += HandleCrouch;
 
-    animatorManager.SetParameterIsRunning();
+    animatorManager.SetParameterIsMoving();
   }
 
   public void UpdateState() {
@@ -47,5 +48,8 @@ public class PlayerMovingState : IPlayerMovementState {
   }
   private void HandleLock() {
     stateManager.ChangeMovementState(new PlayerLockState());
+  }
+  private void HandleCrouch() {
+    stateManager.ChangeMovementState(new PlayerCrouchState());
   }
 }

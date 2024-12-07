@@ -94,7 +94,7 @@ public class PlayerInputManager : MonoBehaviour {
     OnJumpPerformed?.Invoke();
   }
   private void OnJumpActionCanceled(InputAction.CallbackContext context) {
-    OnJumpCanceled.Invoke();
+    OnJumpCanceled?.Invoke();
   }
   private void OnShootActionPerformed(InputAction.CallbackContext context) {
     OnShootPerformed?.Invoke();
@@ -106,13 +106,13 @@ public class PlayerInputManager : MonoBehaviour {
     OnLockPerformed?.Invoke();
   }
   private void OnLockActionCanceled(InputAction.CallbackContext context) {
-    OnLockCanceled.Invoke();
+    OnLockCanceled?.Invoke();
   }
   private void OnDashActionPerformed(InputAction.CallbackContext context) {
     OnDashPerformed?.Invoke();
   }
   private void OnDashActionCanceled(InputAction.CallbackContext context) {
-    OnDashCanceled.Invoke();
+    OnDashCanceled?.Invoke();
   }
   private void OnCrouchActionPerformed(InputAction.CallbackContext context) {
     OnCrouchPerformed?.Invoke();
@@ -124,12 +124,12 @@ public class PlayerInputManager : MonoBehaviour {
     OnShootEXPerformed?.Invoke();
   }
   private void OnShootEXActionCanceled(InputAction.CallbackContext context) {
-    OnShootEXCanceled.Invoke();
+    OnShootEXCanceled?.Invoke();
   }
   private void OnSwitchWeaponActionPerformed(InputAction.CallbackContext context) {
     OnSwitchWeaponPerformed?.Invoke();
   }
   private void OnSwitchWeaponActionCanceled(InputAction.CallbackContext context) {
-    OnSwitchWeaponCanceled.Invoke();
+    OnSwitchWeaponCanceled?.Invoke();
   }
 }

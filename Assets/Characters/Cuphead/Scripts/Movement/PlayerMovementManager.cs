@@ -87,7 +87,10 @@ public class PlayerMovementManager : MonoBehaviour {
 
   public void FixedUpdate() {
     FlipCharacter();
-    if (!isLocked) {
+    if (!isLocked 
+        && stateManager.movementState is not PlayerCrouchState
+        && stateManager.movementState is not PlayerLockState
+    ) {
       Vector2 updatedPosition = rb.linearVelocity;
 
       if (isJumping && !isJumpReset) {
