@@ -12,6 +12,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
   private int AnimatorIsCrouching;
   private int AnimatorIsCrouchingLoop;
   private int AnimatorIsDashing;
+  private int AnimatorIsAiming;
+  private int AnimatorXAim;
+  private int AnimatorYAim;
 
   void Awake() {
     inputManager = GetComponent<PlayerInputManager>();
@@ -25,6 +28,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
     AnimatorIsCrouching = Animator.StringToHash("IsCrouching");
     AnimatorIsCrouchingLoop = Animator.StringToHash("IsCrouchingLoop");
     AnimatorIsDashing = Animator.StringToHash("IsDashing");
+    AnimatorIsAiming = Animator.StringToHash("IsAiming");
+    AnimatorXAim = Animator.StringToHash("xAim");
+    AnimatorYAim = Animator.StringToHash("yAim");
   }
 
   void OnEnable() {
@@ -40,8 +46,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public void ResetMovementParameters() {
     animator.SetBool(AnimatorIsCrouching, false);
     animator.SetBool(AnimatorIsCrouchingLoop, false);
-    //animator.SetBool(AnimatorIsMoving, false);
     animator.SetBool(AnimatorIsJumping, false);
+    animator.SetBool(AnimatorIsAiming, false);
   }
 
   public void ResetActionParameters() {
@@ -62,33 +68,34 @@ public class PlayerAnimatorManager : MonoBehaviour {
     animator.SetBool(AnimatorIsCrouching, true);
   }
 
-  public void SetParameterIstDashing() {
+  public void SetParameterIsDashing() {
     animator.SetBool(AnimatorIsDashing, true);
   }
 
-
-
+  public void SetParameterIsAiming() {
+    animator.SetBool(AnimatorIsAiming, true);
+  }
+  public void SetParameterIsAimingDirection() {
+    //animator.SetBool(AnimatorIsAimingDirection, true);
+  }
 
   void HandleOnMovePerformed(Vector2 vector) {
     animator.SetFloat(AnimatorXVelocity, vector.x);
     animator.SetFloat(AnimatorYVelocity, vector.y);
-    animator.SetBool(AnimatorIsMoving, true);
-    //animator.SetFloat(AnimatorXVelocity, vector.x);
-    //animator.SetFloat(AnimatorMovementY, vector.y);
-    //if (vector.x != 0) {
+    animator.SetInteger(AnimatorXAim, Mathf.RoundToInt(vector.x));
+    animator.SetInteger(AnimatorYAim, Mathf.RoundToInt(vector.y));
+    //animator.SetBool(AnimatorIsAimingDirection, true);
+    //if (vector.x > 0) {
     //  animator.SetBool(AnimatorIsMoving, true);
-    //} else {
-    //  animator.SetBool(AnimatorIsMoving, false);
     //}
   }
-
   void HandleOnMoveCanceled() {
     animator.SetFloat(AnimatorXVelocity, 0f);
     animator.SetFloat(AnimatorYVelocity, 0f);
+    animator.SetInteger(AnimatorXAim, 0);
+    animator.SetInteger(AnimatorYAim, 0);
     animator.SetBool(AnimatorIsMoving, false);
-    //animator.SetFloat(AnimatorMovementX, 0);
-    //animator.SetFloat(AnimatorMovementY, 0);
-    //animator.SetBool(AnimatorIsMoving, false);
+    //animator.SetBool(AnimatorIsAimingDirection, false);
   }
 
   public void OnCrouchingEntryEnd() {

@@ -16,14 +16,14 @@ public class PlayerIdleState : IPlayerMovementState {
     this.inputManager = inputManager;
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
-    inputManager.OnMovePerformed += HandleMove;
-    inputManager.OnJumpPerformed += HandleJump;
-    inputManager.OnDashPerformed += HandleDash;
-    inputManager.OnLockPerformed += HandleLock;
-    inputManager.OnCrouchPerformed += HandleCrouch;
+    
+    this.inputManager.OnMovePerformed += HandleMove;
+    this.inputManager.OnJumpPerformed += HandleJump;
+    this.inputManager.OnDashPerformed += HandleDash;
+    this.inputManager.OnAimPerformed += HandleAim;
+    this.inputManager.OnCrouchPerformed += HandleCrouch;
 
     movementManager.isDashing = false;
-    //animatorManager.
   }
 
   public void UpdateState() {
@@ -36,7 +36,7 @@ public class PlayerIdleState : IPlayerMovementState {
     inputManager.OnMovePerformed -= HandleMove;
     inputManager.OnJumpPerformed -= HandleJump;
     inputManager.OnDashPerformed -= HandleDash;
-    inputManager.OnLockPerformed -= HandleLock;
+    inputManager.OnAimPerformed -= HandleAim;
     inputManager.OnCrouchPerformed -= HandleCrouch;
 
     animatorManager.ResetMovementParameters();
@@ -58,8 +58,8 @@ public class PlayerIdleState : IPlayerMovementState {
     }
   }
 
-  private void HandleLock() {
-    stateManager.ChangeMovementState(new PlayerLockState());
+  private void HandleAim() {
+    stateManager.ChangeMovementState(new PlayerAimState());
   }
 
   private void HandleCrouch() {

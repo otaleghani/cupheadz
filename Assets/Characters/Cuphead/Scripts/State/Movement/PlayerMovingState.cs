@@ -15,10 +15,10 @@ public class PlayerMovingState : IPlayerMovementState {
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
 
-    inputManager.OnMoveCanceled += HandleMoveCanceled;
-    inputManager.OnJumpPerformed += HandleJump;
-    inputManager.OnLockPerformed += HandleLock;
-    inputManager.OnCrouchPerformed += HandleCrouch;
+    this.inputManager.OnMoveCanceled += HandleMoveCanceled;
+    this.inputManager.OnJumpPerformed += HandleJump;
+    this.inputManager.OnAimPerformed += HandleAim;
+    this.inputManager.OnCrouchPerformed += HandleCrouch;
 
     animatorManager.SetParameterIsMoving();
   }
@@ -30,9 +30,10 @@ public class PlayerMovingState : IPlayerMovementState {
   }
 
   public void ExitState() {
-    inputManager.OnMoveCanceled -= HandleJump;
+    inputManager.OnMoveCanceled -= HandleMoveCanceled;
     inputManager.OnJumpPerformed -= HandleJump;
-    inputManager.OnLockPerformed -= HandleJump;
+    inputManager.OnAimPerformed -= HandleAim;
+    inputManager.OnCrouchPerformed -= HandleCrouch;
 
     animatorManager.ResetMovementParameters();
   }
@@ -46,8 +47,8 @@ public class PlayerMovingState : IPlayerMovementState {
   public void HandleJump() {
     stateManager.ChangeMovementState(new PlayerJumpingState());
   }
-  private void HandleLock() {
-    stateManager.ChangeMovementState(new PlayerLockState());
+  private void HandleAim() {
+    stateManager.ChangeMovementState(new PlayerAimState());
   }
   private void HandleCrouch() {
     stateManager.ChangeMovementState(new PlayerCrouchState());

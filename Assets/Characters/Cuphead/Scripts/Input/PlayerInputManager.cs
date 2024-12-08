@@ -15,8 +15,8 @@ public class PlayerInputManager : MonoBehaviour {
   public event Action OnShootCanceled;
   public event Action OnCrouchPerformed;
   public event Action OnCrouchCanceled;
-  public event Action OnLockPerformed;
-  public event Action OnLockCanceled;
+  public event Action OnAimPerformed;
+  public event Action OnAimCanceled;
   public event Action OnDashPerformed;
   public event Action OnDashCanceled;
   public event Action OnShootEXPerformed;
@@ -28,7 +28,8 @@ public class PlayerInputManager : MonoBehaviour {
   private InputAction moveAction;
   private InputAction jumpAction;
   private InputAction shootAction;
-  private InputAction lockAction;
+  private InputAction aimAction;
+  private InputAction aimDirectionAction;
   private InputAction dashAction;
   private InputAction crouchAction;
   private InputAction shootEXAction;
@@ -39,7 +40,7 @@ public class PlayerInputManager : MonoBehaviour {
     moveAction = playerInput.actions["Move"];
     jumpAction = playerInput.actions["Jump"];
     shootAction = playerInput.actions["Shoot"];
-    lockAction = playerInput.actions["Lock"];
+    aimAction = playerInput.actions["Aim"];
     dashAction = playerInput.actions["Dash"];
     crouchAction = playerInput.actions["Crouch"];
     shootEXAction = playerInput.actions["ShootEX"];
@@ -53,8 +54,8 @@ public class PlayerInputManager : MonoBehaviour {
     jumpAction.canceled += OnJumpActionCanceled;
     shootAction.performed += OnShootActionPerformed;
     shootAction.canceled += OnShootActionCanceled;
-    lockAction.performed += OnLockActionPerformed;
-    lockAction.canceled += OnLockActionCanceled;
+    aimAction.performed += OnAimActionPerformed;
+    aimAction.canceled += OnAimActionCanceled;
     dashAction.performed += OnDashActionPerformed;
     dashAction.canceled += OnDashActionCanceled;
     crouchAction.performed += OnCrouchActionPerformed;
@@ -72,8 +73,8 @@ public class PlayerInputManager : MonoBehaviour {
     jumpAction.canceled -= OnJumpActionCanceled;
     shootAction.performed -= OnShootActionPerformed;
     shootAction.canceled -= OnShootActionCanceled;
-    lockAction.performed -= OnLockActionPerformed;
-    lockAction.canceled -= OnLockActionCanceled;
+    aimAction.performed -= OnAimActionPerformed;
+    aimAction.canceled -= OnAimActionCanceled;
     dashAction.performed -= OnDashActionPerformed;
     dashAction.canceled -= OnDashActionCanceled;
     crouchAction.performed -= OnCrouchActionPerformed;
@@ -102,11 +103,11 @@ public class PlayerInputManager : MonoBehaviour {
   private void OnShootActionCanceled(InputAction.CallbackContext context) {
     OnShootCanceled.Invoke();
   }
-  private void OnLockActionPerformed(InputAction.CallbackContext context) {
-    OnLockPerformed?.Invoke();
+  private void OnAimActionPerformed(InputAction.CallbackContext context) {
+    OnAimPerformed?.Invoke();
   }
-  private void OnLockActionCanceled(InputAction.CallbackContext context) {
-    OnLockCanceled?.Invoke();
+  private void OnAimActionCanceled(InputAction.CallbackContext context) {
+    OnAimCanceled?.Invoke();
   }
   private void OnDashActionPerformed(InputAction.CallbackContext context) {
     OnDashPerformed?.Invoke();

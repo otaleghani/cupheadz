@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &75740488
 Animator:
   serializedVersion: 7
@@ -348,7 +348,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.3, y: 1.79}
+    oldSize: {x: 0.93, y: 1.81}
     newSize: {x: 0.93, y: 1.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFacingRight: 1
-  isLocked: 0
+  isAimed: 0
   isGrounded: 0
   isJumping: 0
   movementSpeed: 4

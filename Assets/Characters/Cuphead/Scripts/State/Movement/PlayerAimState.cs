@@ -1,4 +1,4 @@
-public class PlayerLockState : IPlayerMovementState {
+public class PlayerAimState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerMovementManager movementManager;
@@ -15,18 +15,18 @@ public class PlayerLockState : IPlayerMovementState {
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
 
-    inputManager.OnLockCanceled += HandleLockReleased;
-    // animatorManager.SetParameterIsLocked();
+    inputManager.OnAimCanceled += HandleAimCanceled;
+    animatorManager.SetParameterIsAiming();
   }
 
   public void UpdateState() {}
 
   public void ExitState() {
-    inputManager.OnLockCanceled -= HandleLockReleased;
+    inputManager.OnAimCanceled -= HandleAimCanceled;
     animatorManager.ResetMovementParameters();
   }
 
-  private void HandleLockReleased() {
+  private void HandleAimCanceled() {
     stateManager.ChangeMovementState(new PlayerIdleState());
   }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovementManager : MonoBehaviour {
   [Header("General")]
   [SerializeField] private bool isFacingRight = true;
-  [SerializeField] private bool isLocked = false;
+  [SerializeField] private bool isAimed = false;
   public bool isGrounded = false;
   public bool isJumping;
   
@@ -41,8 +41,8 @@ public class PlayerMovementManager : MonoBehaviour {
     inputManager.OnJumpCanceled += HandleOnJumpCanceled;
     inputManager.OnMovePerformed += HandleOnMovePerformed;
     inputManager.OnMoveCanceled += HandleOnMoveCanceled;
-    inputManager.OnLockPerformed += HandleOnLockPerformed;
-    inputManager.OnLockCanceled += HandleOnLockReleased;
+    inputManager.OnAimPerformed += HandleOnAimPerformed;
+    inputManager.OnAimCanceled += HandleOnAimReleased;
     inputManager.OnDashPerformed += HandleOnDashPerformed;
   }
   void OnDisable() {
@@ -50,8 +50,8 @@ public class PlayerMovementManager : MonoBehaviour {
     inputManager.OnJumpCanceled -= HandleOnJumpCanceled;
     inputManager.OnMovePerformed -= HandleOnMovePerformed;
     inputManager.OnMoveCanceled -= HandleOnMoveCanceled;
-    inputManager.OnLockPerformed -= HandleOnLockPerformed;
-    inputManager.OnLockCanceled -= HandleOnLockReleased;
+    inputManager.OnAimPerformed -= HandleOnAimPerformed;
+    inputManager.OnAimCanceled -= HandleOnAimReleased;
     inputManager.OnDashPerformed -= HandleOnDashPerformed;
   }
 
@@ -74,11 +74,11 @@ public class PlayerMovementManager : MonoBehaviour {
     movementAcceleration = 0f;
   }
 
-  void HandleOnLockPerformed() {
-    isLocked = true;
+  void HandleOnAimPerformed() {
+    isAimed = true;
   }
-  void HandleOnLockReleased() {
-    isLocked = false;
+  void HandleOnAimReleased() {
+    isAimed = false;
   }
 
   void HandleOnDashPerformed() {
@@ -87,9 +87,9 @@ public class PlayerMovementManager : MonoBehaviour {
 
   public void FixedUpdate() {
     FlipCharacter();
-    if (!isLocked 
+    if (!isAimed 
         && stateManager.movementState is not PlayerCrouchState
-        && stateManager.movementState is not PlayerLockState
+        && stateManager.movementState is not PlayerAimState
     ) {
       Vector2 updatedPosition = rb.linearVelocity;
 

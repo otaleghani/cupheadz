@@ -15,7 +15,7 @@ public class PlayerDashingState : IPlayerMovementState {
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
 
-    animatorManager.SetParameterIstDashing();
+    animatorManager.SetParameterIsDashing();
   }
 
   public void UpdateState() {

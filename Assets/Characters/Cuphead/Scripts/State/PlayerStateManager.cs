@@ -23,6 +23,7 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   void FixedUpdate() {
+    //Debug.Log(movementState.GetType());
     movementState.UpdateState();
     actionState.UpdateState();
   }
