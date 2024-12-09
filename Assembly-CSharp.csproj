@@ -59,7 +59,7 @@
     <UnityVersion>6000.0.28f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\Oliviero\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.4\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\Oliviero\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.5\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.28f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.28f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.28f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
@@ -69,13 +69,17 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerIdleState.cs" />
     <Compile Include="Assets\Scripts\IDamegeable.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserManager.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\FileDataHandler.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerAimState.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\IDataPersistence.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\GameData\GameData.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Scripts\WeaponManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Animator\PlayerAnimatorManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerNoneState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Movement\PlayerMovementManager.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\DataPersistanceManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerMovementState.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDashingState.cs" />
@@ -86,6 +90,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerJumpingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\PlayerStateManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerActionState.cs" />
+    <Compile Include="Assets\Characters\MeatShield\MeatShieldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

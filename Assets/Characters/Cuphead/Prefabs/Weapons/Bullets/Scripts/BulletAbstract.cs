@@ -34,6 +34,7 @@ public abstract class Bullet : MonoBehaviour {
   }
 
   protected virtual void OnTriggerEnter2D(Collider2D other) {
+    Debug.Log("hit something");
     HandleCollision(other);
   }
 
