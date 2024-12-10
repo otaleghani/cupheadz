@@ -81,6 +81,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\Movement\PlayerMovementManager.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataPersistanceManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerMovementState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Scripts\Animator\WeaponAnimatorManager.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDashingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerDamagedState.cs" />

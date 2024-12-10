@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerMovementManager : MonoBehaviour {
   [Header("General")]
-  [SerializeField] private bool isFacingRight = true;
   [SerializeField] private bool isAimed = false;
   public bool isGrounded = false;
   public bool isJumping;
+  public bool isFacingRight = true;
   
   [Header("Movement")]
   [SerializeField] private float movementSpeed = 4f;

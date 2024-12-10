@@ -9,45 +9,87 @@ using UnityEngine;
 /// - And finally it will keep track of the time passed from each bullet
 /// </summary>
 public class WeaponManager : MonoBehaviour, IDataPersistence {
-  // Does it need to have the input manager?
-  private GameData.Weapon firstWeaponId;
-  private GameData.Weapon secondWeaponId;
+  private WeaponAnimatorManager animatorManager;
+  private PlayerStateManager stateManager;
+  private PlayerMovementManager movementManager;
+  
+  // Todo: handle weapons change, remember to hold the counter of both bullets
+  private PlayerInputManager inputManager;  
 
-  public GameObject firstWeapon;
-  public GameObject secondWeapon;
+
+  public GameData.Weapon firstWeaponId;
+  public GameData.Weapon secondWeaponId;
+  private GameObject firstWeapon;
+  private GameObject secondWeapon;
+  private float firstWeaponFireRate;
+  private float secondWeaponFireRate;
+
+  private GameObject equippedWeapon;
+  private float equippedWeaponFireRate;
+  private float shootCounter;
+
+  // Todo: handle weapon aim position
+  private int xDirection;
+  private int yDirection;
 
   void Start() {
-    firstWeapon = EquipWeapons(firstWeaponId);
-    secondWeapon = EquipWeapons(secondWeaponId);
+    stateManager = GetComponentInParent<PlayerStateManager>();
+    movementManager = GetComponentInParent<PlayerMovementManager>();
+    animatorManager = GetComponent<WeaponAnimatorManager>();
+    (firstWeapon, firstWeaponFireRate) = EquipWeapons(firstWeaponId);
+    (secondWeapon, secondWeaponFireRate) = EquipWeapons(secondWeaponId);
+    equippedWeapon = firstWeapon;
+    equippedWeaponFireRate = firstWeaponFireRate;
   }
 
-  void Update() {
-    //Debug.Log(firstWeapon);
-  }
-
-  float counter = 0f;
-  float maxCounter = 0.2f;
   void FixedUpdate() {
-    if (counter >= maxCounter) {
-      Instantiate(firstWeapon, transform.position, Quaternion.identity);
-      counter = 0f;
+    if (shootCounter <= equippedWeaponFireRate) { 
+      shootCounter += Time.deltaTime;
+      return;
     }
-    counter += Time.deltaTime;
+
+    if (stateManager.actionState is PlayerShootingState) {
+      // Todo: Play "sparkle" animation based on the equipped weapon
+      animatorManager.SetParameterIsShooting();
+
+      if (stateManager.movementState is PlayerAimState) {
+        // Todo: Handle bullet direction based on the current aim direction
+        return;
+      }
+      Shoot();
+    }
   }
 
-  private GameObject EquipWeapons(GameData.Weapon weapon) {
-    GameObject weaponObj = null;
+  private void Shoot() {
+    GameObject bulletIns = Instantiate(firstWeapon, transform.position, Quaternion.identity);
+    Bullet bullet = bulletIns.GetComponent<Bullet>();
+    if (!movementManager.isFacingRight) {
+      bullet.direction = Vector2.left;
+      bullet.FlipBullet();
+    }
 
-    // TODO: Finds the right gameobject for each weapon
+    shootCounter = 0f;
+  }
+
+  /// <summary>
+  /// Based on the enum provided, it returns the right GameObject and fireRate
+  /// </summary>
+  private (GameObject, float) EquipWeapons(GameData.Weapon weapon) {
+    GameObject weaponObj = null;
+    float fireRate = 0f;
+
     switch (weapon) {
       case GameData.Weapon.Peashooter: 
         weaponObj = Resources.Load<GameObject>("Peashooter__Bullet");
+        fireRate = 0.2f;
         break;
+
       default:
-        //weaponObj = Resources.Load<GameObject>("Peashooter__Bullet");
+        weaponObj = Resources.Load<GameObject>("Peashooter__Bullet");
+        fireRate = 0.2f;
         break;
     }
-    return weaponObj;
+    return (weaponObj, fireRate);
   }
 
   public void LoadData(GameData gameData) {

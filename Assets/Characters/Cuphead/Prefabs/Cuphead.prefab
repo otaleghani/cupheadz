@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6200654824035177028}
   - component: {fileID: 701418548203842295}
   - component: {fileID: 2467092924196238522}
-  m_Layer: 0
+  - component: {fileID: 7898942932533378538}
+  m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,6 +124,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56206d371c1ce744a4543c87e04013a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstWeaponId: 0
+  secondWeaponId: 9
+--- !u!114 &7898942932533378538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559498179894018248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65d7f97287385844a27b0ef7ea00581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6371120194414480597
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +157,7 @@ GameObject:
   - component: {fileID: 3579665745255740251}
   - component: {fileID: 6487106464912553194}
   - component: {fileID: 8072856238612901451}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cuphead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,10 +366,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a71cefc8f0d2a46b4c9510b60327c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFacingRight: 1
   isAimed: 0
   isGrounded: 0
   isJumping: 0
+  isFacingRight: 1
   movementSpeed: 4
   movementAcceleration: 0
   jumpStateMinTime: 0.05

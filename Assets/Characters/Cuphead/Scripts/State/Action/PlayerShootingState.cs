@@ -3,6 +3,7 @@ public class PlayerShootingState : IPlayerActionState {
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
 
+
   public void EnterState(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
@@ -13,7 +14,6 @@ public class PlayerShootingState : IPlayerActionState {
     this.animatorManager = animatorManager;
 
     inputManager.OnShootCanceled += HandleShootingReleased;
-    // animatorManager.SetParameterIsShooting();
   }
 
   public void UpdateState() {}
