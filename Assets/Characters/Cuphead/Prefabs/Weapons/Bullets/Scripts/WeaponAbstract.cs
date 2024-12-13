@@ -15,7 +15,8 @@ public abstract class WeaponManager : MonoBehaviour {
     bullet = weapon.GetComponent<Bullet>();
   }
 
-  public virtual void Shoot(int x, int y) {
+  // I could even pass the position, and the game is set
+  public virtual void Shoot(int x, int y, Transform spawn) {
     Debug.Log(x + " " + y);
     if (x == 0 && y == 0) {
       Debug.LogWarning("Shoot function called with zero direction.");
@@ -26,8 +27,8 @@ public abstract class WeaponManager : MonoBehaviour {
     Vector2 direction = new Vector2(x, y).normalized;
     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-    GameObject bulletInstance = Instantiate(weapon, transform.position, Quaternion.Euler(0, 0, angle));
-    GameObject sparkleInstance = Instantiate(sparkle, transform.position, Quaternion.identity);
+    GameObject bulletInstance = Instantiate(weapon, spawn.position, Quaternion.Euler(0, 0, angle));
+    GameObject sparkleInstance = Instantiate(sparkle, spawn.position, Quaternion.identity);
     Rigidbody2D rb = bulletInstance.GetComponent<Rigidbody2D>();
 
     if (rb != null) {

@@ -155,7 +155,6 @@ MonoBehaviour:
   damage: 10
   speed: 20
   lifeTime: 5
-  fireRate: 0.5
   rb: {fileID: 871811336098216355}
   animator: {fileID: 0}
   direction: {x: 1, y: 0}
@@ -193,7 +192,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.0022352636}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -203,5 +202,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.54, y: 0.37}
+  m_Size: {x: 0.54, y: 0.37447053}
   m_EdgeRadius: 0

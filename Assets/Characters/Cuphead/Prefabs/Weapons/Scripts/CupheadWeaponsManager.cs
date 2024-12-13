@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// The weapon manager has to
@@ -9,6 +10,21 @@ using UnityEngine;
 /// - And finally it will keep track of the time passed from each bullet
 /// </summary>
 public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
+  public enum ShootDirection {
+    Up,
+    Down,
+    Left,
+    Right,
+    UpLeft,
+    UpRight,
+    DownLeft,
+    DownRight,
+  }
+  public Dictionary<string, ShootDirection> coordinates = 
+    new Dictionary<string, ShootDirection>();
+  public Dictionary<ShootDirection, Transform> firePoints = 
+    new Dictionary<ShootDirection, Transform>();
+
   private PlayerStateManager stateManager;
   private PlayerMovementManager movementManager;
   private PlayerInputManager inputManager;
@@ -35,6 +51,25 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     stateManager = GetComponentInParent<PlayerStateManager>();
     movementManager = GetComponentInParent<PlayerMovementManager>();
     inputManager = GetComponentInParent<PlayerInputManager>();
+
+    firePoints[ShootDirection.Up] = transform.Find("Up");
+    firePoints[ShootDirection.Down] = transform.Find("Down");
+    firePoints[ShootDirection.Left] = transform.Find("Left");
+    firePoints[ShootDirection.Right] = transform.Find("Right");
+    firePoints[ShootDirection.UpLeft] = transform.Find("UpLeft");
+    firePoints[ShootDirection.UpRight] = transform.Find("UpRight");
+    firePoints[ShootDirection.DownLeft] = transform.Find("DownLeft");
+    firePoints[ShootDirection.DownRight] = transform.Find("DownRight");
+
+    // Todo: delete right side things
+    coordinates["0,1"] = ShootDirection.Up;
+    coordinates["0,-1"] = ShootDirection.Down;
+    coordinates["1,0"] = ShootDirection.Left;
+    coordinates["-1,0"] = ShootDirection.Right;
+    coordinates["1,1"] = ShootDirection.UpLeft;
+    coordinates["-1,1"] = ShootDirection.UpRight;
+    coordinates["1,-1"] = ShootDirection.DownLeft;
+    coordinates["-1,-1"] = ShootDirection.DownRight;
   }
 
   void Start() {
@@ -47,24 +82,35 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
 
   void OnEnable() {
     inputManager.OnMovePerformed += HandleOnMovePerformed;
+    inputManager.OnMoveCanceled += HandleOnMoveCanceled;
   }
   void OnDisable() {
     inputManager.OnMovePerformed -= HandleOnMovePerformed;
+    inputManager.OnMoveCanceled -= HandleOnMoveCanceled;
   }
 
   void FixedUpdate() {
     if (shootCounter <= equippedWeapon.fireRate) { 
       shootCounter += Time.deltaTime;
       return;
-    } else if (stateManager.actionState is PlayerShootingState) {
+    } 
 
+    if (stateManager.actionState is PlayerShootingState) {
       if (stateManager.movementState is PlayerAimState) {
-        equippedWeapon.Shoot(xDirection, yDirection);
+        if (xDirection == 0 && yDirection == 0) {
+          xDirection = movementManager.isFacingRight ? 1 : -1;
+        }
+        equippedWeapon.Shoot(xDirection, yDirection, GetSpawn(xDirection, yDirection));
       } else {
-        equippedWeapon.Shoot(xDirection, 0);
+        int xPos = movementManager.isFacingRight ? 1 : -1;
+        equippedWeapon.Shoot(xPos, 0, GetSpawn(xPos, 0));
       }
       shootCounter = 0f;
     }
+  }
+
+  private Transform GetSpawn(int x, int y) {
+    return firePoints[coordinates[x + "," + y]];
   }
 
   /// <summary>
@@ -95,5 +141,9 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private void HandleOnMovePerformed(Vector2 vector) {
     xDirection = Mathf.RoundToInt(vector.x);
     yDirection = Mathf.RoundToInt(vector.y);
+  }
+  private void HandleOnMoveCanceled() {
+    xDirection = 0;
+    yDirection = 0;
   }
 }

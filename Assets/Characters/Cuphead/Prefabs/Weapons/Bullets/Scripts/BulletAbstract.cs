@@ -52,6 +52,7 @@ public abstract class Bullet : MonoBehaviour {
       animator.SetBool("MadeContact", true);
     }
     rb.linearVelocityX = 0f;
+    rb.linearVelocityY = 0f;
   }
 
   protected virtual void OnExplosionAnimationEnd() {
