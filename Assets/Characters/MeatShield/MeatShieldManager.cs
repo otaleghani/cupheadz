@@ -3,7 +3,7 @@ using UnityEngine;
 public class MeatShieldManager : MonoBehaviour, IDamageable
 {
   private float life;
-  private Collider2D collider;
+  private new Collider2D collider;
 
   void Start() {
     collider = GetComponent<Collider2D>();

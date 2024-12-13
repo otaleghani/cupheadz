@@ -155,7 +155,9 @@ MonoBehaviour:
   damage: 10
   speed: 20
   lifeTime: 5
+  fireRate: 0.5
   rb: {fileID: 871811336098216355}
+  animator: {fileID: 0}
   direction: {x: 1, y: 0}
 --- !u!61 &1981817963643425498
 BoxCollider2D:
@@ -187,7 +189,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
