@@ -10,20 +10,8 @@ using System.Collections.Generic;
 /// - And finally it will keep track of the time passed from each bullet
 /// </summary>
 public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
-  public enum ShootDirection {
-    Up,
-    Down,
-    Left,
-    Right,
-    UpLeft,
-    UpRight,
-    DownLeft,
-    DownRight,
-  }
-  public Dictionary<string, ShootDirection> coordinates = 
-    new Dictionary<string, ShootDirection>();
-  public Dictionary<ShootDirection, Transform> firePoints = 
-    new Dictionary<ShootDirection, Transform>();
+  public Dictionary<PlayerInputManager.AimDirection, Transform> firePoints = 
+    new Dictionary<PlayerInputManager.AimDirection, Transform>();
 
   private PlayerStateManager stateManager;
   private PlayerMovementManager movementManager;
@@ -52,24 +40,11 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     movementManager = GetComponentInParent<PlayerMovementManager>();
     inputManager = GetComponentInParent<PlayerInputManager>();
 
-    firePoints[ShootDirection.Up] = transform.Find("Up");
-    firePoints[ShootDirection.Down] = transform.Find("Down");
-    firePoints[ShootDirection.Left] = transform.Find("Left");
-    firePoints[ShootDirection.Right] = transform.Find("Right");
-    firePoints[ShootDirection.UpLeft] = transform.Find("UpLeft");
-    firePoints[ShootDirection.UpRight] = transform.Find("UpRight");
-    firePoints[ShootDirection.DownLeft] = transform.Find("DownLeft");
-    firePoints[ShootDirection.DownRight] = transform.Find("DownRight");
-
-    // Todo: delete right side things
-    coordinates["0,1"] = ShootDirection.Up;
-    coordinates["0,-1"] = ShootDirection.Down;
-    coordinates["1,0"] = ShootDirection.Left;
-    coordinates["-1,0"] = ShootDirection.Right;
-    coordinates["1,1"] = ShootDirection.UpLeft;
-    coordinates["-1,1"] = ShootDirection.UpRight;
-    coordinates["1,-1"] = ShootDirection.DownLeft;
-    coordinates["-1,-1"] = ShootDirection.DownRight;
+    firePoints[PlayerInputManager.AimDirection.Up] = transform.Find("Up");
+    firePoints[PlayerInputManager.AimDirection.Down] = transform.Find("Down");
+    firePoints[PlayerInputManager.AimDirection.Front] = transform.Find("Front");
+    firePoints[PlayerInputManager.AimDirection.DiagonalUp] = transform.Find("DiagonalUp");
+    firePoints[PlayerInputManager.AimDirection.DiagonalDown] = transform.Find("DiagonalDown");
   }
 
   void Start() {
@@ -78,15 +53,6 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     firstWeapon = firstWeaponObj.GetComponent<WeaponManager>();
     secondWeapon = secondWeaponObj.GetComponent<WeaponManager>();
     equippedWeapon = firstWeapon;
-  }
-
-  void OnEnable() {
-    inputManager.OnMovePerformed += HandleOnMovePerformed;
-    inputManager.OnMoveCanceled += HandleOnMoveCanceled;
-  }
-  void OnDisable() {
-    inputManager.OnMovePerformed -= HandleOnMovePerformed;
-    inputManager.OnMoveCanceled -= HandleOnMoveCanceled;
   }
 
   void FixedUpdate() {
@@ -100,18 +66,18 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
         if (xDirection == 0 && yDirection == 0) {
           xDirection = movementManager.isFacingRight ? 1 : -1;
         }
-        equippedWeapon.Shoot(xDirection, yDirection, GetSpawn(xDirection, yDirection));
+        equippedWeapon.Shoot(xDirection, yDirection, firePoints[PlayerInputManager.CurrentCoordinate]);
       } else {
         int xPos = movementManager.isFacingRight ? 1 : -1;
-        equippedWeapon.Shoot(xPos, 0, GetSpawn(xPos, 0));
+        equippedWeapon.Shoot(xPos, 0, firePoints[PlayerInputManager.CurrentCoordinate]);
       }
       shootCounter = 0f;
     }
   }
 
-  private Transform GetSpawn(int x, int y) {
-    return firePoints[coordinates[x + "," + y]];
-  }
+  //private Transform GetSpawn(int x, int y) {
+  //  return firePoints[PlayerInputManager.coordinates[x + "," + y]];
+  //}
 
   /// <summary>
   /// Based on the enum provided, it returns the right weapon game object
@@ -137,13 +103,4 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   }
 
   public void SaveData(ref GameData gameData) {}
-
-  private void HandleOnMovePerformed(Vector2 vector) {
-    xDirection = Mathf.RoundToInt(vector.x);
-    yDirection = Mathf.RoundToInt(vector.y);
-  }
-  private void HandleOnMoveCanceled() {
-    xDirection = 0;
-    yDirection = 0;
-  }
 }

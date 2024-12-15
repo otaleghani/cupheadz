@@ -14,6 +14,7 @@ public class PlayerShootingState : IPlayerActionState {
     this.animatorManager = animatorManager;
 
     inputManager.OnShootCanceled += HandleShootingReleased;
+    animatorManager.SetParameterIsShooting();
   }
 
   public void UpdateState() {}

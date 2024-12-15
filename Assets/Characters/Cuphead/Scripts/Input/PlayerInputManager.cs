@@ -1,12 +1,25 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Handles the player input with event Actions. A script can subscribe to 
 /// one or more events to handle actions.
 /// </summary>
 public class PlayerInputManager : MonoBehaviour {
+  public enum AimDirection {
+    Up,
+    Down,
+    Front,
+    DiagonalUp,
+    DiagonalDown,
+  }
+  public static Dictionary<string, PlayerInputManager.AimDirection> coordinates = 
+    new Dictionary<string, PlayerInputManager.AimDirection>();
+  public static AimDirection CurrentCoordinate;
+
+
   public event Action<Vector2> OnMovePerformed;
   public event Action OnMoveCanceled;
   public event Action OnJumpPerformed;
@@ -45,6 +58,15 @@ public class PlayerInputManager : MonoBehaviour {
     crouchAction = playerInput.actions["Crouch"];
     shootEXAction = playerInput.actions["ShootEX"];
     switchWeaponAction = playerInput.actions["SwitchWeapon"];
+
+    coordinates["0,1"] = PlayerInputManager.AimDirection.Up;
+    coordinates["0,-1"] = PlayerInputManager.AimDirection.Down;
+    coordinates["1,0"] = PlayerInputManager.AimDirection.Front;
+    coordinates["-1,0"] = PlayerInputManager.AimDirection.Front;
+    coordinates["1,1"] = PlayerInputManager.AimDirection.DiagonalUp;
+    coordinates["-1,1"] = PlayerInputManager.AimDirection.DiagonalUp;
+    coordinates["1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
+    coordinates["-1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
   }
 
   void OnEnable() {
@@ -85,11 +107,15 @@ public class PlayerInputManager : MonoBehaviour {
     switchWeaponAction.canceled -= OnSwitchWeaponActionCanceled;
   }
 
+  private Vector2 currentVector;
   private void OnMoveActionPerformed(InputAction.CallbackContext context) {
-    OnMovePerformed?.Invoke(context.ReadValue<Vector2>());
+    currentVector = context.ReadValue<Vector2>();
+    CurrentCoordinate = coordinates[currentVector.x + "," + currentVector.y];
+    OnMovePerformed?.Invoke(currentVector);
   }
   private void OnMoveActionCanceled(InputAction.CallbackContext context) {
-    OnMoveCanceled.Invoke();
+    CurrentCoordinate = coordinates["0,0"];
+    OnMoveCanceled?.Invoke();
   }
   private void OnJumpActionPerformed(InputAction.CallbackContext context) {
     OnJumpPerformed?.Invoke();
