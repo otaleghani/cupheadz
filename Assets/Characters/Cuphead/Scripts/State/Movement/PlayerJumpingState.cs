@@ -19,11 +19,15 @@ public class PlayerJumpingState : IPlayerMovementState {
     this.inputManager.OnJumpPerformed += HandleParry;
 
     HandleStateAnimation();
+    HandleStateMovement();
+    this.movementManager.JumpStart();
   }
 
   public void UpdateState() {
     if (movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerIdleState());
+      movementManager.JumpReset();
+      return;
     }
     HandleStateMovement();
   }

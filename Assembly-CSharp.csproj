@@ -79,6 +79,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Animator\PlayerAnimatorManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerNoneState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerSuperState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Movement\PlayerMovementManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterSparkleManager.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataPersistanceManager.cs" />
@@ -86,8 +87,10 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Scripts\Animator\WeaponAnimatorManager.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDashingState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerExShootingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Scripts\CupheadWeaponsManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerDamagedState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerParryingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\BulletSparkleAbstract.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\BulletAbstract.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerShootingState.cs" />

@@ -42,6 +42,8 @@ public class PlayerMovingState : IPlayerMovementState {
     inputManager.OnAimPerformed -= HandleAim;
     inputManager.OnCrouchPerformed -= HandleCrouch;
     inputManager.OnDashPerformed -= HandleDash;
+
+    movementManager.Stop();
   }
 
   public void HandleMoveCanceled() {

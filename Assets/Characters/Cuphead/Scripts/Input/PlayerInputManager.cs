@@ -15,6 +15,8 @@ public class PlayerInputManager : MonoBehaviour {
     DiagonalUp,
     DiagonalDown,
   }
+  public int xPosition = 0;
+  public int yPosition = 0;
   public static Dictionary<string, PlayerInputManager.AimDirection> coordinates = 
     new Dictionary<string, PlayerInputManager.AimDirection>();
   public static AimDirection CurrentCoordinate = AimDirection.Front;
@@ -115,12 +117,16 @@ public class PlayerInputManager : MonoBehaviour {
     int x = Mathf.RoundToInt(currentVector.x);
     int y = Mathf.RoundToInt(currentVector.y);
     CurrentCoordinate = coordinates[x + "," + y];
+    xPosition = x;
+    yPosition = y;
     OnSerializedMovePerformed?.Invoke(x,y);
     OnMovePerformed?.Invoke(currentVector);
   }
   private void OnMoveActionCanceled(InputAction.CallbackContext context) {
     CurrentCoordinate = coordinates["0,0"];
     OnSerializedMoveCanceled?.Invoke(0,0);
+    xPosition = 0;
+    yPosition = 0;
     OnMoveCanceled?.Invoke();
   }
   private void OnJumpActionPerformed(InputAction.CallbackContext context) {

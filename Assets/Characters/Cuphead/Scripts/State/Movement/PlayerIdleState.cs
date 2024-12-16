@@ -32,6 +32,7 @@ public class PlayerIdleState : IPlayerMovementState {
     if (!movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerJumpingState());
     }
+    HandleStateAnimation();
   }
 
   public void ExitState() {
@@ -67,6 +68,8 @@ public class PlayerIdleState : IPlayerMovementState {
   }
 
   private void HandleStateAnimation() {
-    animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Idle);
+    if (!animatorManager.isCrouchingExit) {
+      animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Idle);
+    }
   }
 }

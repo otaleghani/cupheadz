@@ -17,7 +17,7 @@ public class PlayerShootingState : IPlayerActionState {
     this.inputManager = inputManager;
     this.animatorManager = animatorManager;
 
-    inputManager.OnShootCanceled += HandleShootingReleased;
+    this.inputManager.OnShootCanceled += HandleShootingReleased;
     HandleStateAnimation();
   }
 
@@ -63,9 +63,5 @@ public class PlayerShootingState : IPlayerActionState {
         previousCoordinate = PlayerInputManager.CurrentCoordinate;
         break;
     }
-  }
-
-  public void OnRecoilAnimationEnd() {
-    stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
   }
 }

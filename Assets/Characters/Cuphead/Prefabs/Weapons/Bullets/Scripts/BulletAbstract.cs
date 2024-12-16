@@ -18,7 +18,7 @@ public abstract class Bullet : MonoBehaviour {
     rb = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
     lifeTimer = lifeTime;
-    weaponManager = GetComponent<WeaponManager>();
+    weaponManager = GetComponentInParent<WeaponManager>();
   }
 
   protected virtual void Update() {
@@ -32,7 +32,6 @@ public abstract class Bullet : MonoBehaviour {
     lifeTimer -= Time.deltaTime;
     if (lifeTimer <= 0f) {
       weaponManager.ReturnBullet(gameObject);
-      //Destroy(gameObject);
     }
   }
 

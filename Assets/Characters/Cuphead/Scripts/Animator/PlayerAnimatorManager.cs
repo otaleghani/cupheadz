@@ -5,6 +5,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private Animator animator;
+  public bool isCrouchingEnter = false;
+  public bool isCrouchingExit = false;
 
   public enum PlayerAnimations {
     Idle,
@@ -13,7 +15,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
     RunningShootingRecoil,
     Jumping,
     Crouching,
-    CrouchingLoop,
+    CrouchingIdle,
+    CrouchingExit,
     CrouchingShootingAim,
     CrouchingShootingRecoil,
     Dashing,
@@ -58,35 +61,36 @@ public class PlayerAnimatorManager : MonoBehaviour {
 
     animator = GetComponent<Animator>();
 
-    animations[PlayerAnimations.Idle] = "Cuphead__Idle";
-    animations[PlayerAnimations.Running] = "Cuphead__Running";
-    animations[PlayerAnimations.RunningShootingAim] = "Cuphead__RunningShootingAim";
-    animations[PlayerAnimations.RunningShootingRecoil] = "Cuphead__RunningShootingRecoil";
-    animations[PlayerAnimations.Jumping] = "Cuphead__Jumping";
-    animations[PlayerAnimations.Crouching] = "Cuphead__Crouching";
-    animations[PlayerAnimations.CrouchingLoop] = "Cuphead__CrouchingLoop";
-    animations[PlayerAnimations.CrouchingShootingAim] = "Cuphead__CrouchingShootingAim";
-    animations[PlayerAnimations.CrouchingShootingRecoil] = "Cuphead__CrouchingShootingRecoil";
-    animations[PlayerAnimations.Dashing] = "Cuphead__Dashing";
-    animations[PlayerAnimations.AimingFront] = "Cuphead__AimingFront";
-    animations[PlayerAnimations.AimingUp] = "Cuphead__AimingUp";
-    animations[PlayerAnimations.AimingDown] = "Cuphead__AimingDown";
-    animations[PlayerAnimations.AimingDiagonalUp] = "Cuphead__AimingDiagonalUp";
-    animations[PlayerAnimations.AimingDiagonalDown] = "Cuphead__AimingDiagonalDown";
+    animations[PlayerAnimations.Idle] = "Idle";
+    animations[PlayerAnimations.Running] = "Running";
+    animations[PlayerAnimations.RunningShootingAim] = "RunningShootingAim";
+    animations[PlayerAnimations.RunningShootingRecoil] = "RunningShootingRecoil";
+    animations[PlayerAnimations.Jumping] = "Jumping";
+    animations[PlayerAnimations.Crouching] = "Crouching";
+    animations[PlayerAnimations.CrouchingIdle] = "CrouchingIdle";
+    animations[PlayerAnimations.CrouchingExit] = "CrouchingExit";
+    animations[PlayerAnimations.CrouchingShootingAim] = "CrouchingShootingAim";
+    animations[PlayerAnimations.CrouchingShootingRecoil] = "CrouchingShootingRecoil";
+    animations[PlayerAnimations.Dashing] = "Dashing";
+    animations[PlayerAnimations.AimingFront] = "AimingFront";
+    animations[PlayerAnimations.AimingUp] = "AimingUp";
+    animations[PlayerAnimations.AimingDown] = "AimingDown";
+    animations[PlayerAnimations.AimingDiagonalUp] = "AimingDiagonalUp";
+    animations[PlayerAnimations.AimingDiagonalDown] = "AimingDiagonalDown";
 
-    animations[PlayerAnimations.ShootingRecoilFront] = "Cuphead__ShootingRecoilFront";
-    animations[PlayerAnimations.ShootingRecoilUp] = "Cuphead__ShootingRecoilUp";
-    animations[PlayerAnimations.ShootingRecoilDown] = "Cuphead__ShootingRecoilDown";
-    animations[PlayerAnimations.ShootingRecoilDiagonalUp] = "Cuphead__ShootingRecoilDiagonalUp";
-    animations[PlayerAnimations.ShootingRecoilDiagonalDown] = "Cuphead__ShootingRecoilDiagonalDown";
+    animations[PlayerAnimations.ShootingRecoilFront] = "ShootingRecoilFront";
+    animations[PlayerAnimations.ShootingRecoilUp] = "ShootingRecoilUp";
+    animations[PlayerAnimations.ShootingRecoilDown] = "ShootingRecoilDown";
+    animations[PlayerAnimations.ShootingRecoilDiagonalUp] = "ShootingRecoilDiagonalUp";
+    animations[PlayerAnimations.ShootingRecoilDiagonalDown] = "ShootingRecoilDiagonalDown";
 
-    animations[PlayerAnimations.ShootingAimFront] = "Cuphead__ShootingAimFront";
-    animations[PlayerAnimations.ShootingAimUp] = "Cuphead__ShootingAimUp";
-    animations[PlayerAnimations.ShootingAimDown] = "Cuphead__ShootingAimDown";
-    animations[PlayerAnimations.ShootingAimDiagonalUp] = "Cuphead__ShootinAimgDiagonalUp";
-    animations[PlayerAnimations.ShootingAimDiagonalDown] = "Cuphead__ShootingAimDiagonalDown";
+    animations[PlayerAnimations.ShootingAimFront] = "ShootingAimFront";
+    animations[PlayerAnimations.ShootingAimUp] = "ShootingAimUp";
+    animations[PlayerAnimations.ShootingAimDown] = "ShootingAimDown";
+    animations[PlayerAnimations.ShootingAimDiagonalUp] = "ShootinAimgDiagonalUp";
+    animations[PlayerAnimations.ShootingAimDiagonalDown] = "ShootingAimDiagonalDown";
 
-    animations[PlayerAnimations.Parrying] = "Cuphead__Parrying";
+    animations[PlayerAnimations.Parrying] = "Parrying";
 
     aimAnimations[PlayerInputManager.AimDirection.Front] = PlayerAnimations.AimingFront;
     aimAnimations[PlayerInputManager.AimDirection.Up] = PlayerAnimations.AimingUp;
@@ -117,77 +121,16 @@ public class PlayerAnimatorManager : MonoBehaviour {
       PlayerAnimations.ShootingRecoilDiagonalDown;
   }
 
-  void OnEnable() {
-    //inputManager.OnMovePerformed += HandleOnMovePerformed;
-    //inputManager.OnMoveCanceled += HandleOnMoveCanceled;
+  public void OnRecoilAnimationEnd() {
+    stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
   }
 
-  void OnDisable() {
-    //inputManager.OnMovePerformed -= HandleOnMovePerformed;
-    //inputManager.OnMoveCanceled -= HandleOnMoveCanceled;
+  public void OnCrouchingEntryEnd() {
+    ChangeAnimation(PlayerAnimations.CrouchingIdle);
+    isCrouchingEnter = false;
   }
-
-  //public void ResetMovementParameters() {
-  //  animator.SetBool(AnimatorIsCrouching, false);
-  //  animator.SetBool(AnimatorIsCrouchingLoop, false);
-  //  animator.SetBool(AnimatorIsJumping, false);
-  //  animator.SetBool(AnimatorIsAiming, false);
-  //}
-
-  //public void ResetActionParameters() {
-  //  animator.SetBool(AnimatorIsShooting, false);
-  //  //animator.SetBool(AnimatorIsTakingDamage, false);
-  //  //animator.SetBool(AnimatorIsShootingEX, false);
-  //}
-
-  //public void SetParameterIsShooting() {
-  //  animator.SetBool(AnimatorIsShooting, true);
-  //}
-
-  //public void SetParameterIsMoving() {
-  //  animator.SetBool(AnimatorIsMoving, true);
-  //}
-
-  //public void SetParameterIsJumping() {
-  //  animator.SetBool(AnimatorIsJumping, true);
-  //}
-
-  //public void SetParameterIsCrouching() {
-  //  animator.SetBool(AnimatorIsCrouching, true);
-  //}
-
-  //public void SetParameterIsDashing() {
-  //  animator.SetBool(AnimatorIsDashing, true);
-  //}
-
-  //public void SetParameterIsAiming() {
-  //  animator.SetBool(AnimatorIsAiming, true);
-  //}
-  //public void SetParameterIsAimingDirection() {
-  //  //animator.SetBool(AnimatorIsAimingDirection, true);
-  //}
-
-  //void HandleOnMovePerformed(Vector2 vector) {
-  //  animator.SetFloat(AnimatorXVelocity, vector.x);
-  //  animator.SetFloat(AnimatorYVelocity, vector.y);
-  //  animator.SetInteger(AnimatorXAim, Mathf.RoundToInt(vector.x));
-  //  animator.SetInteger(AnimatorYAim, Mathf.RoundToInt(vector.y));
-  //  //animator.SetBool(AnimatorIsAimingDirection, true);
-  //  //if (vector.x > 0) {
-  //  //  animator.SetBool(AnimatorIsMoving, true);
-  //  //}
-  //}
-  //void HandleOnMoveCanceled() {
-  //  animator.SetFloat(AnimatorXVelocity, 0f);
-  //  animator.SetFloat(AnimatorYVelocity, 0f);
-  //  animator.SetInteger(AnimatorXAim, 0);
-  //  animator.SetInteger(AnimatorYAim, 0);
-  //  animator.SetBool(AnimatorIsMoving, false);
-  //  //animator.SetBool(AnimatorIsAimingDirection, false);
-  //}
-
-  //public void OnCrouchingEntryEnd() {
-  //  animator.SetBool(AnimatorIsCrouching, false);
-  //  animator.SetBool(AnimatorIsCrouchingLoop, true);
-  //}
+  public void OnCrouchingExitEnd() {
+    ChangeAnimation(PlayerAnimations.Idle);
+    isCrouchingExit = false;
+  }
 }

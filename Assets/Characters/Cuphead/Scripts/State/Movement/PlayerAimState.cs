@@ -18,7 +18,7 @@ public class PlayerAimState : IPlayerMovementState {
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
 
-    inputManager.OnAimCanceled += HandleAimCanceled;
+    this.inputManager.OnAimCanceled += HandleAimCanceled;
     HandleStateAnimation();
   }
 
@@ -33,7 +33,11 @@ public class PlayerAimState : IPlayerMovementState {
   }
 
   private void HandleAimCanceled() {
-    stateManager.ChangeMovementState(new PlayerIdleState());
+    if (inputManager.xPosition == 0) {
+      stateManager.ChangeMovementState(new PlayerIdleState());
+    } else {
+      stateManager.ChangeMovementState(new PlayerMovingState());
+    }
   }
 
   private void HandleStateAnimation() {

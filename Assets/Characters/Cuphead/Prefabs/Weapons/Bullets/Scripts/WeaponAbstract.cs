@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// Abstract for the weapons. Handles the spawning mechanics for the different bullets
 public abstract class WeaponManager : MonoBehaviour {
   //public WeaponManager weaonManager
-  public virtual float fireRate {get; protected set;} = 0.5f;
+  public virtual float fireRate {get; protected set;} = 1f;
   public virtual string weaponPrefabName {get; protected set;} = "Peashooter__Bullet";
   public virtual string sparklePrefabName {get; protected set;} = "Peashooter__Sparkle";
   private GameObject bulletPrefab = null;
@@ -64,8 +64,8 @@ public abstract class WeaponManager : MonoBehaviour {
 
   protected void InitializePools() {
     for (int i = 0; i < poolSize; i++) {
-      GameObject bullet = Instantiate(bulletPrefab);
-      GameObject sparkle = Instantiate(sparklePrefab);
+      GameObject bullet = Instantiate(bulletPrefab, transform);
+      GameObject sparkle = Instantiate(sparklePrefab, transform);
       bullet.SetActive(false);
       sparkle.SetActive(false);
       bulletPoolQueue.Enqueue(bullet);
@@ -79,7 +79,7 @@ public abstract class WeaponManager : MonoBehaviour {
       bullet.SetActive(true);
       return bullet;
     } else {
-      GameObject bullet = Instantiate(bulletPrefab);
+      GameObject bullet = Instantiate(bulletPrefab, transform);
       bullet.SetActive(true);
       return bullet;
     }
@@ -96,7 +96,7 @@ public abstract class WeaponManager : MonoBehaviour {
       sparkle.SetActive(true);
       return sparkle;
     } else {
-      GameObject sparkle = Instantiate(sparklePrefab);
+      GameObject sparkle = Instantiate(sparklePrefab, transform);
       sparkle.SetActive(true);
       return sparkle;
     }

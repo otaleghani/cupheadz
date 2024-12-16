@@ -1,5 +1,4 @@
-// Here the player is not shooting
-public class PlayerNoneState : IPlayerActionState {
+public class PlayerExShootingState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
@@ -13,16 +12,13 @@ public class PlayerNoneState : IPlayerActionState {
     this.inputManager = inputManager;
     this.animatorManager = animatorManager;
 
-    this.inputManager.OnShootPerformed += HandleShooting;
+    HandleStateAnimation();
   }
 
   public void UpdateState() {}
+  public void ExitState() {}
 
-  public void ExitState() {
-    inputManager.OnShootPerformed -= HandleShooting;
-  }
-
-  private void HandleShooting() {
-    stateManager.ChangeActionState(new PlayerShootingState());
+  private void HandleStateAnimation() {
+    // You actually have to get if you are on ground or not
   }
 }

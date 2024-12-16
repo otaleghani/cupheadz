@@ -17,12 +17,14 @@ public class PlayerCrouchState : IPlayerMovementState {
     this.inputManager = inputManager;
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
-    inputManager.OnCrouchCanceled += HandleCrouchCanceled;
+
+    this.inputManager.OnCrouchCanceled += HandleCrouchCanceled;
+    this.animatorManager.isCrouchingEnter = true;
     HandleStateAnimation();
   }
 
   public void UpdateState() {
-    HandleStateAnimation();
+
   }
 
   public void ExitState() {
@@ -30,13 +32,23 @@ public class PlayerCrouchState : IPlayerMovementState {
   }
 
   private void HandleCrouchCanceled() {
-    stateManager.ChangeMovementState(new PlayerIdleState());
+    if (inputManager.xPosition == 0) {
+      animatorManager.isCrouchingExit = true;
+      animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingExit);
+      stateManager.ChangeMovementState(new PlayerIdleState());
+    } else {
+      stateManager.ChangeMovementState(new PlayerMovingState());
+    }
   }
 
   private void HandleStateAnimation() {
+    if (animatorManager.isCrouchingEnter) {
+      animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Crouching);
+      return;
+    }
     if (stateManager.actionState.GetType() != previousActionState) {
       if (stateManager.actionState is not PlayerShootingState) {
-        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Crouching);
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingIdle);
       }
     }
   }

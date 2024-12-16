@@ -32,6 +32,7 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private float secondWeaponFireRate;
   private float shootCounter;
 
+  // I could've got this from PlayerInputManager?
   private int xDirection = 1;
   private int yDirection = 0;
 

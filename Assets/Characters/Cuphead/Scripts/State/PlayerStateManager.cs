@@ -27,7 +27,7 @@ public class PlayerStateManager : MonoBehaviour {
     actionState.EnterState(this, inputManager, animatorManager);
   }
 
-  void FixedUpdate() {
+  void Update() {
     movementState.UpdateState();
     actionState.UpdateState();
   }
