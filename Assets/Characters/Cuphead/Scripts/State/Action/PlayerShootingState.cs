@@ -1,8 +1,12 @@
+using System;
+
 public class PlayerShootingState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
-
+  private Type previousMovementState;
+  private PlayerInputManager.AimDirection previousCoordinate;
+  private CupheadWeaponManager weaponManager;
 
   public void EnterState(
     PlayerStateManager stateManager,
@@ -14,17 +18,54 @@ public class PlayerShootingState : IPlayerActionState {
     this.animatorManager = animatorManager;
 
     inputManager.OnShootCanceled += HandleShootingReleased;
-    animatorManager.SetParameterIsShooting();
+    HandleStateAnimation();
   }
 
-  public void UpdateState() {}
+  public void UpdateState() {
+    HandleStateAnimation();
+  }
 
   public void ExitState() {
     inputManager.OnShootCanceled -= HandleShootingReleased;
-    animatorManager.ResetActionParameters();
   }
 
   private void HandleShootingReleased() {
     stateManager.ChangeActionState(new PlayerNoneState());
+  }
+
+  private void HandleStateAnimation() {
+    switch (stateManager.movementState) {
+      case PlayerMovingState:
+        if (stateManager.currentShootingState == PlayerStateManager.ShootingState.Aim) {
+          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.RunningShootingAim);
+        } else {
+          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.RunningShootingRecoil);
+        }
+        previousMovementState = stateManager.movementState.GetType();
+        break;
+
+      case PlayerCrouchState:
+        if (stateManager.currentShootingState == PlayerStateManager.ShootingState.Aim) {
+          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingShootingAim);
+        } else {
+          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingShootingRecoil);
+        }
+        previousMovementState = stateManager.movementState.GetType();
+        break;
+
+      case PlayerAimState: 
+        if (stateManager.currentShootingState == PlayerStateManager.ShootingState.Aim) {
+          animatorManager.ChangeAnimation(animatorManager.shootAimAnimations[PlayerInputManager.CurrentCoordinate]);
+        } else {
+          animatorManager.ChangeAnimation(animatorManager.shootRecoilAnimations[PlayerInputManager.CurrentCoordinate]);
+        }
+        previousMovementState = stateManager.movementState.GetType();
+        previousCoordinate = PlayerInputManager.CurrentCoordinate;
+        break;
+    }
+  }
+
+  public void OnRecoilAnimationEnd() {
+    stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
   }
 }

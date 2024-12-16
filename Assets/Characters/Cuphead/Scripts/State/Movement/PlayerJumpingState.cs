@@ -13,18 +13,44 @@ public class PlayerJumpingState : IPlayerMovementState {
     this.stateManager = stateManager;
     this.inputManager = inputManager;
     this.movementManager = movementManager;
-    this.animatorManager= animatorManager;
+    this.animatorManager = animatorManager;
 
-    animatorManager.SetParameterIsJumping();
+    this.inputManager.OnJumpCanceled += HandleJumpCanceled;
+    this.inputManager.OnJumpPerformed += HandleParry;
+
+    HandleStateAnimation();
   }
 
   public void UpdateState() {
     if (movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerIdleState());
     }
+    HandleStateMovement();
   }
 
   public void ExitState() {
-    animatorManager.ResetMovementParameters();
+    inputManager.OnJumpCanceled -= HandleJumpCanceled;
+    inputManager.OnJumpPerformed -= HandleParry;
+  }
+
+  private void HandleStateAnimation() {
+    animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Jumping);
+  }
+
+  private void HandleStateMovement() {
+    movementManager.Jump();
+  }
+
+  private void HandleJumpCanceled() {
+    // Reset PlayerMovementManager params related to jumping
+    movementManager.EndJumpMovement();
+  }
+  private void HandleParry() {
+    // Here we want to enter the parry state, which is PlayerActionState.
+    // Reason why is that you cannot do other actions while parrying
+
+    // See if you are in the radius of a parry
+    // than change to this state
+    stateManager.ChangeActionState(new PlayerParryingState());
   }
 }

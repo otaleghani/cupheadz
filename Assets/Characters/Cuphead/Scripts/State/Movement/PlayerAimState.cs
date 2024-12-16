@@ -1,8 +1,11 @@
+using System;
+
 public class PlayerAimState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
+  private Type previousActionState;
 
   public void EnterState(
     PlayerStateManager stateManager,
@@ -16,17 +19,28 @@ public class PlayerAimState : IPlayerMovementState {
     this.animatorManager = animatorManager;
 
     inputManager.OnAimCanceled += HandleAimCanceled;
-    animatorManager.SetParameterIsAiming();
+    HandleStateAnimation();
   }
 
-  public void UpdateState() {}
+  public void UpdateState() {
+    HandleStateAnimation();
+    // In the Aiming state you cannot move the character
+    // Does the jump override this behaviour?
+  }
 
   public void ExitState() {
     inputManager.OnAimCanceled -= HandleAimCanceled;
-    animatorManager.ResetMovementParameters();
   }
 
   private void HandleAimCanceled() {
     stateManager.ChangeMovementState(new PlayerIdleState());
+  }
+
+  private void HandleStateAnimation() {
+    if (stateManager.actionState.GetType() != previousActionState) {
+      if (stateManager.actionState is not PlayerShootingState) {
+        animatorManager.ChangeAnimation(animatorManager.aimAnimations[PlayerInputManager.CurrentCoordinate]);
+      }
+    }
   }
 }

@@ -24,6 +24,8 @@ public class PlayerIdleState : IPlayerMovementState {
     this.inputManager.OnCrouchPerformed += HandleCrouch;
 
     movementManager.isDashing = false;
+
+    HandleStateAnimation();
   }
 
   public void UpdateState() {
@@ -38,8 +40,6 @@ public class PlayerIdleState : IPlayerMovementState {
     inputManager.OnDashPerformed -= HandleDash;
     inputManager.OnAimPerformed -= HandleAim;
     inputManager.OnCrouchPerformed -= HandleCrouch;
-
-    animatorManager.ResetMovementParameters();
   }
 
   private void HandleJump() {
@@ -64,5 +64,9 @@ public class PlayerIdleState : IPlayerMovementState {
 
   private void HandleCrouch() {
     stateManager.ChangeMovementState(new PlayerCrouchState());
+  }
+
+  private void HandleStateAnimation() {
+    animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Idle);
   }
 }

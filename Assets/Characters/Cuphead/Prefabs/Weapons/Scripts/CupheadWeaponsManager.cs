@@ -10,8 +10,9 @@ using System.Collections.Generic;
 /// - And finally it will keep track of the time passed from each bullet
 /// </summary>
 public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
-  public Dictionary<PlayerInputManager.AimDirection, Transform> firePoints = 
+  private Dictionary<PlayerInputManager.AimDirection, Transform> firePoints = 
     new Dictionary<PlayerInputManager.AimDirection, Transform>();
+  private Transform movingFirePoint; 
 
   private PlayerStateManager stateManager;
   private PlayerMovementManager movementManager;
@@ -26,7 +27,6 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
 
   private GameObject firstWeaponObj;
   private GameObject secondWeaponObj;
-
 
   private float firstWeaponFireRate;
   private float secondWeaponFireRate;
@@ -45,6 +45,16 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     firePoints[PlayerInputManager.AimDirection.Front] = transform.Find("Front");
     firePoints[PlayerInputManager.AimDirection.DiagonalUp] = transform.Find("DiagonalUp");
     firePoints[PlayerInputManager.AimDirection.DiagonalDown] = transform.Find("DiagonalDown");
+    movingFirePoint = transform.Find("Moving");
+  }
+
+  void OnEnable() {
+    inputManager.OnSerializedMovePerformed += HandleAimPosition;
+    inputManager.OnSerializedMoveCanceled += HandleAimPosition;
+  }
+  void OnDisable() {
+    inputManager.OnSerializedMovePerformed -= HandleAimPosition;
+    inputManager.OnSerializedMoveCanceled -= HandleAimPosition;
   }
 
   void Start() {
@@ -58,26 +68,31 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   void FixedUpdate() {
     if (shootCounter <= equippedWeapon.fireRate) { 
       shootCounter += Time.deltaTime;
+      stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
       return;
     } 
 
     if (stateManager.actionState is PlayerShootingState) {
+      if (stateManager.movementState is PlayerMovingState) {
+        xDirection = movementManager.isFacingRight ? 1 : -1;
+        equippedWeapon.Shoot(xDirection, 0, movingFirePoint);
+      }
       if (stateManager.movementState is PlayerAimState) {
         if (xDirection == 0 && yDirection == 0) {
           xDirection = movementManager.isFacingRight ? 1 : -1;
         }
         equippedWeapon.Shoot(xDirection, yDirection, firePoints[PlayerInputManager.CurrentCoordinate]);
-      } else {
-        int xPos = movementManager.isFacingRight ? 1 : -1;
-        equippedWeapon.Shoot(xPos, 0, firePoints[PlayerInputManager.CurrentCoordinate]);
+      } 
+      if (stateManager.movementState is PlayerIdleState) {
+        xDirection = movementManager.isFacingRight ? 1 : -1;
+        equippedWeapon.Shoot(xDirection, 0, firePoints[PlayerInputManager.AimDirection.Front]);
       }
+
       shootCounter = 0f;
+      // Here you should change the shooting state
+      stateManager.currentShootingState = PlayerStateManager.ShootingState.Recoil;
     }
   }
-
-  //private Transform GetSpawn(int x, int y) {
-  //  return firePoints[PlayerInputManager.coordinates[x + "," + y]];
-  //}
 
   /// <summary>
   /// Based on the enum provided, it returns the right weapon game object
@@ -103,4 +118,9 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   }
 
   public void SaveData(ref GameData gameData) {}
+
+  public void HandleAimPosition(int x, int y) {
+    xDirection = x;
+    yDirection = y;
+  }
 }

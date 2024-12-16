@@ -1,8 +1,11 @@
+using System;
+
 public class PlayerCrouchState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
+  private Type previousActionState;
 
   public void EnterState(
     PlayerStateManager stateManager, 
@@ -15,18 +18,26 @@ public class PlayerCrouchState : IPlayerMovementState {
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
     inputManager.OnCrouchCanceled += HandleCrouchCanceled;
-
-    animatorManager.SetParameterIsCrouching();
+    HandleStateAnimation();
   }
 
-  public void UpdateState() {}
+  public void UpdateState() {
+    HandleStateAnimation();
+  }
 
   public void ExitState() {
     inputManager.OnCrouchCanceled -= HandleCrouchCanceled;
-    animatorManager.ResetMovementParameters();
   }
 
   private void HandleCrouchCanceled() {
     stateManager.ChangeMovementState(new PlayerIdleState());
+  }
+
+  private void HandleStateAnimation() {
+    if (stateManager.actionState.GetType() != previousActionState) {
+      if (stateManager.actionState is not PlayerShootingState) {
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Crouching);
+      }
+    }
   }
 }

@@ -12,10 +12,13 @@ public abstract class Bullet : MonoBehaviour {
 
   protected float lifeTimer;
 
+  private WeaponManager weaponManager;
+
   protected virtual void Awake() {
     rb = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
     lifeTimer = lifeTime;
+    weaponManager = GetComponent<WeaponManager>();
   }
 
   protected virtual void Update() {
@@ -28,7 +31,8 @@ public abstract class Bullet : MonoBehaviour {
   protected virtual void HandleLifeTimer() {
     lifeTimer -= Time.deltaTime;
     if (lifeTimer <= 0f) {
-      Destroy(gameObject);
+      weaponManager.ReturnBullet(gameObject);
+      //Destroy(gameObject);
     }
   }
 
@@ -56,6 +60,7 @@ public abstract class Bullet : MonoBehaviour {
   }
 
   protected virtual void OnExplosionAnimationEnd() {
-    Destroy(gameObject);
+    weaponManager.ReturnBullet(gameObject);
+    //Destroy(gameObject);
   }
 }

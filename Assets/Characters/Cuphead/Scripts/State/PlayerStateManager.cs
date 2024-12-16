@@ -7,6 +7,11 @@ public class PlayerStateManager : MonoBehaviour {
 
   public IPlayerMovementState movementState;
   public IPlayerActionState actionState;
+  public enum ShootingState { Aim, Recoil };
+  public ShootingState currentShootingState = ShootingState.Aim;
+
+  // I could create here a "state boolean"
+  // Something like "isShooting"
 
   void Awake() {
     inputManager = GetComponent<PlayerInputManager>();
@@ -23,7 +28,6 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   void FixedUpdate() {
-    //Debug.Log(movementState.GetType());
     movementState.UpdateState();
     actionState.UpdateState();
   }

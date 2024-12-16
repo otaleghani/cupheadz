@@ -1,5 +1,4 @@
-// Here the player is not shooting
-public class PlayerNoneState : IPlayerActionState {
+public class PlayerParryingState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
@@ -13,16 +12,19 @@ public class PlayerNoneState : IPlayerActionState {
     this.inputManager = inputManager;
     this.animatorManager = animatorManager;
 
-    inputManager.OnShootPerformed += HandleShooting;
+    HandleStateAnimation();
+    // Activate the trigger collider
   }
 
   public void UpdateState() {}
 
-  public void ExitState() {
-    inputManager.OnShootPerformed -= HandleShooting;
+  public void ExitState() {}
+
+  private void HandleStateAnimation() {
+    animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Parrying);
   }
 
-  private void HandleShooting() {
-    stateManager.ChangeActionState(new PlayerShootingState());
+  public void ParryAnimationFinished() {
+    stateManager.ChangeActionState(new PlayerNoneState());
   }
 }

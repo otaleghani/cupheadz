@@ -1,8 +1,11 @@
+using System;
+
 public class PlayerMovingState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
+  private Type previousActionState;
 
   public void EnterState(
     PlayerStateManager stateManager,
@@ -19,14 +22,18 @@ public class PlayerMovingState : IPlayerMovementState {
     this.inputManager.OnJumpPerformed += HandleJump;
     this.inputManager.OnAimPerformed += HandleAim;
     this.inputManager.OnCrouchPerformed += HandleCrouch;
+    this.inputManager.OnDashPerformed += HandleDash;
 
-    animatorManager.SetParameterIsMoving();
+    HandleStateAnimation();
   }
 
   public void UpdateState() {
     if (!movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerJumpingState());
+      return;
     }
+    HandleStateAnimation();
+    HandleStateMovement();
   }
 
   public void ExitState() {
@@ -34,8 +41,7 @@ public class PlayerMovingState : IPlayerMovementState {
     inputManager.OnJumpPerformed -= HandleJump;
     inputManager.OnAimPerformed -= HandleAim;
     inputManager.OnCrouchPerformed -= HandleCrouch;
-
-    animatorManager.ResetMovementParameters();
+    inputManager.OnDashPerformed -= HandleDash;
   }
 
   public void HandleMoveCanceled() {
@@ -43,7 +49,9 @@ public class PlayerMovingState : IPlayerMovementState {
   }
 
   // Actions that you can do from the moving state
-  public void HandleDash() {}
+  public void HandleDash() {
+    stateManager.ChangeMovementState(new PlayerDashingState());
+  }
   public void HandleJump() {
     stateManager.ChangeMovementState(new PlayerJumpingState());
   }
@@ -52,5 +60,17 @@ public class PlayerMovingState : IPlayerMovementState {
   }
   private void HandleCrouch() {
     stateManager.ChangeMovementState(new PlayerCrouchState());
+  }
+
+  private void HandleStateAnimation() {
+    if (stateManager.actionState.GetType() != previousActionState) {
+      if (stateManager.actionState is not PlayerShootingState) {
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Running);
+      }
+    }
+  }
+
+  private void HandleStateMovement() {
+    movementManager.Move();
   }
 }

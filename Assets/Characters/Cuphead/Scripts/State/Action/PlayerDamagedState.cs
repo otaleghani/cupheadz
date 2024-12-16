@@ -12,14 +12,12 @@ public class PlayerDamagedState : IPlayerActionState {
     this.inputManager = inputManager;
     this.animatorManager= animatorManager;
 
-    //animatorManager.SetParameterIsDamaged();
+    // set the animation with new system
   }
 
   public void UpdateState() {
     // update a counter, or wait for the animation to finish
   }
 
-  public void ExitState() {
-    animatorManager.ResetActionParameters();
-  }
+  public void ExitState() {}
 }
