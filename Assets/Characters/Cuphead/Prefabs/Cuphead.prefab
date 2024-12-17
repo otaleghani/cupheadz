@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5643901003891551602}
-  - component: {fileID: 810835070676967845}
+  - component: {fileID: 8877932709257338112}
   m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
@@ -70,7 +70,7 @@ Transform:
   - {fileID: 3319933357220581705}
   m_Father: {fileID: 8111233372400257039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &810835070676967845
+--- !u!114 &8877932709257338112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,7 +361,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.8464786}
+  m_Offset: {x: 0.032312855, y: 0.6242491}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -371,7 +371,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.93, y: 1.4970429}
+  m_Size: {x: 0.5833708, y: 1.2247431}
   m_EdgeRadius: 0
 --- !u!50 &897116002252091730
 Rigidbody2D:
@@ -412,6 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c7d6c222cba2748b9a8bb8c82fb6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hearts: 3
+  superMeter: 0
   currentShootingState: 0
 --- !u!114 &3349806456955765957
 MonoBehaviour:
@@ -439,22 +441,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a71cefc8f0d2a46b4c9510b60327c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
-  isJumping: 0
   isFacingRight: 1
   movementSpeed: 4
-  movementAcceleration: 0
   movementDirection: 0
-  isMoving: 0
-  jumpStateMinTime: 0.05
-  jumpStateMaxTime: 0.4
-  jumpForce: 5
-  isJumpReset: 0
   dashSpeed: 10
   dashCooldown: 0
   dashMaxCooldown: 1
   isDashingCooldown: 0
   isDashing: 0
+  maxJumpTime: 0.2
+  minJumpTime: 0.05
+  isGrounded: 0
+  isJumping: 0
+  jumpHoldReleased: 0
 --- !u!114 &3579665745255740251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,8 +532,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.008567788, y: 0.053678486}
-  m_Size: {x: 0.9471416, y: 0.17591353}
+  m_Offset: {x: 0.008567779, y: -0.01357122}
+  m_Size: {x: 0.9471418, y: 0.21357405}
   m_Direction: 1
 --- !u!1 &6405141890029721011
 GameObject:

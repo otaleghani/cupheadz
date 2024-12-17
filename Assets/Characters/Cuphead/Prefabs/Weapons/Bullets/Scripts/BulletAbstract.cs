@@ -60,6 +60,5 @@ public abstract class Bullet : MonoBehaviour {
 
   protected virtual void OnExplosionAnimationEnd() {
     weaponManager.ReturnBullet(gameObject);
-    //Destroy(gameObject);
   }
 }

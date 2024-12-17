@@ -1,9 +1,13 @@
 using UnityEngine;
 using System;
 
-public class SceneStateManager : MonoBehaviour {
+/// <summary>
+/// Scene manager is used in every scene where there is gameplay, so run and gun and 
+/// bossfights scenes.
+/// </summary>
+public class FightSceneStateManager : MonoBehaviour {
   // Singleton instance so that the other script can change the SceneState
-  public static SceneStateManager Instance { get; private set; }
+  public static FightSceneStateManager Instance { get; private set; }
   public SceneState currentState { get; private set; }
   public event Action<SceneState> OnChangeState;
   public enum SceneState {
@@ -18,7 +22,7 @@ public class SceneStateManager : MonoBehaviour {
     currentState = SceneState.Entry;
     if (Instance == null) {
       Instance = this;
-      DontDestroyOnLoad(gameObject);
+      //DontDestroyOnLoad(gameObject);
     } else {
       Destroy(gameObject);
     }

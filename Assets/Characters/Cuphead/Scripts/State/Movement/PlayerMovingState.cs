@@ -42,8 +42,7 @@ public class PlayerMovingState : IPlayerMovementState {
     inputManager.OnAimPerformed -= HandleAim;
     inputManager.OnCrouchPerformed -= HandleCrouch;
     inputManager.OnDashPerformed -= HandleDash;
-
-    movementManager.Stop();
+    //movementManager.Stop();
   }
 
   public void HandleMoveCanceled() {
@@ -52,7 +51,9 @@ public class PlayerMovingState : IPlayerMovementState {
 
   // Actions that you can do from the moving state
   public void HandleDash() {
-    stateManager.ChangeMovementState(new PlayerDashingState());
+    if (!movementManager.isDashingCooldown) {
+      stateManager.ChangeMovementState(new PlayerDashingState());
+    }
   }
   public void HandleJump() {
     stateManager.ChangeMovementState(new PlayerJumpingState());
@@ -73,6 +74,6 @@ public class PlayerMovingState : IPlayerMovementState {
   }
 
   private void HandleStateMovement() {
-    movementManager.Move();
+    //movementManager.Move();
   }
 }

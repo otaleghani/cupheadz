@@ -1,3 +1,4 @@
+using UnityEngine;
 public class PlayerJumpingState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
@@ -16,17 +17,25 @@ public class PlayerJumpingState : IPlayerMovementState {
     this.animatorManager = animatorManager;
 
     this.inputManager.OnJumpCanceled += HandleJumpCanceled;
+    this.inputManager.OnDashPerformed += HandleDash;
     this.inputManager.OnJumpPerformed += HandleParry;
 
     HandleStateAnimation();
     HandleStateMovement();
-    this.movementManager.StartJump();
+    
+    // Check if you are already in air
+    if (this.movementManager.isGrounded) {
+      this.movementManager.StartJump();
+    }
   }
 
   public void UpdateState() {
     if (movementManager.isGrounded) {
-      stateManager.ChangeMovementState(new PlayerIdleState());
-      //movementManager.JumpReset();
+      if (movementManager.movementDirection != 0) {
+        stateManager.ChangeMovementState(new PlayerMovingState());
+      } else {
+        stateManager.ChangeMovementState(new PlayerIdleState());
+      }
       return;
     }
     HandleStateMovement();
@@ -55,5 +64,11 @@ public class PlayerJumpingState : IPlayerMovementState {
     // See if you are in the radius of a parry
     // than change to this state
     stateManager.ChangeActionState(new PlayerParryingState());
+  }
+
+  private void HandleDash() {
+    if (!movementManager.isDashingCooldown) {
+      stateManager.ChangeMovementState(new PlayerDashingState());
+    }
   }
 }

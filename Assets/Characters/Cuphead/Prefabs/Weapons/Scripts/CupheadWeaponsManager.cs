@@ -105,8 +105,6 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
         obj = Instantiate(Resources.Load<GameObject>("Peashooter__Weapon"), transform);
         break;
 
-      // Todo: Add other weapons
-
       default:
         break;
     }

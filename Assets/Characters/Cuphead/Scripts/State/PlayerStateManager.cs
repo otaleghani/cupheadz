@@ -27,10 +27,10 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   void OnEnable() {
-    SceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
+    FightSceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
   }
   void OnDisable() {
-    SceneStateManager.Instance.OnChangeState -= HandleSceneStateChange;
+    FightSceneStateManager.Instance.OnChangeState -= HandleSceneStateChange;
   }
 
   void Start() {
@@ -41,6 +41,7 @@ public class PlayerStateManager : MonoBehaviour {
   void Update() {
     movementState.UpdateState();
     actionState.UpdateState();
+    Debug.Log(movementState);
   }
 
   public void ChangeMovementState(IPlayerMovementState newState) {
@@ -59,32 +60,31 @@ public class PlayerStateManager : MonoBehaviour {
     if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet")) {
       hearts -= 1;
       if (hearts == 0) {
-        SceneStateManager.Instance.ChangeState(SceneStateManager.SceneState.Lose);
+        FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
       }
     }
   }
 
-  private void HandleSceneStateChange(SceneStateManager.SceneState currentState) {
-    Debug.Log(currentState);
+  private void HandleSceneStateChange(FightSceneStateManager.SceneState currentState) {
     switch (currentState) {
-      case SceneStateManager.SceneState.Entry:
+      case FightSceneStateManager.SceneState.Entry:
         ChangeMovementState(new PlayerIdleState());
         //ChangeActionState(new PlayerEntryState());
         break;
-      case SceneStateManager.SceneState.Win:
+      case FightSceneStateManager.SceneState.Win:
         ChangeMovementState(new PlayerIdleState());
         ChangeActionState(new PlayerNoneState());
         // Disable the colliders
         break;
-      case SceneStateManager.SceneState.Lose:
+      case FightSceneStateManager.SceneState.Lose:
         ChangeActionState(new PlayerNoneState());
         ChangeMovementState(new PlayerDeathState());
         break;
-      case SceneStateManager.SceneState.Play:
+      case FightSceneStateManager.SceneState.Play:
         ChangeMovementState(new PlayerIdleState());
         ChangeActionState(new PlayerNoneState());
         break;
-      case SceneStateManager.SceneState.Exit:
+      case FightSceneStateManager.SceneState.Exit:
         ChangeMovementState(new PlayerIdleState());
         //ChangeActionState(new PlayerExitState());
         break;

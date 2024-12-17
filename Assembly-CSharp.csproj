@@ -74,16 +74,16 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\Coordinate.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\IDataPersistence.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameData\GameData.cs" />
-    <Compile Include="Assets\Scripts\Scenes\State\ISceneState.cs" />
+    <Compile Include="Assets\Scripts\Scenes\Changer\SceneChanger.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserSparkleManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Animator\PlayerAnimatorManager.cs" />
+    <Compile Include="Assets\Scripts\Scenes\Fight\Animator\FightSceneAnimatorManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerNoneState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerSuperState.cs" />
     <Compile Include="Assets\Scripts\Damageable\IDamegeable.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Movement\PlayerMovementManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterSparkleManager.cs" />
-    <Compile Include="Assets\Scripts\BossSceneStateManager\SceneStateManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterWeaponManager.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataPersistanceManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerMovementState.cs" />
@@ -101,6 +101,7 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\BulletAbstract.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerShootingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerMovingState.cs" />
+    <Compile Include="Assets\Scripts\Scenes\Fight\State\FightSceneStateManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerJumpingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\PlayerStateManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerActionState.cs" />

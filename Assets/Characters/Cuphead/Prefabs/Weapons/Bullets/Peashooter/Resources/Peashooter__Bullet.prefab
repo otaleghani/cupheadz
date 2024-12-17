@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 871811336098216355}
   - component: {fileID: 6608089660980849007}
   - component: {fileID: 5814348778402470716}
-  - component: {fileID: 7366155547308500712}
   - component: {fileID: 1981817963643425498}
+  - component: {fileID: 3962920061234673684}
   m_Layer: 7
   m_Name: Peashooter__Bullet
   m_TagString: Untagged
@@ -140,24 +140,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7366155547308500712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9096990949279560465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7169fc748c292489f92650ae443369, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  speed: 20
-  lifeTime: 5
-  rb: {fileID: 871811336098216355}
-  animator: {fileID: 0}
-  direction: {x: 1, y: 0}
 --- !u!61 &1981817963643425498
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -204,3 +186,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.54, y: 0.37447053}
   m_EdgeRadius: 0
+--- !u!114 &3962920061234673684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096990949279560465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bb9d003f923f1419db2ff7551e1ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  speed: 20
+  lifeTime: 2
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  direction: {x: 1, y: 0}

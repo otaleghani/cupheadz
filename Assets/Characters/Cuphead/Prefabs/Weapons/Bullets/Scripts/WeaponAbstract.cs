@@ -50,16 +50,17 @@ public abstract class WeaponManager : MonoBehaviour {
     Rigidbody2D rb = bulletInstance.GetComponent<Rigidbody2D>();
 
     if (rb != null) {
-      rb.linearVelocity = direction * bulletData.speed;
+      rb.linearVelocity = new Vector2(direction.x * bulletData.speed, direction.y);
     } else {
       Debug.LogError("Bullet prefab does not have a Rigidbody2D component.");
     }
+    bulletInstance.SetActive(true);
   }
 
   protected virtual void SpawnSparkleFromPool(float angle, Transform spawn) {
     GameObject sparkleInstance = GetSparkle();
     sparkleInstance.transform.SetPositionAndRotation(spawn.position, Quaternion.Euler(0, 0, angle));
-
+    sparkleInstance.SetActive(true);
   }
 
   protected void InitializePools() {
@@ -76,11 +77,11 @@ public abstract class WeaponManager : MonoBehaviour {
   protected GameObject GetBullet() {
     if (bulletPoolQueue.Count > 0) {
       GameObject bullet = bulletPoolQueue.Dequeue();
-      bullet.SetActive(true);
+      //bullet.SetActive(true);
       return bullet;
     } else {
       GameObject bullet = Instantiate(bulletPrefab, transform);
-      bullet.SetActive(true);
+      //bullet.SetActive(true);
       return bullet;
     }
   }

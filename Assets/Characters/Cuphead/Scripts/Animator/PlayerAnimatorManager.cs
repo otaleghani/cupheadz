@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class PlayerAnimatorManager : MonoBehaviour {
@@ -7,6 +8,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
   private Animator animator;
   public bool isCrouchingEnter = false;
   public bool isCrouchingExit = false;
+
+  public event Action OnDashingAnimationEnd;
 
   public enum PlayerAnimations {
     Dead,
@@ -134,5 +137,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public void OnCrouchingExitEnd() {
     ChangeAnimation(PlayerAnimations.Idle);
     isCrouchingExit = false;
+  }
+  public void OnDashingEnd() {
+    OnDashingAnimationEnd?.Invoke();
   }
 }

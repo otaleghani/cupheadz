@@ -21,6 +21,7 @@ public class PlayerCrouchState : IPlayerMovementState {
     this.inputManager.OnCrouchCanceled += HandleCrouchCanceled;
     this.animatorManager.isCrouchingEnter = true;
     HandleStateAnimation();
+    this.movementManager.MoveStop();
   }
 
   public void UpdateState() {

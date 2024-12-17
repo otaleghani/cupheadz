@@ -14,7 +14,9 @@ public class PlayerDashingState : IPlayerMovementState {
     this.inputManager = inputManager;
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
+    this.animatorManager.OnDashingAnimationEnd += DashAnimationFinished;
     HandleStateAnimation();
+    movementManager.isDashing = true;
   }
 
   public void UpdateState() {
@@ -24,26 +26,28 @@ public class PlayerDashingState : IPlayerMovementState {
     HandleStateMovement();
   }
 
-  public void ExitState() {}
+  public void ExitState() {
+    this.animatorManager.OnDashingAnimationEnd -= DashAnimationFinished;
+  }
 
   private void HandleStateAnimation() {
     animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Dashing);
   }
 
   private void HandleStateMovement() {
-    movementManager.Dash();
+    //movementManager.Dash();
   }
 
-  public void DashAnimationFinished() {
+  private void DashAnimationFinished() {
     // Reset PlayerMovementManager params related to dashing
-    movementManager.EndDashMovement();
+    movementManager.EndDash();
 
     // Understand which would be the next state and change it
     if (!movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerJumpingState());
       return;
     }
-    if (movementManager.isMoving) {
+    if (movementManager.movementDirection != 0) {
       stateManager.ChangeMovementState(new PlayerMovingState());
       return;
     }

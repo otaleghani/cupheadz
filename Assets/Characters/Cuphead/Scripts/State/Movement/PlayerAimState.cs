@@ -20,6 +20,7 @@ public class PlayerAimState : IPlayerMovementState {
 
     this.inputManager.OnAimCanceled += HandleAimCanceled;
     HandleStateAnimation();
+    this.movementManager.MoveStop();
   }
 
   public void UpdateState() {
