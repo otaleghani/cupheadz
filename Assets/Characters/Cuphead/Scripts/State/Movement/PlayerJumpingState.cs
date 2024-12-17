@@ -20,13 +20,13 @@ public class PlayerJumpingState : IPlayerMovementState {
 
     HandleStateAnimation();
     HandleStateMovement();
-    this.movementManager.JumpStart();
+    this.movementManager.StartJump();
   }
 
   public void UpdateState() {
     if (movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerIdleState());
-      movementManager.JumpReset();
+      //movementManager.JumpReset();
       return;
     }
     HandleStateMovement();
@@ -41,13 +41,12 @@ public class PlayerJumpingState : IPlayerMovementState {
     animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Jumping);
   }
 
-  private void HandleStateMovement() {
-    movementManager.Jump();
-  }
+  private void HandleStateMovement() {}
 
   private void HandleJumpCanceled() {
+    movementManager.jumpHoldReleased = true;
     // Reset PlayerMovementManager params related to jumping
-    movementManager.EndJumpMovement();
+    //movementManager.JumpCanceled();
   }
   private void HandleParry() {
     // Here we want to enter the parry state, which is PlayerActionState.

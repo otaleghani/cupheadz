@@ -3,9 +3,6 @@ using System.Collections;
 
 public class PlayerMovementManager : MonoBehaviour {
   [Header("General")]
-  //[SerializeField] private bool isAimed = false;
-  public bool isGrounded = false;
-  public bool isJumping;
   public bool isFacingRight = true;
   
   [Header("Movement")]
@@ -14,13 +11,6 @@ public class PlayerMovementManager : MonoBehaviour {
   [SerializeField] private int movementDirection = 0;
   public bool isMoving = false;
 
-  [Header("Jump")]
-  //[SerializeField] private float jumpStateMinTime = 0.1f;
-  //[SerializeField] private float jumpStateMaxTime = 0.5f;
-  [SerializeField] private float jumpForce = 5.0f;
-  private bool isJumpActionHeld;
-  private float jumpTimeCounter;
-  public bool isJumpReset;
 
   [Header("Dash")]
   [SerializeField] private float dashSpeed = 10f;
@@ -63,66 +53,12 @@ public class PlayerMovementManager : MonoBehaviour {
   }
 
   public void Dash() {
-    Vector2 newPosition = rb.linearVelocity;
-    newPosition.x = dashSpeed * movementDirection;
-    rb.linearVelocity = newPosition;
+    //Vector2 newPosition = rb.linearVelocity;
+    //newPosition.x = dashSpeed * movementDirection;
+    //rb.linearVelocity = newPosition;
+    rb.AddForceX(dashSpeed * movementDirection, ForceMode2D.Impulse);
   }
 
-  private Coroutine jumpCoroutine;
-  private float smallJumpForce = 5f;
-  private float bigJumpAdditionalForce = 5f;
-  private float jumpMaxHeight = 2.5f;
-  private float jumpMinHeight = 0.5f; 
-  private float jumpTimeToMaxHeight = 0.4f;
-  private float jumpStateMinTime = 0.05f;
-
-  public void Jump() {
-    if (!isJumping) {
-      isJumping = true;
-
-      rb.linearVelocity = new Vector2(rb.linearVelocity.x, smallJumpForce);
-      if (jumpCoroutine != null) {
-        StopCoroutine(jumpCoroutine);
-      }
-      jumpCoroutine = StartCoroutine(HandleJumpHold());
-    }
-    Move();
-  }
-
-  private IEnumerator HandleJumpHold() {
-    float holdTime = 0f;
-
-    while (holdTime < jumpStateMaxTime) {
-      if (!isJumpActionHeld) {
-        Debug.Log("helo");
-        break;
-      }
-      holdTime += Time.deltaTime;
-
-      if (holdTime >= jumpStateMinTime && rb.linearVelocity.y == smallJumpForce) {
-        UpgradeToBigJump();
-      }
-      
-      yield return null;
-    }
-    isJumping = false;
-  }
-
-  private void UpgradeToBigJump() {
-    rb.linearVelocity = new Vector2(rb.linearVelocity.x, smallJumpForce + bigJumpAdditionalForce);
-  }
-
-  public void JumpStart() {
-    jumpTimeCounter = 0f;
-    isJumpActionHeld = true;
-  }
-  public void JumpReset() {
-    jumpTimeCounter = 0f;
-    isJumpActionHeld = false;
-  }
-  public void EndJumpMovement() {
-    isJumpActionHeld = false;
-  }
 
   public void EndDashMovement() {
     isDashing = false;
@@ -145,11 +81,73 @@ public class PlayerMovementManager : MonoBehaviour {
   private void OnTriggerEnter2D(Collider2D collision) {
     isGrounded = true;
     isJumping = false;
-    isJumpReset = false;
-    isJumpActionHeld = false;
+    //isJumpReset = false;
+    //isJumpActionHeld = false;
   }
 
+
+  // New jump
+  
+  [Header("Jump")]
+  [Tooltip("Full jump: Maximum height of the jump in units.")]
+  public float fullJumpHeight = 2f;
+
+  [Tooltip("Full jump: Time to reach max height in seconds.")]
+  public float fullJumpTime = 0.5f;
+
+  [Tooltip("Short jump: Time before releasing jump button affects jump height.")]
+  public float shortJumpMaxHoldTime = 0.25f;
+
+  private float gravity;
+  private float initialJumpVelocity;
+  private float jumpHoldTimer;
+  public bool isGrounded = false;
+  public bool isJumping;
+  public bool jumpHoldReleased = false;
+
+  void Start() {
+    // Calculates gravity based on full jump parameters
+    gravity = (2 * fullJumpHeight) / Mathf.Pow(fullJumpTime, 2);
+    
+    // Gravity positive is down, so set it negative
+    gravity = -gravity;
+
+    // Calculates initial jump velocity for full jump
+    initialJumpVelocity = Mathf.Abs(gravity) * fullJumpTime;
+
+    // Disables Unitu's build-in gravity
+    rb.gravityScale = 0;
+
+    //rb.linearVelocity = Vector2.zero;
+  }
+
+  void Update() {
+    if (isJumping) {
+      jumpHoldTimer += Time.deltaTime;
+
+      if (jumpHoldReleased || jumpHoldTimer >= fullJumpTime) {
+        EndJump();
+      }
+    }
+  }
+
+  public void StartJump() {
+    isJumping = true;
+    jumpHoldTimer = 0f;
+    jumpHoldReleased = false;
+    rb.linearVelocity = new Vector2(rb.linearVelocityX, initialJumpVelocity);
+  }
+  void EndJump() {
+    isJumping = false;
+    if (rb.linearVelocityX > 0) {
+      rb.linearVelocity = new Vector2(rb.linearVelocityX, rb.linearVelocityY * 0.5f);
+    }
+  }
+  void ApplyCustomGravity() {
+    rb.linearVelocity += Vector2.up * gravity * Time.fixedDeltaTime;
+  }
   private void FixedUpdate() {
+    ApplyCustomGravity();
     FlipCharacter();
   }
 }

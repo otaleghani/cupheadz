@@ -9,6 +9,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public bool isCrouchingExit = false;
 
   public enum PlayerAnimations {
+    Dead,
     Idle,
     Running,
     RunningShootingAim,
@@ -61,6 +62,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
 
     animator = GetComponent<Animator>();
 
+    animations[PlayerAnimations.Dead] = "Dead";
     animations[PlayerAnimations.Idle] = "Idle";
     animations[PlayerAnimations.Running] = "Running";
     animations[PlayerAnimations.RunningShootingAim] = "RunningShootingAim";

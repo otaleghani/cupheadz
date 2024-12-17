@@ -1,7 +1,6 @@
 using UnityEngine;
 
-/// WIP
-public class HomingBullet : Bullet {
+public class ChaserBullet : Bullet {
   public Transform target;          // The target to home in on
   public float turnSpeed = 200f;    // Speed at which the bullet turns towards the target
 
@@ -10,8 +9,8 @@ public class HomingBullet : Bullet {
 
     if (target != null) {
       Vector2 directionToTarget = ((Vector2)target.position - rb.position).normalized;
-      //Vector2 newDirection = Vector2.RotateTowards(rb.linearVelocity.normalized, directionToTarget, turnSpeed * Time.deltaTime, 0f);
-      //rb.linearVelocity = newDirection * speed;
+      Vector2 newDirection = Vector2.MoveTowards(rb.linearVelocity, directionToTarget, turnSpeed * Time.deltaTime);
+      rb.linearVelocity = newDirection * speed;
     }
   }
 }
