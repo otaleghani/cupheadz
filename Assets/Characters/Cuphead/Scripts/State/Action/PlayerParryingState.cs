@@ -13,12 +13,16 @@ public class PlayerParryingState : IPlayerActionState {
     this.animatorManager = animatorManager;
 
     HandleStateAnimation();
-    // Activate the trigger collider
+    // Activate the parrying collider
+    this.stateManager.parryCollider.enabled = true;
   }
 
   public void UpdateState() {}
 
-  public void ExitState() {}
+  public void ExitState() {
+    // Disables parry collider 
+    stateManager.parryCollider.enabled = true;
+  }
 
   private void HandleStateAnimation() {
     animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Parrying);

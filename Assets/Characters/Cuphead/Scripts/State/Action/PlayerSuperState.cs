@@ -1,7 +1,9 @@
+using UnityEngine;
 public class PlayerSuperState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
+  private float counter = 5f;
 
   public void EnterState(
     PlayerStateManager stateManager,
@@ -15,7 +17,13 @@ public class PlayerSuperState : IPlayerActionState {
     HandleStateAnimation();
   }
 
-  public void UpdateState() {}
+  public void UpdateState() {
+    Debug.Log("Im in");
+    counter -= Time.deltaTime;
+    if (counter <= 0) {
+      stateManager.ChangeActionState(new PlayerNoneState());
+    }
+  }
   public void ExitState() {}
 
   private void HandleStateAnimation() {

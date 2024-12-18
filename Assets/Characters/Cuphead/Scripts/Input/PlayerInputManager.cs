@@ -139,7 +139,7 @@ public class PlayerInputManager : MonoBehaviour {
     OnShootPerformed?.Invoke();
   }
   private void OnShootActionCanceled(InputAction.CallbackContext context) {
-    OnShootCanceled.Invoke();
+    OnShootCanceled?.Invoke();
   }
   private void OnAimActionPerformed(InputAction.CallbackContext context) {
     OnAimPerformed?.Invoke();

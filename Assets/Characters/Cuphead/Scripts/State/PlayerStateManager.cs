@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerStateManager : MonoBehaviour {
   [Header("Player stats")]
   public int hearts = 3;
-  public float superMeter = 0f;
+  public float superMeter = 4f;
   public float superMeterRateOfChange = 0f;
 
   private PlayerMovementManager movementManager;
@@ -15,6 +15,8 @@ public class PlayerStateManager : MonoBehaviour {
   public enum ShootingState { Aim, Recoil };
   public ShootingState currentShootingState = ShootingState.Aim;
 
+  public Collider2D parryCollider;
+
   void Awake() {
     inputManager = GetComponent<PlayerInputManager>();
     movementManager = GetComponent<PlayerMovementManager>();
@@ -24,17 +26,9 @@ public class PlayerStateManager : MonoBehaviour {
     movementState = new PlayerIdleState();
     actionState = new PlayerNoneState();
 
-    // Handles charms
-    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Heart]) {
-      // Todo: Add negative damage modifier
-      hearts += 1;
-    }
-    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.TwinHeart]) {
-      // Todo: Add negative damage modifier
-      hearts += 2;
-    }
-    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Coffee]) {
-      superMeterRateOfChange = 0.005f;
+    // Disables parry collider on startup
+    if (parryCollider != null) {
+      parryCollider.enabled = false;
     }
   }
 
@@ -48,6 +42,19 @@ public class PlayerStateManager : MonoBehaviour {
   private void Start() {
     movementState.EnterState(this, inputManager, movementManager, animatorManager);
     actionState.EnterState(this, inputManager, animatorManager);
+    
+    // Handles charms
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Heart]) {
+      // Todo: Add negative damage taken modifier
+      hearts += 1;
+    }
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.TwinHeart]) {
+      // Todo: Add negative damage taken modifier
+      hearts += 2;
+    }
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Coffee]) {
+      superMeterRateOfChange = 0.005f;
+    }
   }
 
   private void Update() {
@@ -59,6 +66,7 @@ public class PlayerStateManager : MonoBehaviour {
     if (superMeter <= 5) {
       superMeter += superMeterRateOfChange;
     }
+    Debug.Log(actionState.GetType());
   }
 
   //public AddToSuperMeter(float number) {}
@@ -76,11 +84,24 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("EnemyBullet")) {
-      hearts -= 1;
-      if (hearts == 0) {
-        FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
-      }
+    if (collision.gameObject.CompareTag("Enemy") || 
+        collision.gameObject.CompareTag("EnemyBullet")) {
+      TakeDamage();
+    }
+
+    if (actionState is PlayerParryingState) {
+      IParryable parryableObject = collision.GetComponent<IParryable>();
+      if (parryableObject != null) {
+        parryableObject.OnParry();
+        // Make a small jump 
+      } 
+    }
+  }
+
+  private void TakeDamage() {
+    hearts -= 1;
+    if (hearts == 0) {
+      FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
     }
   }
 

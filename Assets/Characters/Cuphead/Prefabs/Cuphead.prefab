@@ -221,12 +221,12 @@ GameObject:
   - component: {fileID: 1766688066970229760}
   - component: {fileID: 3580604267137862366}
   - component: {fileID: 897116002252091730}
-  - component: {fileID: 859798727912076090}
   - component: {fileID: 3349806456955765957}
   - component: {fileID: 164962501784625685}
   - component: {fileID: 3579665745255740251}
   - component: {fileID: 6487106464912553194}
   - component: {fileID: 8072856238612901451}
+  - component: {fileID: 7419381989958703777}
   m_Layer: 6
   m_Name: Cuphead
   m_TagString: Untagged
@@ -400,21 +400,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &859798727912076090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6371120194414480597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c7d6c222cba2748b9a8bb8c82fb6fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearts: 3
-  superMeter: 0
-  currentShootingState: 0
 --- !u!114 &3349806456955765957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +520,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0.008567779, y: -0.01357122}
   m_Size: {x: 0.9471418, y: 0.21357405}
   m_Direction: 1
+--- !u!114 &7419381989958703777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6371120194414480597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c7d6c222cba2748b9a8bb8c82fb6fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearts: 3
+  superMeter: 3
+  superMeterRateOfChange: 0
+  currentShootingState: 0
+  parryCollider: {fileID: 0}
 --- !u!1 &6405141890029721011
 GameObject:
   m_ObjectHideFlags: 0

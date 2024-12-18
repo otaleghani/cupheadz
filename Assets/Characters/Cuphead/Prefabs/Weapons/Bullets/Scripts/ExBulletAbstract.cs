@@ -15,7 +15,7 @@ public abstract class ExBullet : MonoBehaviour {
   protected virtual void Awake() {
     rb = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
-    weaponManager = GetComponentInParent<WeaponManager>();
+    weaponManager = FindFirstObjectByType<WeaponManager>();
 
     lifeTimer = lifeTime;
   }
@@ -30,7 +30,7 @@ public abstract class ExBullet : MonoBehaviour {
   protected virtual void HandleLifeTimer() {
     lifeTimer -= Time.deltaTime;
     if (lifeTimer <= 0f) {
-      weaponManager.ReturnBullet(gameObject);
+      weaponManager.ReturnExBullet(gameObject);
     }
   }
 
@@ -58,6 +58,6 @@ public abstract class ExBullet : MonoBehaviour {
   }
 
   protected virtual void OnExplosionAnimationEnd() {
-    weaponManager.ReturnBullet(gameObject);
+    weaponManager.ReturnExBullet(gameObject);
   }
 }

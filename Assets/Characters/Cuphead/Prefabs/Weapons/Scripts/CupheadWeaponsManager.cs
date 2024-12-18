@@ -31,6 +31,7 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private float firstWeaponFireRate;
   private float secondWeaponFireRate;
   private float shootCounter;
+  private float exShootCounter;
 
   // I could've got this from PlayerInputManager?
   private int xDirection = 1;
@@ -67,17 +68,36 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   }
 
   void FixedUpdate() {
-    if (shootCounter <= equippedWeapon.fireRate) { 
-      shootCounter += Time.deltaTime;
-      stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
-      return;
-    } 
+    exShootCounter += Time.deltaTime;
+    shootCounter += Time.deltaTime;
 
     if (stateManager.actionState is PlayerExShootingState) {
-      // handle Ex Shooting here
+      if (exShootCounter <= equippedWeapon.exFireRate) {
+        return;
+      }
+      if (stateManager.movementState is PlayerMovingState) {
+        xDirection = movementManager.isFacingRight ? 1 : -1;
+        equippedWeapon.ExShoot(xDirection, 0, movingFirePoint);
+      }
+      if (stateManager.movementState is PlayerAimState) {
+        if (xDirection == 0 && yDirection == 0) {
+          xDirection = movementManager.isFacingRight ? 1 : -1;
+        }
+        equippedWeapon.ExShoot(xDirection, yDirection, firePoints[PlayerInputManager.CurrentCoordinate]);
+      } 
+      if (stateManager.movementState is PlayerIdleState) {
+        xDirection = movementManager.isFacingRight ? 1 : -1;
+        equippedWeapon.ExShoot(xDirection, 0, firePoints[PlayerInputManager.AimDirection.Front]);
+      }
+
+      exShootCounter = 0f;
     }
 
     if (stateManager.actionState is PlayerShootingState) {
+      if (shootCounter <= equippedWeapon.fireRate) { 
+        stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
+        return;
+      } 
       if (stateManager.movementState is PlayerMovingState) {
         xDirection = movementManager.isFacingRight ? 1 : -1;
         equippedWeapon.Shoot(xDirection, 0, movingFirePoint);

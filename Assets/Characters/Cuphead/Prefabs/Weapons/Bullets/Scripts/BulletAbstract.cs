@@ -4,8 +4,8 @@ public abstract class Bullet : MonoBehaviour {
   [Header("Bullet properties")]
   public float damage = 10f;
   public float speed = 20f;
-  public float lifeTime = 2f;
-  protected float lifeTimer;
+  public float lifeTime = 1f;
+  public float lifeTimer;
 
   public Rigidbody2D rb;
   public Animator animator;
@@ -15,10 +15,13 @@ public abstract class Bullet : MonoBehaviour {
   protected virtual void Awake() {
     rb = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
-    weaponManager = GetComponentInParent<WeaponManager>();
+    weaponManager = FindFirstObjectByType<WeaponManager>();
+  }
 
+  protected virtual void OnEnable() {
     lifeTimer = lifeTime;
   }
+  protected virtual void OnDisable() {}
 
   protected virtual void Update() {
     HandleLifeTimer();
@@ -45,6 +48,7 @@ public abstract class Bullet : MonoBehaviour {
   }
 
   protected virtual void HandleCollision(Collider2D other) {
+
     IDamageable damageable = other.GetComponent<IDamageable>();
     if (damageable != null) {
       damageable.TakeDamage(damage);

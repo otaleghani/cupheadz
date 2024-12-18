@@ -58,7 +58,7 @@ public class GameData {
     this.unlockedWeapon.Add(Weapon.Twist_up, false);
 
     this.equippedWeapon.Add("first", Weapon.Peashooter);
-    this.equippedWeapon.Add("second", Weapon.None);
+    this.equippedWeapon.Add("second", Weapon.Peashooter);
 
     this.unlockedCharm.Add(Charm.None, true);
     this.unlockedCharm.Add(Charm.Heart, false);
