@@ -73,6 +73,10 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
       return;
     } 
 
+    if (stateManager.actionState is PlayerExShootingState) {
+      // handle Ex Shooting here
+    }
+
     if (stateManager.actionState is PlayerShootingState) {
       if (stateManager.movementState is PlayerMovingState) {
         xDirection = movementManager.isFacingRight ? 1 : -1;

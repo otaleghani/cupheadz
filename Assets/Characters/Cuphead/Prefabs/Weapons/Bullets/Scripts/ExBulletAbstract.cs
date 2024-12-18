@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Bullet : MonoBehaviour {
+public abstract class ExBullet : MonoBehaviour {
   [Header("Bullet properties")]
   public float damage = 10f;
   public float speed = 20f;

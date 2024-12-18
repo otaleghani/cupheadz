@@ -71,7 +71,6 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\WeaponAbstract.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\FileDataHandler.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerAimState.cs" />
-    <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\Coordinate.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\IDataPersistence.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameData\GameData.cs" />
     <Compile Include="Assets\Scripts\Scenes\Changer\SceneChanger.cs" />

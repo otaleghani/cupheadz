@@ -3,7 +3,8 @@ using UnityEngine;
 public class PlayerStateManager : MonoBehaviour {
   [Header("Player stats")]
   public int hearts = 3;
-  public int superMeter = 0;
+  public float superMeter = 0f;
+  public float superMeterRateOfChange = 0f;
 
   private PlayerMovementManager movementManager;
   private PlayerInputManager inputManager;
@@ -14,35 +15,53 @@ public class PlayerStateManager : MonoBehaviour {
   public enum ShootingState { Aim, Recoil };
   public ShootingState currentShootingState = ShootingState.Aim;
 
-  // I could create here a "state boolean"
-  // Something like "isShooting"
-
   void Awake() {
     inputManager = GetComponent<PlayerInputManager>();
     movementManager = GetComponent<PlayerMovementManager>();
     animatorManager = GetComponent<PlayerAnimatorManager>();
 
+    // Create new base states
     movementState = new PlayerIdleState();
     actionState = new PlayerNoneState();
+
+    // Handles charms
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Heart]) {
+      // Todo: Add negative damage modifier
+      hearts += 1;
+    }
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.TwinHeart]) {
+      // Todo: Add negative damage modifier
+      hearts += 2;
+    }
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Coffee]) {
+      superMeterRateOfChange = 0.005f;
+    }
   }
 
-  void OnEnable() {
+  private void OnEnable() {
     FightSceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
   }
-  void OnDisable() {
+  private void OnDisable() {
     FightSceneStateManager.Instance.OnChangeState -= HandleSceneStateChange;
   }
 
-  void Start() {
+  private void Start() {
     movementState.EnterState(this, inputManager, movementManager, animatorManager);
     actionState.EnterState(this, inputManager, animatorManager);
   }
 
-  void Update() {
+  private void Update() {
     movementState.UpdateState();
     actionState.UpdateState();
-    Debug.Log(movementState);
   }
+
+  private void FixedUpdate() {
+    if (superMeter <= 5) {
+      superMeter += superMeterRateOfChange;
+    }
+  }
+
+  //public AddToSuperMeter(float number) {}
 
   public void ChangeMovementState(IPlayerMovementState newState) {
     movementState.ExitState();
