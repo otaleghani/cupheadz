@@ -1,27 +1,32 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles the movement of the Player, so run, jump and dash. Every single movement has at least
+/// two methods. One is called every fixed frame to check if the action is to be performed, and
+/// the other performs the action. Sometimes you'll also find methods that are call at the end
+/// to do some cleanup.
+/// </summary>
 public class PlayerMovementManager : MonoBehaviour {
   [Header("General")]
   public bool isFacingRight = true;
   
   [Header("Movement")]
   [SerializeField] private float movementSpeed = 6f;
-  public int movementDirection = 0;
 
   [Header("Dash")]
   [SerializeField] private float dashSpeed = 6f;
   [SerializeField] private float dashCooldown;
-  [SerializeField] public float dashMaxCooldown = 1f;
+  public float dashMaxCooldown = 1f;
   public bool isDashingCooldown = false;
   public bool isDashing = false;
 
   [Header("Jump")]
   [SerializeField] private float maxJumpTime = 5f;
   [SerializeField] private float minJumpTime = 5f;
-  private float jumpHoldTimer = 0f;
-  private float jumpForce = 10f;
-  private float jumpAcceleration = 0.1f;
-  public bool isGrounded = false;
+  [SerializeField] private float jumpHoldTimer = 0f;
+  [SerializeField] private float jumpForce = 10f;
+  [SerializeField] private float jumpAcceleration = 0.1f;
+  public bool isGrounded = true;
   public bool isJumping = false;
   public bool jumpHoldReleased = false;
 
@@ -29,30 +34,22 @@ public class PlayerMovementManager : MonoBehaviour {
   private PlayerInputManager inputManager;
   private PlayerStateManager stateManager;
 
-  void Awake() {
+  private void Awake() {
     rb = GetComponent<Rigidbody2D>();
     inputManager = GetComponent<PlayerInputManager>();
     stateManager = GetComponent<PlayerStateManager>();
   }
 
-  void OnEnable() {
-    inputManager.OnSerializedMovePerformed += HandleOnSerializedMovement;
-    inputManager.OnSerializedMoveCanceled += HandleOnSerializedMovement;
-  }
-  void OnDisable() {
-    inputManager.OnSerializedMovePerformed -= HandleOnSerializedMovement;
-    inputManager.OnSerializedMoveCanceled -= HandleOnSerializedMovement;
+  private void FixedUpdate() {
+    HandleDash();
+    HandleJump();
+    HandleMove();
+    HandleFlipCharacter();
   }
 
-  void HandleOnSerializedMovement(int x, int y) {
-    movementDirection = x;
-  }
-
-  private void Move() {
-    Vector2 newPosition = rb.linearVelocity;
-    newPosition.x = movementSpeed * movementDirection;
-    rb.linearVelocity = newPosition;
-  }
+  /// <summary>
+  /// Movement scripts
+  /// </summary>
   private void HandleMove() {
     if (stateManager.movementState is not PlayerAimState &&
         stateManager.movementState is not PlayerDashingState &&
@@ -61,6 +58,11 @@ public class PlayerMovementManager : MonoBehaviour {
       Move();
     }
   }
+  private void Move() {
+    Vector2 newPosition = rb.linearVelocity;
+    newPosition.x = movementSpeed * inputManager.xPosition;
+    rb.linearVelocity = newPosition;
+  }
   public void MoveStop() {
     Vector2 newPosition = rb.linearVelocity;
     newPosition.x = 0f;
@@ -68,6 +70,9 @@ public class PlayerMovementManager : MonoBehaviour {
   }
 
 
+  /// <summary>
+  /// Dash scripts
+  /// </summary>
   private void HandleDash() {
     // Keeps track of the cooldown for the dash
     if (isDashingCooldown) {
@@ -91,10 +96,13 @@ public class PlayerMovementManager : MonoBehaviour {
     dashCooldown = dashMaxCooldown;
   }
 
+  /// <summary>
+  /// Character flip
+  /// </summary>
   void HandleFlipCharacter() {
     if (stateManager.movementState is not PlayerDashingState) {
-      if (isFacingRight && movementDirection < 0 ||
-      !isFacingRight && movementDirection > 0) {
+      if (isFacingRight && inputManager.xPosition < 0 ||
+      !isFacingRight && inputManager.xPosition > 0) {
         isFacingRight = !isFacingRight;
         Vector3 ls = transform.localScale;
         ls.x *= -1f;
@@ -103,14 +111,10 @@ public class PlayerMovementManager : MonoBehaviour {
       }
     }
   }
-  
-  void FixedUpdate() {
-    HandleDash();
-    HandleJump();
-    HandleMove();
-    HandleFlipCharacter();
-  }
 
+  /// <summary>
+  /// Jump scripts
+  /// </summary>
   private void HandleJump() {
     if (isJumping) {
       jumpHoldTimer += Time.deltaTime;
@@ -141,8 +145,11 @@ public class PlayerMovementManager : MonoBehaviour {
     rb.gravityScale = 3;
   }
   
-  // Called whenever you enter a collision with a terrain
+  /// <summary>
+  /// Collide with ground
+  /// </summary>
   private void OnTriggerEnter2D(Collider2D collision) {
+    // todo: check if the trigger collider was actually the ground or not
     isGrounded = true;
     isJumping = false;
     jumpHoldReleased = true;

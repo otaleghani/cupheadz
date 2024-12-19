@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class PlayerJumpingState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
@@ -31,7 +32,7 @@ public class PlayerJumpingState : IPlayerMovementState {
 
   public void UpdateState() {
     if (movementManager.isGrounded) {
-      if (movementManager.movementDirection != 0) {
+      if (inputManager.xPosition != 0) {
         stateManager.ChangeMovementState(new PlayerMovingState());
       } else {
         stateManager.ChangeMovementState(new PlayerIdleState());
@@ -44,6 +45,7 @@ public class PlayerJumpingState : IPlayerMovementState {
   public void ExitState() {
     inputManager.OnJumpCanceled -= HandleJumpCanceled;
     inputManager.OnJumpPerformed -= HandleParry;
+    inputManager.OnDashPerformed -= HandleDash;
   }
 
   private void HandleStateAnimation() {
@@ -54,9 +56,8 @@ public class PlayerJumpingState : IPlayerMovementState {
 
   private void HandleJumpCanceled() {
     movementManager.jumpHoldReleased = true;
-    // Reset PlayerMovementManager params related to jumping
-    //movementManager.JumpCanceled();
   }
+
   private void HandleParry() {
     // Here we want to enter the parry state, which is PlayerActionState.
     // Reason why is that you cannot do other actions while parrying

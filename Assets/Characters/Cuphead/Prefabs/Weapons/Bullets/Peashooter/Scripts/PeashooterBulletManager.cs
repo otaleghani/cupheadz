@@ -1,3 +1,1 @@
-public class PeashooterBullet : Bullet {
-  //override protected void Start() {}
-}
+public class PeashooterBullet : Bullet {}

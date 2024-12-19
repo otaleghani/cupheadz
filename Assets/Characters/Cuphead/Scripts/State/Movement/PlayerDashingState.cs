@@ -47,7 +47,7 @@ public class PlayerDashingState : IPlayerMovementState {
       stateManager.ChangeMovementState(new PlayerJumpingState());
       return;
     }
-    if (movementManager.movementDirection != 0) {
+    if (inputManager.xPosition != 0) {
       stateManager.ChangeMovementState(new PlayerMovingState());
       return;
     }

@@ -2,9 +2,16 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Manages the player animation using the Animator. It contains all of the possible animations
+/// in the enum PlayerAnimations and this gets connected in dictionary "animations" with the
+/// name of the animations. Every single animation gets changed by calling the ChangeAnimation
+/// method and passing the enum of the desired animation.
+/// This class also contains helper methods that gets called at specific frames of the animations
+/// and helper Dictionaries to use if you have multiple animations for one action (like Aiming).
+/// <summary>
 public class PlayerAnimatorManager : MonoBehaviour {
   private PlayerStateManager stateManager;
-  private PlayerInputManager inputManager;
   private Animator animator;
   public bool isCrouchingEnter = false;
   public bool isCrouchingExit = false;
@@ -42,7 +49,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
     Parrying,
   }
 
-  private Dictionary<PlayerAnimations, string> animations = new Dictionary<PlayerAnimations, string>();
+  private Dictionary<PlayerAnimations, string> animations = 
+    new Dictionary<PlayerAnimations, string>();
   public Dictionary<PlayerInputManager.AimDirection, PlayerAnimations> aimAnimations = 
     new Dictionary<PlayerInputManager.AimDirection, PlayerAnimations>();
   public Dictionary<PlayerInputManager.AimDirection, PlayerAnimations> shootAimAnimations = 
@@ -60,9 +68,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
   }
 
   void Awake() {
-    inputManager = GetComponent<PlayerInputManager>();
     stateManager = GetComponent<PlayerStateManager>();
-
     animator = GetComponent<Animator>();
 
     animations[PlayerAnimations.Dead] = "Dead";
@@ -97,11 +103,16 @@ public class PlayerAnimatorManager : MonoBehaviour {
 
     animations[PlayerAnimations.Parrying] = "Parrying";
 
-    aimAnimations[PlayerInputManager.AimDirection.Front] = PlayerAnimations.AimingFront;
-    aimAnimations[PlayerInputManager.AimDirection.Up] = PlayerAnimations.AimingUp;
-    aimAnimations[PlayerInputManager.AimDirection.Down] = PlayerAnimations.AimingDown;
-    aimAnimations[PlayerInputManager.AimDirection.DiagonalUp] = PlayerAnimations.AimingDiagonalUp;
-    aimAnimations[PlayerInputManager.AimDirection.DiagonalDown] = PlayerAnimations.AimingDiagonalDown;
+    aimAnimations[PlayerInputManager.AimDirection.Front] = 
+      PlayerAnimations.AimingFront;
+    aimAnimations[PlayerInputManager.AimDirection.Up] =
+      PlayerAnimations.AimingUp;
+    aimAnimations[PlayerInputManager.AimDirection.Down] =
+      PlayerAnimations.AimingDown;
+    aimAnimations[PlayerInputManager.AimDirection.DiagonalUp] =
+      PlayerAnimations.AimingDiagonalUp;
+    aimAnimations[PlayerInputManager.AimDirection.DiagonalDown] =
+      PlayerAnimations.AimingDiagonalDown;
 
     shootAimAnimations[PlayerInputManager.AimDirection.Front] = 
       PlayerAnimations.ShootingAimFront;
@@ -126,18 +137,35 @@ public class PlayerAnimatorManager : MonoBehaviour {
       PlayerAnimations.ShootingRecoilDiagonalDown;
   }
 
+  /// <summary>
+  /// Whenever the Recoil animation ends, change the ShootingState to Aim.
+  /// Used to cycle throgh the Shooting animation based on the weapon fire rate.
+  /// </summary>
   public void OnRecoilAnimationEnd() {
     stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
   }
 
+  /// <summary>
+  /// Whenever the CrouchingEntry animation ends, change the animation to CrouchingIdle.
+  /// </summary>
   public void OnCrouchingEntryEnd() {
     ChangeAnimation(PlayerAnimations.CrouchingIdle);
     isCrouchingEnter = false;
   }
+
+  /// <summary>
+  /// Whenever the CrouchingExit animation ends, change the animation to Idle.
+  /// </summary>
   public void OnCrouchingExitEnd() {
     ChangeAnimation(PlayerAnimations.Idle);
     isCrouchingExit = false;
   }
+
+  /// <summary>
+  /// Whenever the DashingAnimation ends, Invoke the OnDashingAnimationEnd action.
+  /// Used to notify the PlayerDashingState that the animation ends, so that it can stop the dash
+  /// and change to the next state.
+  /// </summary>
   public void OnDashingEnd() {
     OnDashingAnimationEnd?.Invoke();
   }

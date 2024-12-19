@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// The weapon manager has to
-/// - It holds the data related to the equipped weapons
-/// - Initializes 2 pools of bullets for each weapon
-/// - Spawn on bullet at a time
-/// - Play the flash animation of the current bullet
-/// - And finally it will keep track of the time passed from each bullet
+/// Instantiates current equipped weapons and calls either the Shoot() or ShootEx() method from
+/// the weapon with the correct bullet coordinates (used for the direction and rotation of the
+/// bullet) and correct spawn position (used for aiming and running state).
+///
+/// The firePoints are connected with the enum PlayerInputManager.AimDirection, so that we can
+/// simply search the right key in the dictionary to assign the correct Transform.
 /// </summary>
 public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private Dictionary<PlayerInputManager.AimDirection, Transform> firePoints = 
@@ -20,11 +20,9 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
 
   public GameData.Weapon firstWeaponId;
   public GameData.Weapon secondWeaponId;
-
   private WeaponManager firstWeapon;
   private WeaponManager secondWeapon;
   private WeaponManager equippedWeapon;
-
   private GameObject firstWeaponObj;
   private GameObject secondWeaponObj;
 
@@ -33,9 +31,8 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private float shootCounter;
   private float exShootCounter;
 
-  // I could've got this from PlayerInputManager?
-  private int xDirection = 1;
-  private int yDirection = 0;
+  private int xDirection;
+  private int yDirection;
 
   void Awake() {
     stateManager = GetComponentInParent<PlayerStateManager>();
@@ -50,15 +47,6 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     movingFirePoint = transform.Find("Moving");
   }
 
-  void OnEnable() {
-    inputManager.OnSerializedMovePerformed += HandleAimPosition;
-    inputManager.OnSerializedMoveCanceled += HandleAimPosition;
-  }
-  void OnDisable() {
-    inputManager.OnSerializedMovePerformed -= HandleAimPosition;
-    inputManager.OnSerializedMoveCanceled -= HandleAimPosition;
-  }
-
   void Start() {
     firstWeaponObj = EquipWeaponsObj(firstWeaponId);
     secondWeaponObj = EquipWeaponsObj(secondWeaponId);
@@ -70,57 +58,106 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   void FixedUpdate() {
     exShootCounter += Time.deltaTime;
     shootCounter += Time.deltaTime;
+    HandleShoot();
+    HandleShootEx();
+  }
 
+  /// <summary>
+  /// Calculates the current direction
+  /// </summary>
+  private void GetDirections() {
+    xDirection = inputManager.xPosition;
+    yDirection = inputManager.yPosition;
+  }
+  private void CalculateDirection() {
+    if (xDirection == 0) xDirection = movementManager.isFacingRight ? 1 : -1;
+  }
+  private void CalculateDirectionOnAim() {
+    if (xDirection == 0 && yDirection == 0) xDirection = movementManager.isFacingRight ? 1 : -1;
+  }
+
+  /// <summary>
+  /// Calls the weapon ShootEx method with the right directions and spawn point
+  /// </summary>
+  private void HandleShootEx() {
     if (stateManager.actionState is PlayerExShootingState) {
-      if (exShootCounter <= equippedWeapon.exFireRate) {
-        return;
-      }
-      if (stateManager.movementState is PlayerMovingState) {
-        xDirection = movementManager.isFacingRight ? 1 : -1;
-        equippedWeapon.ExShoot(xDirection, 0, movingFirePoint);
-      }
-      if (stateManager.movementState is PlayerAimState) {
-        if (xDirection == 0 && yDirection == 0) {
-          xDirection = movementManager.isFacingRight ? 1 : -1;
-        }
-        equippedWeapon.ExShoot(xDirection, yDirection, firePoints[PlayerInputManager.CurrentCoordinate]);
-      } 
-      if (stateManager.movementState is PlayerIdleState) {
-        xDirection = movementManager.isFacingRight ? 1 : -1;
-        equippedWeapon.ExShoot(xDirection, 0, firePoints[PlayerInputManager.AimDirection.Front]);
-      }
+      if (exShootCounter <= equippedWeapon.exFireRate) return;
+      GetDirections();
+      switch (stateManager.movementState) {
+        case PlayerMovingState: 
+          CalculateDirection();
+          equippedWeapon.ExShoot(xDirection, yDirection, 
+            movingFirePoint);
+          break;
 
+        case PlayerAimState: 
+          CalculateDirectionOnAim();
+          equippedWeapon.ExShoot(xDirection, yDirection, 
+            firePoints[PlayerInputManager.CurrentCoordinate]);
+          break;
+
+        case PlayerJumpingState:
+          CalculateDirection();
+          // todo: Add firepoint for jumping state
+          break;
+
+        case PlayerCrouchState:
+          CalculateDirection();
+          // todo: Add firePoint for crouching state
+          break;
+
+        case PlayerIdleState:
+          CalculateDirection();
+          equippedWeapon.ExShoot(xDirection, 0, 
+            firePoints[PlayerInputManager.AimDirection.Front]);
+          break;
+      }
       exShootCounter = 0f;
-    }
-
-    if (stateManager.actionState is PlayerShootingState) {
-      if (shootCounter <= equippedWeapon.fireRate) { 
-        stateManager.currentShootingState = PlayerStateManager.ShootingState.Aim;
-        return;
-      } 
-      if (stateManager.movementState is PlayerMovingState) {
-        xDirection = movementManager.isFacingRight ? 1 : -1;
-        equippedWeapon.Shoot(xDirection, 0, movingFirePoint);
-      }
-      if (stateManager.movementState is PlayerAimState) {
-        if (xDirection == 0 && yDirection == 0) {
-          xDirection = movementManager.isFacingRight ? 1 : -1;
-        }
-        equippedWeapon.Shoot(xDirection, yDirection, firePoints[PlayerInputManager.CurrentCoordinate]);
-      } 
-      if (stateManager.movementState is PlayerIdleState) {
-        xDirection = movementManager.isFacingRight ? 1 : -1;
-        equippedWeapon.Shoot(xDirection, 0, firePoints[PlayerInputManager.AimDirection.Front]);
-      }
-
-      shootCounter = 0f;
-      // Here you should change the shooting state
-      stateManager.currentShootingState = PlayerStateManager.ShootingState.Recoil;
     }
   }
 
   /// <summary>
-  /// Based on the enum provided, it returns the right weapon game object
+  /// Calls the weapon Shoot method with the right directions and spawn point
+  /// </summary>
+  private void HandleShoot() {
+    if (stateManager.actionState is PlayerShootingState) {
+      if (shootCounter <= equippedWeapon.fireRate) return;
+      GetDirections();
+      switch (stateManager.movementState) {
+        case PlayerMovingState: 
+          CalculateDirection();
+          equippedWeapon.Shoot(xDirection, yDirection, 
+            movingFirePoint);
+          break;
+
+        case PlayerAimState: 
+          CalculateDirectionOnAim();
+          equippedWeapon.Shoot(xDirection, yDirection, 
+            firePoints[PlayerInputManager.CurrentCoordinate]);
+          break;
+
+        case PlayerJumpingState:
+          CalculateDirection();
+          // todo: Add firepoint for jumping state
+          break;
+
+        case PlayerCrouchState:
+          CalculateDirection();
+          // todo: Add firePoint for crouching state
+          break;
+
+        case PlayerIdleState:
+          CalculateDirection();
+          equippedWeapon.Shoot(xDirection, 0, 
+            firePoints[PlayerInputManager.AimDirection.Front]);
+          break;
+      }
+      shootCounter = 0f;
+    }
+  }
+
+  /// <summary>
+  /// Based on current weapon id, Instantiate correct weapon and return the instance
   /// </summary>
   private GameObject EquipWeaponsObj(GameData.Weapon weapon) {
     GameObject obj = null;
@@ -129,21 +166,22 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
         obj = Instantiate(Resources.Load<GameObject>("Peashooter__Weapon"), transform);
         break;
 
+      case GameData.Weapon.Chase:
+        obj = Instantiate(Resources.Load<GameObject>("Chaser__Weapon"), transform);
+        break;
+
       default:
         break;
     }
     return obj;
   }
   
+  /// <summary>
+  /// Loads current equipped weapon id
+  /// </summary>
   public void LoadData(GameData gameData) {
     firstWeaponId = gameData.equippedWeapon["first"];
     secondWeaponId = gameData.equippedWeapon["second"];
   }
-
   public void SaveData(ref GameData gameData) {}
-
-  public void HandleAimPosition(int x, int y) {
-    xDirection = x;
-    yDirection = y;
-  }
 }

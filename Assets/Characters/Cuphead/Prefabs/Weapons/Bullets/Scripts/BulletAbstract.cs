@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages the Bullet prefab, so it's speed, damage, lifetime and collisions
+/// </summary>
 public abstract class Bullet : MonoBehaviour {
   [Header("Bullet properties")]
   public float damage = 10f;
@@ -17,19 +20,25 @@ public abstract class Bullet : MonoBehaviour {
     animator = GetComponent<Animator>();
     weaponManager = FindFirstObjectByType<WeaponManager>();
   }
-
   protected virtual void OnEnable() {
     lifeTimer = lifeTime;
   }
-  protected virtual void OnDisable() {}
 
-  protected virtual void Update() {
+  protected virtual void FixedUpdate() {
     HandleLifeTimer();
     HandleMove();
   }
 
+  /// <summary>
+  /// By default does nothing.
+  /// Use this to add additional movement to the bullet, like a bounce or chaseing mechanic
+  /// </summary>
   protected virtual void HandleMove() {}
 
+  /// <summary>
+  /// By default subtracts every frame the bullet time, and returns it at the end.
+  /// Use this to add additional actions at the end, like an explosion.
+  /// </summary>
   protected virtual void HandleLifeTimer() {
     lifeTimer -= Time.deltaTime;
     if (lifeTimer <= 0f) {
@@ -37,18 +46,11 @@ public abstract class Bullet : MonoBehaviour {
     }
   }
 
-  public virtual void FlipBullet() {
-    Vector3 ls = transform.localScale;
-    ls.x = -1f;
-    transform.localScale = ls;
-  }
-
-  protected virtual void OnTriggerEnter2D(Collider2D other) {
-    HandleCollision(other);
-  }
-
+  /// <summary>
+  /// By default deals damage to the other collider, stops the bullet and plays explode animation.
+  /// Use this to add additional actions to the collider, like a damage over time.
+  /// </summary>
   protected virtual void HandleCollision(Collider2D other) {
-
     IDamageable damageable = other.GetComponent<IDamageable>();
     if (damageable != null) {
       damageable.TakeDamage(damage);
@@ -61,7 +63,14 @@ public abstract class Bullet : MonoBehaviour {
     rb.linearVelocityY = 0f;
   }
 
+  /// <summary>
+  /// This method runs whenever the ExplosionAnimation of the bullet ends.
+  /// </summary>
   protected virtual void OnExplosionAnimationEnd() {
     weaponManager.ReturnBullet(gameObject);
+  }
+
+  protected virtual void OnTriggerEnter2D(Collider2D other) {
+    HandleCollision(other);
   }
 }

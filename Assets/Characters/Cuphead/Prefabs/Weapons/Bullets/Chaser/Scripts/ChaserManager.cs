@@ -4,8 +4,8 @@ public class ChaserBullet : Bullet {
   public Transform target;          // The target to home in on
   public float turnSpeed = 200f;    // Speed at which the bullet turns towards the target
 
-  protected override void Update() {
-    base.Update(); // Handle lifetime and movement
+  protected override void FixedUpdate() {
+    base.FixedUpdate(); // Handle lifetime and movement
 
     if (target != null) {
       Vector2 directionToTarget = ((Vector2)target.position - rb.position).normalized;

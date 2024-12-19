@@ -1,6 +1,8 @@
 using UnityEngine;
 
-/// Class used to play the sparkle animation.
+/// <summary>
+/// Manages the Sparkle prefab, so the creation and the AnimationEnd
+/// </summary>
 public abstract class BulletSparkle: MonoBehaviour {
   private WeaponManager weaponManager;
 
@@ -8,6 +10,9 @@ public abstract class BulletSparkle: MonoBehaviour {
     weaponManager = FindFirstObjectByType<WeaponManager>();
   }
 
+  /// <summary>
+  /// This method runs whenever the ExplosionAnimation of the bullet ends.
+  /// </summary>
   public virtual void OnSparkleAnimationEnd() {
     weaponManager.ReturnSparkle(gameObject);
   }
