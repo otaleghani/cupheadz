@@ -43,11 +43,7 @@ public class PlayerShootingState : IPlayerActionState {
         }
         break;
       case PlayerMovingState:
-        if (stateManager.currentShootingState == PlayerStateManager.ShootingState.Aim) {
-          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.RunningShootingAim);
-        } else {
-          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.RunningShootingRecoil);
-        }
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.RunningShooting);
         previousMovementState = stateManager.movementState.GetType();
         break;
 

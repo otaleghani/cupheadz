@@ -68,7 +68,10 @@ public class PlayerIdleState : IPlayerMovementState {
   }
 
   private void HandleStateAnimation() {
-    if (!animatorManager.isCrouchingExit) {
+    if (!animatorManager.isCrouchingExit &&
+        stateManager.actionState is not PlayerShootingState &&
+        stateManager.actionState is not PlayerExShootingState &&
+        stateManager.actionState is not PlayerSuperState) {
       animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Idle);
     }
   }

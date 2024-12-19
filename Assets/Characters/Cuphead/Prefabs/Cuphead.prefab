@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstWeaponId: 0
-  secondWeaponId: 0
+  secondWeaponId: 9
 --- !u!1 &1618244922364202227
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +428,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFacingRight: 1
   movementSpeed: 4
-  movementDirection: 0
   dashSpeed: 10
   dashCooldown: 0
   dashMaxCooldown: 1
@@ -436,7 +435,10 @@ MonoBehaviour:
   isDashing: 0
   maxJumpTime: 0.2
   minJumpTime: 0.05
-  isGrounded: 0
+  jumpHoldTimer: 0
+  jumpForce: 10
+  jumpAcceleration: 0.1
+  isGrounded: 1
   isJumping: 0
   jumpHoldReleased: 0
 --- !u!114 &3579665745255740251
@@ -453,6 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xPosition: 0
   yPosition: 0
+  currentVector: {x: 0, y: 0}
 --- !u!114 &6487106464912553194
 MonoBehaviour:
   m_ObjectHideFlags: 0

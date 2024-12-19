@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7530173281340307549}
   - component: {fileID: 5081464916761545460}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletPoolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 73cca444434a1d19d73e4ee64b401a4b00000000c9b8bf40
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

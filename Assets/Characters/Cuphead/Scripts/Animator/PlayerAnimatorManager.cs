@@ -22,8 +22,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     Dead,
     Idle,
     Running,
-    RunningShootingAim,
-    RunningShootingRecoil,
+    RunningShooting,
     Jumping,
     Crouching,
     CrouchingIdle,
@@ -58,13 +57,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public Dictionary<PlayerInputManager.AimDirection, PlayerAnimations> shootRecoilAnimations = 
     new Dictionary<PlayerInputManager.AimDirection, PlayerAnimations>();
 
-  private PlayerAnimations currentAnimation = PlayerAnimations.Idle;
-
   public void ChangeAnimation(PlayerAnimations animation) {
-    if (currentAnimation != animation) {
-      animator.Play(animations[animation]);
-      currentAnimation = animation;
-    }
+    animator.Play(animations[animation]);
   }
 
   void Awake() {
@@ -74,8 +68,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     animations[PlayerAnimations.Dead] = "Dead";
     animations[PlayerAnimations.Idle] = "Idle";
     animations[PlayerAnimations.Running] = "Running";
-    animations[PlayerAnimations.RunningShootingAim] = "RunningShootingAim";
-    animations[PlayerAnimations.RunningShootingRecoil] = "RunningShootingRecoil";
+    animations[PlayerAnimations.RunningShooting] = "RunningShooting";
     animations[PlayerAnimations.Jumping] = "Jumping";
     animations[PlayerAnimations.Crouching] = "Crouching";
     animations[PlayerAnimations.CrouchingIdle] = "CrouchingIdle";
@@ -98,7 +91,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     animations[PlayerAnimations.ShootingAimFront] = "ShootingAimFront";
     animations[PlayerAnimations.ShootingAimUp] = "ShootingAimUp";
     animations[PlayerAnimations.ShootingAimDown] = "ShootingAimDown";
-    animations[PlayerAnimations.ShootingAimDiagonalUp] = "ShootinAimgDiagonalUp";
+    animations[PlayerAnimations.ShootingAimDiagonalUp] = "ShootingAimDiagonalUp";
     animations[PlayerAnimations.ShootingAimDiagonalDown] = "ShootingAimDiagonalDown";
 
     animations[PlayerAnimations.Parrying] = "Parrying";

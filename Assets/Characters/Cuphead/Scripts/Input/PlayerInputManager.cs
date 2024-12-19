@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 
 /// <summary>
 /// Handles the player input with event Actions. A script can subscribe to one or more events 
@@ -19,8 +19,8 @@ public class PlayerInputManager : MonoBehaviour {
   public int xPosition = 0;
   public int yPosition = 0;
   public Vector2 currentVector;
-  //public static Dictionary<string, PlayerInputManager.AimDirection> coordinates = 
-  //  new Dictionary<string, PlayerInputManager.AimDirection>();
+  public static Dictionary<string, PlayerInputManager.AimDirection> coordinates = 
+    new Dictionary<string, PlayerInputManager.AimDirection>();
   public static AimDirection CurrentCoordinate = AimDirection.Front;
 
   public event Action<Vector2> OnMovePerformed;
@@ -64,15 +64,15 @@ public class PlayerInputManager : MonoBehaviour {
     shootEXAction = playerInput.actions["ShootEX"];
     switchWeaponAction = playerInput.actions["SwitchWeapon"];
 
-    //coordinates["0,1"] = PlayerInputManager.AimDirection.Up;
-    //coordinates["0,-1"] = PlayerInputManager.AimDirection.Down;
-    //coordinates["1,0"] = PlayerInputManager.AimDirection.Front;
-    //coordinates["0,0"] = PlayerInputManager.AimDirection.Front;
-    //coordinates["-1,0"] = PlayerInputManager.AimDirection.Front;
-    //coordinates["1,1"] = PlayerInputManager.AimDirection.DiagonalUp;
-    //coordinates["-1,1"] = PlayerInputManager.AimDirection.DiagonalUp;
-    //coordinates["1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
-    //coordinates["-1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
+    coordinates["0,1"] = PlayerInputManager.AimDirection.Up;
+    coordinates["0,-1"] = PlayerInputManager.AimDirection.Down;
+    coordinates["1,0"] = PlayerInputManager.AimDirection.Front;
+    coordinates["0,0"] = PlayerInputManager.AimDirection.Front;
+    coordinates["-1,0"] = PlayerInputManager.AimDirection.Front;
+    coordinates["1,1"] = PlayerInputManager.AimDirection.DiagonalUp;
+    coordinates["-1,1"] = PlayerInputManager.AimDirection.DiagonalUp;
+    coordinates["1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
+    coordinates["-1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
   }
 
   void OnEnable() {
@@ -117,14 +117,14 @@ public class PlayerInputManager : MonoBehaviour {
     currentVector = context.ReadValue<Vector2>();
     int x = Mathf.RoundToInt(currentVector.x);
     int y = Mathf.RoundToInt(currentVector.y);
-    //CurrentCoordinate = coordinates[x + "," + y];
+    CurrentCoordinate = coordinates[x + "," + y];
     xPosition = x;
     yPosition = y;
     OnSerializedMovePerformed?.Invoke(x,y);
     OnMovePerformed?.Invoke(currentVector);
   }
   private void OnMoveActionCanceled(InputAction.CallbackContext context) {
-    //CurrentCoordinate = coordinates["0,0"];
+    CurrentCoordinate = coordinates["0,0"];
     OnSerializedMoveCanceled?.Invoke(0,0);
     xPosition = 0;
     yPosition = 0;

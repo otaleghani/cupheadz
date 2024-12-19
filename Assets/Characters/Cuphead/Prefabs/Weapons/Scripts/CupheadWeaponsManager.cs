@@ -49,9 +49,9 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
 
   void Start() {
     firstWeaponObj = EquipWeaponsObj(firstWeaponId);
-    secondWeaponObj = EquipWeaponsObj(secondWeaponId);
+    //secondWeaponObj = EquipWeaponsObj(secondWeaponId);
     firstWeapon = firstWeaponObj.GetComponent<WeaponManager>();
-    secondWeapon = secondWeaponObj.GetComponent<WeaponManager>();
+    //secondWeapon = secondWeaponObj.GetComponent<WeaponManager>();
     equippedWeapon = firstWeapon;
   }
 
@@ -152,6 +152,7 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
             firePoints[PlayerInputManager.AimDirection.Front]);
           break;
       }
+      stateManager.currentShootingState = PlayerStateManager.ShootingState.Recoil;
       shootCounter = 0f;
     }
   }
@@ -164,10 +165,17 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     switch (weapon) {
       case GameData.Weapon.Peashooter: 
         obj = Instantiate(Resources.Load<GameObject>("Peashooter__Weapon"), transform);
+        obj.name = "Peashooter__Weapon";
         break;
 
       case GameData.Weapon.Chase:
         obj = Instantiate(Resources.Load<GameObject>("Chaser__Weapon"), transform);
+        obj.name = "Chaser__Weapon";
+        break;
+
+      case GameData.Weapon.None:
+        obj = Instantiate(Resources.Load<GameObject>("Chaser__Weapon"), transform);
+        obj.name = "Chaser__Weapon";
         break;
 
       default:

@@ -13,7 +13,7 @@ public abstract class Bullet : MonoBehaviour {
   public Rigidbody2D rb;
   public Animator animator;
   public Vector2 direction = Vector2.right;
-  private WeaponManager weaponManager;
+  public WeaponManager weaponManager;
 
   protected virtual void Awake() {
     rb = GetComponent<Rigidbody2D>();
@@ -42,7 +42,7 @@ public abstract class Bullet : MonoBehaviour {
   protected virtual void HandleLifeTimer() {
     lifeTimer -= Time.deltaTime;
     if (lifeTimer <= 0f) {
-      weaponManager.ReturnBullet(gameObject);
+      weaponManager.ReturnBullet(this.gameObject);
     }
   }
 
@@ -67,7 +67,7 @@ public abstract class Bullet : MonoBehaviour {
   /// This method runs whenever the ExplosionAnimation of the bullet ends.
   /// </summary>
   protected virtual void OnExplosionAnimationEnd() {
-    weaponManager.ReturnBullet(gameObject);
+    weaponManager.ReturnBullet(this.gameObject);
   }
 
   protected virtual void OnTriggerEnter2D(Collider2D other) {

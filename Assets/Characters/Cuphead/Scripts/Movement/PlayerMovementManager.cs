@@ -21,8 +21,8 @@ public class PlayerMovementManager : MonoBehaviour {
   public bool isDashing = false;
 
   [Header("Jump")]
-  [SerializeField] private float maxJumpTime = 5f;
-  [SerializeField] private float minJumpTime = 5f;
+  [SerializeField] private float maxJumpTime = 0.2f;
+  [SerializeField] private float minJumpTime = 0.05f;
   [SerializeField] private float jumpHoldTimer = 0f;
   [SerializeField] private float jumpForce = 10f;
   [SerializeField] private float jumpAcceleration = 0.1f;
