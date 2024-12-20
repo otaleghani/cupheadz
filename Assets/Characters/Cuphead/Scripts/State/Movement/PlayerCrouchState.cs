@@ -19,6 +19,7 @@ public class PlayerCrouchState : IPlayerMovementState {
     this.animatorManager = animatorManager;
 
     this.inputManager.OnCrouchCanceled += HandleCrouchCanceled;
+    this.inputManager.OnJumpPerformed += HandleDropOff;
     this.animatorManager.isCrouchingEnter = true;
     HandleStateAnimation();
     this.movementManager.MoveStop();
@@ -30,6 +31,7 @@ public class PlayerCrouchState : IPlayerMovementState {
 
   public void ExitState() {
     inputManager.OnCrouchCanceled -= HandleCrouchCanceled;
+    inputManager.OnJumpPerformed -= HandleDropOff;
   }
 
   private void HandleCrouchCanceled() {
@@ -40,6 +42,15 @@ public class PlayerCrouchState : IPlayerMovementState {
     } else {
       stateManager.ChangeMovementState(new PlayerMovingState());
     }
+  }
+
+  private void HandleDropOff() {
+    IDropOffGround dropOffGround = movementManager.currentGround.GetComponent<IDropOffGround>();
+    if (dropOffGround != null) {
+      dropOffGround.DeactivateCollider(1f);
+    }
+    // I don't know if you would actually need to do this
+    stateManager.ChangeMovementState(new PlayerJumpingState());
   }
 
   private void HandleStateAnimation() {

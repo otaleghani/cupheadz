@@ -17,6 +17,7 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private PlayerStateManager stateManager;
   private PlayerMovementManager movementManager;
   private PlayerInputManager inputManager;
+  private PlayerAnimatorManager animatorManager;
 
   public GameData.Weapon firstWeaponId;
   public GameData.Weapon secondWeaponId;
@@ -34,10 +35,11 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private int xDirection;
   private int yDirection;
 
-  void Awake() {
+  private void Awake() {
     stateManager = GetComponentInParent<PlayerStateManager>();
     movementManager = GetComponentInParent<PlayerMovementManager>();
     inputManager = GetComponentInParent<PlayerInputManager>();
+    animatorManager = GetComponentInParent<PlayerAnimatorManager>();
 
     firePoints[PlayerInputManager.AimDirection.Up] = transform.Find("Up");
     firePoints[PlayerInputManager.AimDirection.Down] = transform.Find("Down");
@@ -47,11 +49,19 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     movingFirePoint = transform.Find("Moving");
   }
 
+  private void OnEnable() {
+    animatorManager.OnExShootingAnimationMidPoint += HandleShootEx;
+  }
+  private void OnDisable() {
+    animatorManager.OnExShootingAnimationMidPoint -= HandleShootEx;
+  }
+
+
   void Start() {
     firstWeaponObj = EquipWeaponsObj(firstWeaponId);
-    //secondWeaponObj = EquipWeaponsObj(secondWeaponId);
+    secondWeaponObj = EquipWeaponsObj(secondWeaponId);
     firstWeapon = firstWeaponObj.GetComponent<WeaponManager>();
-    //secondWeapon = secondWeaponObj.GetComponent<WeaponManager>();
+    secondWeapon = secondWeaponObj.GetComponent<WeaponManager>();
     equippedWeapon = firstWeapon;
   }
 
@@ -80,39 +90,37 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   /// Calls the weapon ShootEx method with the right directions and spawn point
   /// </summary>
   private void HandleShootEx() {
-    if (stateManager.actionState is PlayerExShootingState) {
-      if (exShootCounter <= equippedWeapon.exFireRate) return;
-      GetDirections();
-      switch (stateManager.movementState) {
-        case PlayerMovingState: 
-          CalculateDirection();
-          equippedWeapon.ExShoot(xDirection, yDirection, 
-            movingFirePoint);
-          break;
+    GetDirections();
+    // Todo: The player should stop, play the animation in the current moving state
+    switch (stateManager.movementState) {
 
-        case PlayerAimState: 
-          CalculateDirectionOnAim();
-          equippedWeapon.ExShoot(xDirection, yDirection, 
-            firePoints[PlayerInputManager.CurrentCoordinate]);
-          break;
+      //case PlayerMovingState: 
+      //  CalculateDirection();
+      //  equippedWeapon.ExShoot(xDirection, yDirection, 
+      //    movingFirePoint);
+      //  break;
 
-        case PlayerJumpingState:
-          CalculateDirection();
-          // todo: Add firepoint for jumping state
-          break;
+      case PlayerAimState: 
+        CalculateDirectionOnAim();
+        equippedWeapon.ExShoot(xDirection, yDirection, 
+          firePoints[PlayerInputManager.CurrentCoordinate]);
+        break;
 
-        case PlayerCrouchState:
-          CalculateDirection();
-          // todo: Add firePoint for crouching state
-          break;
+      case PlayerJumpingState:
+        CalculateDirection();
+        // todo: Add firepoint for jumping state
+        break;
 
-        case PlayerIdleState:
-          CalculateDirection();
-          equippedWeapon.ExShoot(xDirection, 0, 
-            firePoints[PlayerInputManager.AimDirection.Front]);
-          break;
-      }
-      exShootCounter = 0f;
+      case PlayerCrouchState:
+        CalculateDirection();
+        // todo: Add firePoint for crouching state
+        break;
+
+      case PlayerIdleState:
+        CalculateDirection();
+        equippedWeapon.ExShoot(xDirection, 0, 
+          firePoints[PlayerInputManager.AimDirection.Front]);
+        break;
     }
   }
 

@@ -22,6 +22,7 @@ public class PlayerInputManager : MonoBehaviour {
   public static Dictionary<string, PlayerInputManager.AimDirection> coordinates = 
     new Dictionary<string, PlayerInputManager.AimDirection>();
   public static AimDirection CurrentCoordinate = AimDirection.Front;
+  public static AimDirection CurrentOppositeCoordinate = AimDirection.Front;
 
   public event Action<Vector2> OnMovePerformed;
   public event Action OnMoveCanceled;
@@ -118,6 +119,7 @@ public class PlayerInputManager : MonoBehaviour {
     int x = Mathf.RoundToInt(currentVector.x);
     int y = Mathf.RoundToInt(currentVector.y);
     CurrentCoordinate = coordinates[x + "," + y];
+    CurrentOppositeCoordinate = coordinates[-x + "," + -y];
     xPosition = x;
     yPosition = y;
     OnSerializedMovePerformed?.Invoke(x,y);
@@ -125,6 +127,7 @@ public class PlayerInputManager : MonoBehaviour {
   }
   private void OnMoveActionCanceled(InputAction.CallbackContext context) {
     CurrentCoordinate = coordinates["0,0"];
+    CurrentOppositeCoordinate = coordinates["0,0"];
     OnSerializedMoveCanceled?.Invoke(0,0);
     xPosition = 0;
     yPosition = 0;

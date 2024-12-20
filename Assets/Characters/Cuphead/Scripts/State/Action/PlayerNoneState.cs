@@ -31,8 +31,10 @@ public class PlayerNoneState : IPlayerActionState {
     // Here I need to actually calculate the shooting data
     if (stateManager.superMeter >= 5f) {
       stateManager.ChangeActionState(new PlayerSuperState());
+      stateManager.ChangeMovementState(new PlayerLockedState());
     } else if (stateManager.superMeter >= 1f) {
       stateManager.ChangeActionState(new PlayerExShootingState());
+      stateManager.ChangeMovementState(new PlayerLockedState());
     }
   }
 }

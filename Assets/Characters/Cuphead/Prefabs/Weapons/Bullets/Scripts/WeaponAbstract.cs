@@ -11,10 +11,12 @@ public abstract class WeaponManager : MonoBehaviour {
   public virtual string weaponPrefabName {get; protected set;} = "Peashooter__Bullet";
   public virtual string sparklePrefabName {get; protected set;} = "Peashooter__Sparkle";
   public virtual string exWeaponPrefabName {get; protected set;} = "Peashooter__ExBullet";
+  public virtual string exSfxPrefabName {get; protected set;} = "ExShooterSfx";
 
   private GameObject bulletPrefab = null;
   private GameObject sparklePrefab = null;
   private GameObject exBulletPrefab = null;
+  private GameObject exSfxPrefab = null;
 
   private Bullet bulletData;
   private ExBullet exBulletData;
@@ -22,9 +24,11 @@ public abstract class WeaponManager : MonoBehaviour {
   private Queue<GameObject> bulletPoolQueue = new Queue<GameObject>();
   private Queue<GameObject> sparklePoolQueue = new Queue<GameObject>();
   private Queue<GameObject> exBulletPoolQueue = new Queue<GameObject>();
+  private Queue<GameObject> exSfxPoolQueue = new Queue<GameObject>();
 
   private int _poolBulletSize = 20;
   private int _poolExBulletSize = 6;
+  private int _poolExSfxSize = 6;
 
   protected virtual int PoolBulletSize {
     get { return _poolBulletSize; }
@@ -34,11 +38,16 @@ public abstract class WeaponManager : MonoBehaviour {
     get { return _poolExBulletSize; }
     set { _poolExBulletSize = value; }
   }
+  protected virtual int PoolExSfxSize {
+    get { return _poolExSfxSize; }
+    set { _poolExSfxSize = value; }
+  }
 
   protected virtual void Start() {
     bulletPrefab = Resources.Load<GameObject>(weaponPrefabName);
     sparklePrefab = Resources.Load<GameObject>(sparklePrefabName);
     exBulletPrefab = Resources.Load<GameObject>(exWeaponPrefabName);
+    exSfxPrefab = Resources.Load<GameObject>(exSfxPrefabName);
     bulletData = bulletPrefab.GetComponent<Bullet>();
     exBulletData = exBulletPrefab.GetComponent<ExBullet>();
 
@@ -48,7 +57,7 @@ public abstract class WeaponManager : MonoBehaviour {
   /// <summary>
   /// Calculates the direction and the angle, then activates a bullet from the pool
   /// </summary>
-  public virtual void ExShoot(int x, int y, Transform spawn) {
+  public virtual void ExShoot(int x, int y, Transform spawn, Transform sfxSpawn) {
     if (x == 0 && y == 0) {
       Debug.LogWarning("Shoot function called with zero direction.");
       return;
@@ -56,7 +65,24 @@ public abstract class WeaponManager : MonoBehaviour {
 
     Vector2 direction = GetDirection(x, y);
     float angle = GetAngle(direction.x, direction.y);
-    SpawnExBUlletFromPool(direction, angle, spawn);
+    SpawnExBulletFromPool(direction, angle, spawn);
+
+    // Opposite sfx
+    int oX = -x;
+    int oY = -y;
+    Vector2 sfxCenterDirection = GetDirection(oX, oY);
+    float sfxCenterAngle = GetAngle(oX, oY);
+    SpawnExSfxFromPool(sfxCenterDirection, sfxCenterAngle, sfxSpawn);
+    
+    // Opposite-top sfx
+    Vector2 sfxTopDirection = GetDirection(-oY, oX);
+    float sfxTopAngle = GetAngle(-oY, oX);
+    SpawnExSfxFromPool(sfxTopDirection, sfxTopAngle, sfxSpawn);
+    
+    // Opposite-down sfx
+    Vector2 sfxDownDirection = GetDirection(oY, -oX);
+    float sfxDownAngle = GetAngle(oY, -oX);
+    SpawnExSfxFromPool(sfxDownDirection, sfxDownAngle, sfxSpawn);
   }
 
   /// <summary>
@@ -94,7 +120,7 @@ public abstract class WeaponManager : MonoBehaviour {
   /// <summary>
   /// Activates an ExBullet from the pool, setting it's direction, rotation and velocity
   /// </summary>
-  protected virtual void SpawnExBUlletFromPool(Vector2 direction, float angle, Transform spawn) {
+  protected virtual void SpawnExBulletFromPool(Vector2 direction, float angle, Transform spawn) {
     GameObject exBulletInstance = GetExBullet();
     exBulletInstance.transform.position = spawn.position;
     exBulletInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -109,6 +135,18 @@ public abstract class WeaponManager : MonoBehaviour {
     GameObject sparkleInstance = GetSparkle();
     sparkleInstance.transform.SetPositionAndRotation(spawn.position, Quaternion.Euler(0, 0, angle));
   }
+
+  /// <summary>
+  /// Activates a ExSfx from the pool, setting it's direction, rotation and velocity
+  /// </summary>
+  protected virtual void SpawnExSfxFromPool(Vector2 direction, float angle, Transform spawn) {
+    GameObject sfxInstace= GetExSfx();
+    sfxInstace.transform.position = spawn.position;
+    sfxInstace.transform.rotation = Quaternion.Euler(0, 0, angle);
+    Rigidbody2D rb= sfxInstace.GetComponent<Rigidbody2D>();
+    rb.linearVelocity = new Vector2(direction.x * 1f, direction.y * 1f);
+  }
+  //protected virtual void
 
   /// <summary>
   /// Instantiate a Game Object, deactivates it and then places it the respective pool
@@ -127,6 +165,11 @@ public abstract class WeaponManager : MonoBehaviour {
       exBullet.SetActive(false);
       exBulletPoolQueue.Enqueue(exBullet);
     }
+    for (int i = 0; i < _poolExSfxSize; i++) {
+      GameObject exSfx = InstantiateExSfx();
+      exSfx.SetActive(false);
+      exSfxPoolQueue.Enqueue(exSfx);
+    }
   }
 
   /// <summary>
@@ -140,6 +183,9 @@ public abstract class WeaponManager : MonoBehaviour {
   }
   protected GameObject InstantiateExBullet() {
     return Instantiate(exBulletPrefab, BulletPoolManager.Instance.transform);
+  }
+  protected GameObject InstantiateExSfx() {
+    return Instantiate(exSfxPrefab, BulletPoolManager.Instance.transform);
   }
 
 
@@ -193,5 +239,21 @@ public abstract class WeaponManager : MonoBehaviour {
   public void ReturnExBullet(GameObject exBullet) {
     exBullet.SetActive(false);
     exBulletPoolQueue.Enqueue(exBullet);
+  }
+
+  protected GameObject GetExSfx() {
+    if (exSfxPoolQueue.Count > 0) {
+      GameObject exSfx = exSfxPoolQueue.Dequeue();
+      exSfx.SetActive(true);
+      return exSfx;
+    } else {
+      GameObject exSfx = InstantiateExSfx();
+      exSfx.SetActive(true);
+      return exSfx;
+    }
+  }
+  public void ReturnExSfx(GameObject exSfx) {
+    exSfx.SetActive(false);
+    exSfxPoolQueue.Enqueue(exSfx);
   }
 }

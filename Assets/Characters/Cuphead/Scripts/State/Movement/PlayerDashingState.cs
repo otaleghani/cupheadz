@@ -17,6 +17,7 @@ public class PlayerDashingState : IPlayerMovementState {
     this.animatorManager.OnDashingAnimationEnd += DashAnimationFinished;
     HandleStateAnimation();
     movementManager.isDashing = true;
+    movementManager.HoldYPosition();
   }
 
   public void UpdateState() {
@@ -28,6 +29,7 @@ public class PlayerDashingState : IPlayerMovementState {
 
   public void ExitState() {
     this.animatorManager.OnDashingAnimationEnd -= DashAnimationFinished;
+    movementManager.ReleaseHoldPosition();
   }
 
   private void HandleStateAnimation() {

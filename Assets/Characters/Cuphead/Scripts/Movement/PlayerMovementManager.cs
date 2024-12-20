@@ -9,20 +9,21 @@ using UnityEngine;
 public class PlayerMovementManager : MonoBehaviour {
   [Header("General")]
   public bool isFacingRight = true;
+  public Collider2D currentGround;
   
   [Header("Movement")]
-  [SerializeField] private float movementSpeed = 6f;
+  [SerializeField] private float movementSpeed = 7f;
 
   [Header("Dash")]
-  [SerializeField] private float dashSpeed = 6f;
+  [SerializeField] private float dashSpeed = 12f;
   [SerializeField] private float dashCooldown;
   public float dashMaxCooldown = 1f;
   public bool isDashingCooldown = false;
   public bool isDashing = false;
 
   [Header("Jump")]
-  [SerializeField] private float maxJumpTime = 0.2f;
-  [SerializeField] private float minJumpTime = 0.05f;
+  [SerializeField] private float maxJumpTime = 0.25f;
+  [SerializeField] private float minJumpTime = 0.055f;
   [SerializeField] private float jumpHoldTimer = 0f;
   [SerializeField] private float jumpForce = 10f;
   [SerializeField] private float jumpAcceleration = 0.1f;
@@ -45,6 +46,23 @@ public class PlayerMovementManager : MonoBehaviour {
     HandleJump();
     HandleMove();
     HandleFlipCharacter();
+  }
+
+  /// <summary>
+  /// Helper function used to stop the player character in the current position.
+  /// </summary>
+  public void HoldPosition() {
+    //rb.gravityScale = 0f;
+    rb.linearVelocity = new Vector2(0f, 0f);
+    rb.constraints = RigidbodyConstraints2D.FreezeAll;
+  }
+  public void ReleaseHoldPosition() {
+    rb.constraints = RigidbodyConstraints2D.None;
+  }
+  public void HoldYPosition() {
+    //rb.gravityScale = 0f;
+    rb.linearVelocity = new Vector2(rb.linearVelocityX, 0f);
+    rb.constraints = RigidbodyConstraints2D.FreezePositionY;
   }
 
   /// <summary>
@@ -149,9 +167,15 @@ public class PlayerMovementManager : MonoBehaviour {
   /// Collide with ground
   /// </summary>
   private void OnTriggerEnter2D(Collider2D collision) {
+    if (collision.CompareTag("Ground")) {
+      isGrounded = true;
+      isJumping = false;
+      jumpHoldReleased = true;
+      currentGround = collision;
+    }
+    if (collision.CompareTag("Enemy") || collision.CompareTag("Bullet")) {
+      // take damage
+    }
     // todo: check if the trigger collider was actually the ground or not
-    isGrounded = true;
-    isJumping = false;
-    jumpHoldReleased = true;
   }
 }

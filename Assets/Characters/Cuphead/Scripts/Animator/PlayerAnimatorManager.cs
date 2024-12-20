@@ -17,6 +17,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public bool isCrouchingExit = false;
 
   public event Action OnDashingAnimationEnd;
+  public event Action OnExShootingAnimationMidPoint;
+  public event Action OnExShootingAnimationEnd;
 
   public enum PlayerAnimations {
     Dead,
@@ -46,6 +48,16 @@ public class PlayerAnimatorManager : MonoBehaviour {
     ShootingAimDiagonalUp,
     ShootingAimDiagonalDown,
     Parrying,
+    ShootingExGroundUp,
+    ShootingExGroundDown,
+    ShootingExGroundFront,
+    ShootingExGroundDiagonalUp,
+    ShootingExGroundDiagonalDown,
+    ShootingExAirUp,
+    ShootingExAirDown,
+    ShootingExAirFront,
+    ShootingExAirDiagonalUp,
+    ShootingExAirDiagonalDown,
   }
 
   private Dictionary<PlayerAnimations, string> animations = 
@@ -55,6 +67,10 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public Dictionary<PlayerInputManager.AimDirection, PlayerAnimations> shootAimAnimations = 
     new Dictionary<PlayerInputManager.AimDirection, PlayerAnimations>();
   public Dictionary<PlayerInputManager.AimDirection, PlayerAnimations> shootRecoilAnimations = 
+    new Dictionary<PlayerInputManager.AimDirection, PlayerAnimations>();
+  public Dictionary<PlayerInputManager.AimDirection, PlayerAnimations> shootExGroundAnimations =
+    new Dictionary<PlayerInputManager.AimDirection, PlayerAnimations>();
+  public Dictionary<PlayerInputManager.AimDirection, PlayerAnimations> shootExAirAnimations =
     new Dictionary<PlayerInputManager.AimDirection, PlayerAnimations>();
 
   public void ChangeAnimation(PlayerAnimations animation) {
@@ -96,6 +112,18 @@ public class PlayerAnimatorManager : MonoBehaviour {
 
     animations[PlayerAnimations.Parrying] = "Parrying";
 
+    animations[PlayerAnimations.ShootingExGroundUp] = "ShootingExGroundUp";
+    animations[PlayerAnimations.ShootingExGroundDown] = "ShootingExGroundDown";
+    animations[PlayerAnimations.ShootingExGroundFront] = "ShootingExGroundFront";
+    animations[PlayerAnimations.ShootingExGroundDiagonalUp] = "ShootingExGroundDiagonalUp";
+    animations[PlayerAnimations.ShootingExGroundDiagonalDown] = "ShootingExGroundDiagonalDown";
+    animations[PlayerAnimations.ShootingExAirUp] = "ShootingExAirUp";
+    animations[PlayerAnimations.ShootingExAirDown] = "ShootingExAirDown";
+    animations[PlayerAnimations.ShootingExAirFront] = "ShootingExAirFront";
+    animations[PlayerAnimations.ShootingExAirDiagonalUp] = "ShootingExAirDiagonalUp";
+    animations[PlayerAnimations.ShootingExAirDiagonalDown] = "ShootingExAirDiagonalDown";
+
+
     aimAnimations[PlayerInputManager.AimDirection.Front] = 
       PlayerAnimations.AimingFront;
     aimAnimations[PlayerInputManager.AimDirection.Up] =
@@ -128,6 +156,28 @@ public class PlayerAnimatorManager : MonoBehaviour {
       PlayerAnimations.ShootingRecoilDiagonalUp;
     shootRecoilAnimations[PlayerInputManager.AimDirection.DiagonalDown] = 
       PlayerAnimations.ShootingRecoilDiagonalDown;
+
+    shootExGroundAnimations[PlayerInputManager.AimDirection.Front] = 
+      PlayerAnimations.ShootingExGroundFront;
+    shootExGroundAnimations[PlayerInputManager.AimDirection.Up] = 
+      PlayerAnimations.ShootingExGroundUp;
+    shootExGroundAnimations[PlayerInputManager.AimDirection.Down] = 
+      PlayerAnimations.ShootingExGroundDown;
+    shootExGroundAnimations[PlayerInputManager.AimDirection.DiagonalUp] = 
+      PlayerAnimations.ShootingExGroundDiagonalUp;
+    shootExGroundAnimations[PlayerInputManager.AimDirection.DiagonalDown] = 
+      PlayerAnimations.ShootingExGroundDiagonalDown;
+
+    shootExAirAnimations[PlayerInputManager.AimDirection.Front] = 
+      PlayerAnimations.ShootingExAirFront;
+    shootExAirAnimations[PlayerInputManager.AimDirection.Up] = 
+      PlayerAnimations.ShootingExAirUp;
+    shootExAirAnimations[PlayerInputManager.AimDirection.Down] = 
+      PlayerAnimations.ShootingExAirDown;
+    shootExAirAnimations[PlayerInputManager.AimDirection.DiagonalUp] = 
+      PlayerAnimations.ShootingExAirDiagonalUp;
+    shootExAirAnimations[PlayerInputManager.AimDirection.DiagonalDown] = 
+      PlayerAnimations.ShootingExAirDiagonalDown;
   }
 
   /// <summary>
@@ -161,5 +211,16 @@ public class PlayerAnimatorManager : MonoBehaviour {
   /// </summary>
   public void OnDashingEnd() {
     OnDashingAnimationEnd?.Invoke();
+  }
+
+  /// <summary>
+  /// Whenever one of the ExShooting animation arrives at the point of spawning the bullet
+  /// we use this function to invoke an event so that the WeaponManager can call ExShoot()
+  /// </summary>
+  public void OnExShootingMidPoint() {
+    OnExShootingAnimationMidPoint?.Invoke();
+  }
+  public void OnExShootingEnd() {
+    OnExShootingAnimationEnd?.Invoke();
   }
 }
