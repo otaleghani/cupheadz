@@ -13,7 +13,7 @@ public abstract class ExBullet : MonoBehaviour {
   public Rigidbody2D rb;
   public Animator animator;
   public Vector2 direction = Vector2.right;
-  private WeaponManager weaponManager;
+  protected WeaponManager weaponManager;
 
   protected virtual void Awake() {
     rb = GetComponent<Rigidbody2D>();

@@ -44,7 +44,7 @@ public class PlayerStateManager : MonoBehaviour {
 
   private void Start() {
     movementState.EnterState(this, inputManager, movementManager, animatorManager);
-    actionState.EnterState(this, inputManager, animatorManager);
+    actionState.EnterState(this, inputManager, movementManager, animatorManager);
     
     // Handles charms
     if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Heart]) {
@@ -71,6 +71,7 @@ public class PlayerStateManager : MonoBehaviour {
     if (superMeter <= 5) {
       superMeter += superMeterRateOfChange;
     }
+    Debug.Log(actionState);
   }
 
   //public AddToSuperMeter(float number) {}
@@ -87,7 +88,7 @@ public class PlayerStateManager : MonoBehaviour {
   public void ChangeActionState(IPlayerActionState newState) {
     actionState.ExitState();
     actionState = newState;
-    actionState.EnterState(this, inputManager, animatorManager);
+    actionState.EnterState(this, inputManager, movementManager, animatorManager);
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {

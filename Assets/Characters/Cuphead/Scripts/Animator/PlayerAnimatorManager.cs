@@ -83,45 +83,45 @@ public class PlayerAnimatorManager : MonoBehaviour {
 
     animations[PlayerAnimations.Dead] = "Dead";
     animations[PlayerAnimations.Idle] = "Idle";
-    animations[PlayerAnimations.Running] = "Running";
-    animations[PlayerAnimations.RunningShooting] = "RunningShooting";
-    animations[PlayerAnimations.Jumping] = "Jumping";
-    animations[PlayerAnimations.Crouching] = "Crouching";
-    animations[PlayerAnimations.CrouchingIdle] = "CrouchingIdle";
-    animations[PlayerAnimations.CrouchingExit] = "CrouchingExit";
-    animations[PlayerAnimations.CrouchingShootingAim] = "CrouchingShootingAim";
-    animations[PlayerAnimations.CrouchingShootingRecoil] = "CrouchingShootingRecoil";
-    animations[PlayerAnimations.Dashing] = "Dashing";
-    animations[PlayerAnimations.AimingFront] = "AimingFront";
-    animations[PlayerAnimations.AimingUp] = "AimingUp";
-    animations[PlayerAnimations.AimingDown] = "AimingDown";
-    animations[PlayerAnimations.AimingDiagonalUp] = "AimingDiagonalUp";
-    animations[PlayerAnimations.AimingDiagonalDown] = "AimingDiagonalDown";
+    animations[PlayerAnimations.Running] = "Run";
+    animations[PlayerAnimations.RunningShooting] = "RunShoot";
+    animations[PlayerAnimations.Jumping] = "Jump";
+    animations[PlayerAnimations.Crouching] = "Crouch";
+    animations[PlayerAnimations.CrouchingIdle] = "CrouchIdle";
+    animations[PlayerAnimations.CrouchingExit] = "CrouchExit";
+    animations[PlayerAnimations.CrouchingShootingAim] = "CrouchShootAim";
+    animations[PlayerAnimations.CrouchingShootingRecoil] = "CrouchShootRecoil";
+    animations[PlayerAnimations.Dashing] = "Dash";
+    animations[PlayerAnimations.AimingFront] = "AimFront";
+    animations[PlayerAnimations.AimingUp] = "AimUp";
+    animations[PlayerAnimations.AimingDown] = "AimDown";
+    animations[PlayerAnimations.AimingDiagonalUp] = "AimDiagonalUp";
+    animations[PlayerAnimations.AimingDiagonalDown] = "AimDiagonalDown";
 
-    animations[PlayerAnimations.ShootingRecoilFront] = "ShootingRecoilFront";
-    animations[PlayerAnimations.ShootingRecoilUp] = "ShootingRecoilUp";
-    animations[PlayerAnimations.ShootingRecoilDown] = "ShootingRecoilDown";
-    animations[PlayerAnimations.ShootingRecoilDiagonalUp] = "ShootingRecoilDiagonalUp";
-    animations[PlayerAnimations.ShootingRecoilDiagonalDown] = "ShootingRecoilDiagonalDown";
+    animations[PlayerAnimations.ShootingRecoilFront] = "ShootRecoilFront";
+    animations[PlayerAnimations.ShootingRecoilUp] = "ShootRecoilUp";
+    animations[PlayerAnimations.ShootingRecoilDown] = "ShootRecoilDown";
+    animations[PlayerAnimations.ShootingRecoilDiagonalUp] = "ShootRecoilDiagonalUp";
+    animations[PlayerAnimations.ShootingRecoilDiagonalDown] = "ShootRecoilDiagonalDown";
 
-    animations[PlayerAnimations.ShootingAimFront] = "ShootingAimFront";
-    animations[PlayerAnimations.ShootingAimUp] = "ShootingAimUp";
-    animations[PlayerAnimations.ShootingAimDown] = "ShootingAimDown";
-    animations[PlayerAnimations.ShootingAimDiagonalUp] = "ShootingAimDiagonalUp";
-    animations[PlayerAnimations.ShootingAimDiagonalDown] = "ShootingAimDiagonalDown";
+    animations[PlayerAnimations.ShootingAimFront] = "ShootAimFront";
+    animations[PlayerAnimations.ShootingAimUp] = "ShootAimUp";
+    animations[PlayerAnimations.ShootingAimDown] = "ShootAimDown";
+    animations[PlayerAnimations.ShootingAimDiagonalUp] = "ShootAimDiagonalUp";
+    animations[PlayerAnimations.ShootingAimDiagonalDown] = "ShootAimDiagonalDown";
 
-    animations[PlayerAnimations.Parrying] = "Parrying";
+    animations[PlayerAnimations.Parrying] = "Parry";
 
-    animations[PlayerAnimations.ShootingExGroundUp] = "ShootingExGroundUp";
-    animations[PlayerAnimations.ShootingExGroundDown] = "ShootingExGroundDown";
-    animations[PlayerAnimations.ShootingExGroundFront] = "ShootingExGroundFront";
-    animations[PlayerAnimations.ShootingExGroundDiagonalUp] = "ShootingExGroundDiagonalUp";
-    animations[PlayerAnimations.ShootingExGroundDiagonalDown] = "ShootingExGroundDiagonalDown";
-    animations[PlayerAnimations.ShootingExAirUp] = "ShootingExAirUp";
-    animations[PlayerAnimations.ShootingExAirDown] = "ShootingExAirDown";
-    animations[PlayerAnimations.ShootingExAirFront] = "ShootingExAirFront";
-    animations[PlayerAnimations.ShootingExAirDiagonalUp] = "ShootingExAirDiagonalUp";
-    animations[PlayerAnimations.ShootingExAirDiagonalDown] = "ShootingExAirDiagonalDown";
+    animations[PlayerAnimations.ShootingExGroundUp] = "ShootExGroundUp";
+    animations[PlayerAnimations.ShootingExGroundDown] = "ShootExGroundDown";
+    animations[PlayerAnimations.ShootingExGroundFront] = "ShootExGroundFront";
+    animations[PlayerAnimations.ShootingExGroundDiagonalUp] = "ShootExGroundDiagonalUp";
+    animations[PlayerAnimations.ShootingExGroundDiagonalDown] = "ShootExGroundDiagonalDown";
+    animations[PlayerAnimations.ShootingExAirUp] = "ShootExAirUp";
+    animations[PlayerAnimations.ShootingExAirDown] = "ShootExAirDown";
+    animations[PlayerAnimations.ShootingExAirFront] = "ShootExAirFront";
+    animations[PlayerAnimations.ShootingExAirDiagonalUp] = "ShootExAirDiagonalUp";
+    animations[PlayerAnimations.ShootingExAirDiagonalDown] = "ShootExAirDiagonalDown";
 
 
     aimAnimations[PlayerInputManager.AimDirection.Front] = 
@@ -222,5 +222,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
   }
   public void OnExShootingEnd() {
     OnExShootingAnimationEnd?.Invoke();
+    //ChangeAnimation(PlayerAnimations.Idle);
   }
+
 }

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerIdleState.cs" />
     <Compile Include="Assets\Scripts\Misc\BulletPoolManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserManager.cs" />
+    <Compile Include="Assets\Scripts\PostProduction\Overlay\OverlayCycler.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\WeaponAbstract.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\FileDataHandler.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerAimState.cs" />
@@ -84,14 +85,18 @@
     <Compile Include="Assets\Scripts\Scenes\Fight\Animator\FightSceneAnimatorManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerNoneState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerSuperState.cs" />
+    <Compile Include="Assets\Scripts\Grounds\IDropOffGround.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\ExBulletAbstract.cs" />
     <Compile Include="Assets\Scripts\Damageable\IDamegeable.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Movement\PlayerMovementManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterSparkleManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\ExBulletSfxAbstract.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameData\BossRating.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterWeaponManager.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataPersistanceManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\DefaultExBulletSparkle.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerMovementState.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerLockedState.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDeathState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserWeaponManager.cs" />

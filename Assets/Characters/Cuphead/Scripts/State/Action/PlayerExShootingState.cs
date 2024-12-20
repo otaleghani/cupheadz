@@ -1,37 +1,33 @@
-using UnityEngine;
-
 public class PlayerExShootingState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
+  private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
-  //private float counter = 2f;
 
   public void EnterState(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
+    PlayerMovementManager movementManager,
     PlayerAnimatorManager animatorManager
   ) {
     this.stateManager = stateManager;
     this.inputManager = inputManager;
+    this.movementManager = movementManager;
     this.animatorManager = animatorManager;
 
-    HandleStateAnimation();
     this.animatorManager.OnExShootingAnimationEnd += HandleAnimationEnd;
+    this.stateManager.ChangeMovementState(new PlayerLockedState());
+    HandleStateAnimation();
   }
 
-  public void UpdateState() {
-    //counter -= Time.deltaTime;
-    //if (counter <= 0) {
-    //  stateManager.ChangeActionState(new PlayerNoneState());
-    //}
-  }
+  public void UpdateState() {}
 
   public void ExitState() {
     this.animatorManager.OnExShootingAnimationEnd -= HandleAnimationEnd;
   }
 
   private void HandleStateAnimation() {
-    if (stateManager.movementState is PlayerJumpingState) {
+    if (!movementManager.isGrounded) {
       animatorManager.ChangeAnimation(
           animatorManager.shootExAirAnimations[PlayerInputManager.CurrentCoordinate]);
     } else {
@@ -43,5 +39,6 @@ public class PlayerExShootingState : IPlayerActionState {
   private void HandleAnimationEnd() {
     // Todo: find a way to listen if you are shooting or not
     stateManager.ChangeActionState(new PlayerNoneState());
+    stateManager.ChangeMovementState(new PlayerIdleState());
   }
 }

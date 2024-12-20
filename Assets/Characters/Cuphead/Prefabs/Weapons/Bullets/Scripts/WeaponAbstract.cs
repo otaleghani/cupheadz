@@ -11,7 +11,7 @@ public abstract class WeaponManager : MonoBehaviour {
   public virtual string weaponPrefabName {get; protected set;} = "Peashooter__Bullet";
   public virtual string sparklePrefabName {get; protected set;} = "Peashooter__Sparkle";
   public virtual string exWeaponPrefabName {get; protected set;} = "Peashooter__ExBullet";
-  public virtual string exSfxPrefabName {get; protected set;} = "ExShooterSfx";
+  public virtual string exSfxPrefabName {get; protected set;} = "ExShootSfx";
 
   private GameObject bulletPrefab = null;
   private GameObject sparklePrefab = null;
@@ -68,20 +68,42 @@ public abstract class WeaponManager : MonoBehaviour {
     SpawnExBulletFromPool(direction, angle, spawn);
 
     // Opposite sfx
+    // if (oX == 0) {
+    //    // x -+1
+    // }
+    // if (oY == 0) {}
+    //    // y -+1
+    // }
+    //
     int oX = -x;
     int oY = -y;
     Vector2 sfxCenterDirection = GetDirection(oX, oY);
     float sfxCenterAngle = GetAngle(oX, oY);
     SpawnExSfxFromPool(sfxCenterDirection, sfxCenterAngle, sfxSpawn);
     
+    int topX = 0;
+    int topY = 0;
+    int botX = 0;
+    int botY = 0;
+    if (oX == 0) {
+      topX = 1;
+      botX = 1;
+    } else if (oY == 0) {
+      topY = 1;
+      botY = 1;
+    } else {
+      topY = oY;
+      botX = oX;
+    }
+    
     // Opposite-top sfx
-    Vector2 sfxTopDirection = GetDirection(-oY, oX);
-    float sfxTopAngle = GetAngle(-oY, oX);
+    Vector2 sfxTopDirection = GetDirection(topX, topY);
+    float sfxTopAngle = GetAngle(topX, topY);
     SpawnExSfxFromPool(sfxTopDirection, sfxTopAngle, sfxSpawn);
     
     // Opposite-down sfx
-    Vector2 sfxDownDirection = GetDirection(oY, -oX);
-    float sfxDownAngle = GetAngle(oY, -oX);
+    Vector2 sfxDownDirection = GetDirection(botX, botY);
+    float sfxDownAngle = GetAngle(botX, botY);
     SpawnExSfxFromPool(sfxDownDirection, sfxDownAngle, sfxSpawn);
   }
 
@@ -144,7 +166,7 @@ public abstract class WeaponManager : MonoBehaviour {
     sfxInstace.transform.position = spawn.position;
     sfxInstace.transform.rotation = Quaternion.Euler(0, 0, angle);
     Rigidbody2D rb= sfxInstace.GetComponent<Rigidbody2D>();
-    rb.linearVelocity = new Vector2(direction.x * 1f, direction.y * 1f);
+    rb.linearVelocity = new Vector2(direction.x * 5f, direction.y * 5f);
   }
   //protected virtual void
 

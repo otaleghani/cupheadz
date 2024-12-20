@@ -69,7 +69,7 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     exShootCounter += Time.deltaTime;
     shootCounter += Time.deltaTime;
     HandleShoot();
-    HandleShootEx();
+    //HandleShootEx();
   }
 
   /// <summary>
@@ -91,37 +91,10 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   /// </summary>
   private void HandleShootEx() {
     GetDirections();
-    // Todo: The player should stop, play the animation in the current moving state
-    switch (stateManager.movementState) {
-
-      //case PlayerMovingState: 
-      //  CalculateDirection();
-      //  equippedWeapon.ExShoot(xDirection, yDirection, 
-      //    movingFirePoint);
-      //  break;
-
-      case PlayerAimState: 
-        CalculateDirectionOnAim();
-        equippedWeapon.ExShoot(xDirection, yDirection, 
-          firePoints[PlayerInputManager.CurrentCoordinate]);
-        break;
-
-      case PlayerJumpingState:
-        CalculateDirection();
-        // todo: Add firepoint for jumping state
-        break;
-
-      case PlayerCrouchState:
-        CalculateDirection();
-        // todo: Add firePoint for crouching state
-        break;
-
-      case PlayerIdleState:
-        CalculateDirection();
-        equippedWeapon.ExShoot(xDirection, 0, 
-          firePoints[PlayerInputManager.AimDirection.Front]);
-        break;
-    }
+    CalculateDirectionOnAim();
+    equippedWeapon.ExShoot(xDirection, yDirection, 
+      firePoints[PlayerInputManager.CurrentCoordinate],
+      firePoints[PlayerInputManager.CurrentOppositeCoordinate]);
   }
 
   /// <summary>

@@ -4,7 +4,7 @@ using UnityEngine;
 /// Manages the Sparkle prefab, so the creation and the AnimationEnd
 /// </summary>
 public abstract class BulletSparkle: MonoBehaviour {
-  private WeaponManager weaponManager;
+  protected WeaponManager weaponManager;
 
   protected virtual void Awake() {
     weaponManager = FindFirstObjectByType<WeaponManager>();

@@ -7,6 +7,7 @@ public class PlayerNoneState : IPlayerActionState {
   public void EnterState(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
+    PlayerMovementManager movementManager,
     PlayerAnimatorManager animatorManager
   ) {
     this.stateManager = stateManager;
