@@ -19,6 +19,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public event Action OnDashingAnimationEnd;
   public event Action OnExShootingAnimationMidPoint;
   public event Action OnExShootingAnimationEnd;
+  public event Action OnParryAnimationEnd;
 
   public enum PlayerAnimations {
     Dead,
@@ -225,4 +226,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     //ChangeAnimation(PlayerAnimations.Idle);
   }
 
+  public void OnParryEnd() {
+    OnParryAnimationEnd?.Invoke();
+  }
 }

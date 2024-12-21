@@ -5,7 +5,7 @@ public class PlayerSuperState : IPlayerActionState {
   private PlayerAnimatorManager animatorManager;
   //private float counter = 5f;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -15,18 +15,16 @@ public class PlayerSuperState : IPlayerActionState {
     this.inputManager = inputManager;
     this.animatorManager = animatorManager;
 
-    HandleStateAnimation();
+    PlayAnimation();
   }
 
-  public void UpdateState() {
+  public void Update() {
     //counter -= Time.deltaTime;
     //if (counter <= 0) {
     //  stateManager.ChangeActionState(new PlayerNoneState());
     //}
   }
-  public void ExitState() {}
+  public void Exit() {}
 
-  private void HandleStateAnimation() {
-
-  }
+  public void PlayAnimation() {}
 }

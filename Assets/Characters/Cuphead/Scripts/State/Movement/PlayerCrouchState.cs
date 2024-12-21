@@ -7,7 +7,7 @@ public class PlayerCrouchState : IPlayerMovementState {
   private PlayerAnimatorManager animatorManager;
   private Type previousActionState;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager, 
     PlayerInputManager inputManager, 
     PlayerMovementManager movementManager,
@@ -21,15 +21,15 @@ public class PlayerCrouchState : IPlayerMovementState {
     this.inputManager.OnCrouchCanceled += HandleCrouchCanceled;
     this.inputManager.OnJumpPerformed += HandleDropOff;
     this.animatorManager.isCrouchingEnter = true;
-    HandleStateAnimation();
+    PlayAnimation();
     this.movementManager.MoveStop();
   }
 
-  public void UpdateState() {
+  public void Update() {
 
   }
 
-  public void ExitState() {
+  public void Exit() {
     inputManager.OnCrouchCanceled -= HandleCrouchCanceled;
     inputManager.OnJumpPerformed -= HandleDropOff;
   }
@@ -53,7 +53,7 @@ public class PlayerCrouchState : IPlayerMovementState {
     stateManager.ChangeMovementState(new PlayerJumpingState());
   }
 
-  private void HandleStateAnimation() {
+  public void PlayAnimation() {
     if (animatorManager.isCrouchingEnter) {
       animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Crouching);
       return;

@@ -1,9 +1,11 @@
+using UnityEngine;
 public class PlayerParryingState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
+  private int parryWindow;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -13,23 +15,31 @@ public class PlayerParryingState : IPlayerActionState {
     this.inputManager = inputManager;
     this.animatorManager = animatorManager;
 
-    HandleStateAnimation();
     // Activate the parrying collider
-    this.stateManager.parryCollider.enabled = true;
+    //parryWindow = 10;
+    this.stateManager.parryCollision.EnableCollider();
+    PlayAnimation();
+    this.animatorManager.OnParryAnimationEnd += HandleParryAnimationEnd;
   }
 
-  public void UpdateState() {}
-
-  public void ExitState() {
-    // Disables parry collider 
-    stateManager.parryCollider.enabled = true;
+  public void Update() {
+    //parryWindow -= 1;
+    //if (parryWindow <= 0) {
+    //  stateManager.ChangeActionState(new PlayerNoneState());
+    //}
   }
 
-  private void HandleStateAnimation() {
+  public void Exit() {
+    this.stateManager.parryCollision.DisableCollider();
+    this.animatorManager.OnParryAnimationEnd -= HandleParryAnimationEnd;
+  }
+
+  public void PlayAnimation() {
     animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Parrying);
   }
 
-  public void ParryAnimationFinished() {
+  public void HandleParryAnimationEnd() {
+    stateManager.movementState.PlayAnimation();
     stateManager.ChangeActionState(new PlayerNoneState());
   }
 }

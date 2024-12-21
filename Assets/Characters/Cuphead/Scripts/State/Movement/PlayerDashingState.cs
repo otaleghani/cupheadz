@@ -4,7 +4,7 @@ public class PlayerDashingState : IPlayerMovementState {
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager, 
     PlayerInputManager inputManager, 
     PlayerMovementManager movementManager,
@@ -15,24 +15,24 @@ public class PlayerDashingState : IPlayerMovementState {
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
     this.animatorManager.OnDashingAnimationEnd += DashAnimationFinished;
-    HandleStateAnimation();
+    PlayAnimation();
     movementManager.isDashing = true;
     movementManager.HoldYPosition();
   }
 
-  public void UpdateState() {
+  public void Update() {
     if (!movementManager.isDashing) {
       stateManager.ChangeMovementState(new PlayerIdleState());
     }
     HandleStateMovement();
   }
 
-  public void ExitState() {
+  public void Exit() {
     this.animatorManager.OnDashingAnimationEnd -= DashAnimationFinished;
     movementManager.ReleaseHoldPosition();
   }
 
-  private void HandleStateAnimation() {
+  public void PlayAnimation() {
     animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Dashing);
   }
 

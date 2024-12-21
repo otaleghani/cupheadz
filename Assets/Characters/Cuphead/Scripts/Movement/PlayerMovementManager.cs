@@ -35,10 +35,32 @@ public class PlayerMovementManager : MonoBehaviour {
   private PlayerInputManager inputManager;
   private PlayerStateManager stateManager;
 
+  private PlayerGroundCollision groundCollision;
+
   private void Awake() {
     rb = GetComponent<Rigidbody2D>();
     inputManager = GetComponent<PlayerInputManager>();
     stateManager = GetComponent<PlayerStateManager>();
+    groundCollision = GetComponentInChildren<PlayerGroundCollision>();
+  }
+
+  private void OnEnable() {
+    groundCollision.OnGroundCollisionEnter += HandleGroundCollisionEnter;
+    groundCollision.OnGroundCollisionExit += HandleGroundCollisionExit;
+  }
+  private void OnDisable() {
+    groundCollision.OnGroundCollisionEnter -= HandleGroundCollisionEnter;
+    groundCollision.OnGroundCollisionExit -= HandleGroundCollisionExit;
+  }
+
+  private void HandleGroundCollisionEnter(Collider2D collision) {
+    isGrounded = true;
+    isJumping = false;
+    jumpHoldReleased = true;
+    currentGround = collision;
+  }
+  private void HandleGroundCollisionExit() {
+    currentGround = null;
   }
 
   private void FixedUpdate() {
@@ -154,7 +176,6 @@ public class PlayerMovementManager : MonoBehaviour {
     jumpHoldReleased = false;
   }
   private void Jump() {
-    Debug.Log("Jump");
     Vector2 newVelocity = rb.linearVelocity;
     newVelocity.y = jumpForce + (jumpHoldTimer * jumpAcceleration);
     rb.linearVelocity = newVelocity;
@@ -167,16 +188,34 @@ public class PlayerMovementManager : MonoBehaviour {
   /// <summary>
   /// Collide with ground
   /// </summary>
-  private void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.CompareTag("Ground")) {
-      isGrounded = true;
-      isJumping = false;
-      jumpHoldReleased = true;
-      currentGround = collision;
-    }
-    if (collision.CompareTag("Enemy") || collision.CompareTag("Bullet")) {
-      // take damage
-    }
-    // todo: check if the trigger collider was actually the ground or not
-  }
+  //private void OnTriggerEnter2D(Collider2D collision) {
+  //  if (collision.CompareTag("Ground")) {
+  //    isGrounded = true;
+  //    isJumping = false;
+  //    jumpHoldReleased = true;
+  //    currentGround = collision;
+  //  }
+  //  //if (collision.CompareTag("Enemy") || collision.CompareTag("Bullet")) {
+  //  //  // take damage
+  //  //}
+  //  // todo: check if the trigger collider was actually the ground or not
+  //}
+  //private void OnCollisionEnter2D(Collision2D other) {
+  //  if (other.gameObject.CompareTag("Ground")) {
+  //    isGrounded = true;
+  //    isJumping = false;
+  //    jumpHoldReleased = true;
+  //    currentGround = other.gameObject.GetComponent<Collider2D>();
+  //    return;
+  //  }
+  //  if (other.gameObject.CompareTag("Enemy") ||
+  //      other.gameObject.CompareTag("EnemyBullet")) {
+  //    //stateManager.TakeDamage();
+  //  }
+
+  //  //if (collision.CompareTag("Enemy") || collision.CompareTag("Bullet")) {
+  //  //  // take damage
+  //  //}
+  //  // todo: check if the trigger collider was actually the ground or not
+  //}
 }

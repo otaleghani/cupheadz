@@ -6,7 +6,7 @@ public class PlayerJumpingState : IPlayerMovementState {
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -21,7 +21,7 @@ public class PlayerJumpingState : IPlayerMovementState {
     this.inputManager.OnDashPerformed += HandleDash;
     this.inputManager.OnJumpPerformed += HandleParry;
 
-    HandleStateAnimation();
+    PlayAnimation();
     HandleStateMovement();
     
     // Check if you are already in air
@@ -30,7 +30,7 @@ public class PlayerJumpingState : IPlayerMovementState {
     }
   }
 
-  public void UpdateState() {
+  public void Update() {
     if (movementManager.isGrounded) {
       if (inputManager.xPosition != 0) {
         stateManager.ChangeMovementState(new PlayerMovingState());
@@ -39,16 +39,17 @@ public class PlayerJumpingState : IPlayerMovementState {
       }
       return;
     }
-    HandleStateMovement();
+    //if (stateManager.actionState is not
+    //PlayAnimation();
   }
 
-  public void ExitState() {
+  public void Exit() {
     inputManager.OnJumpCanceled -= HandleJumpCanceled;
     inputManager.OnJumpPerformed -= HandleParry;
     inputManager.OnDashPerformed -= HandleDash;
   }
 
-  private void HandleStateAnimation() {
+  public void PlayAnimation() {
     animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Jumping);
   }
 

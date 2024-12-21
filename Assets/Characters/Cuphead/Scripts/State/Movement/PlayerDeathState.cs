@@ -6,7 +6,7 @@ public class PlayerDeathState : IPlayerMovementState {
   private PlayerAnimatorManager animatorManager;
   private PlayerMovementManager movementManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -20,6 +20,7 @@ public class PlayerDeathState : IPlayerMovementState {
     this.animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Dead);
   }
 
-  public void UpdateState() {}
-  public void ExitState() {}
+  public void Update() {}
+  public void Exit() {}
+  public void PlayAnimation() {}
 }

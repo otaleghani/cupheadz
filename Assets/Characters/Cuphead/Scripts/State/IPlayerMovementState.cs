@@ -1,10 +1,11 @@
 public interface IPlayerMovementState {
-  void EnterState(
+  void Enter(
     PlayerStateManager stateManager, 
     PlayerInputManager inputManager, 
     PlayerMovementManager movementManager,
     PlayerAnimatorManager animatorManager
   );
-  void UpdateState();
-  void ExitState();
+  void Update();
+  void Exit();
+  void PlayAnimation();
 }

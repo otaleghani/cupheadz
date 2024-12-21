@@ -7,7 +7,7 @@ public class PlayerLockedState : IPlayerMovementState {
   private PlayerAnimatorManager animatorManager;
   private PlayerMovementManager movementManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -21,9 +21,11 @@ public class PlayerLockedState : IPlayerMovementState {
     this.movementManager.HoldPosition();
   }
 
-  public void UpdateState() {}
+  public void Update() {}
 
-  public void ExitState() {
+  public void Exit() {
     movementManager.ReleaseHoldPosition();
   }
+
+  public void PlayAnimation() {}
 }

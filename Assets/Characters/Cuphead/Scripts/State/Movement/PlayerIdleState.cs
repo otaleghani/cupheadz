@@ -6,7 +6,7 @@ public class PlayerIdleState : IPlayerMovementState {
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager, 
     PlayerInputManager inputManager, 
     PlayerMovementManager movementManager,
@@ -25,17 +25,17 @@ public class PlayerIdleState : IPlayerMovementState {
 
     movementManager.isDashing = false;
 
-    HandleStateAnimation();
+    PlayAnimation();
   }
 
-  public void UpdateState() {
+  public void Update() {
     if (!movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerJumpingState());
     }
-    HandleStateAnimation();
+    PlayAnimation();
   }
 
-  public void ExitState() {
+  public void Exit() {
     inputManager.OnMovePerformed -= HandleMove;
     inputManager.OnJumpPerformed -= HandleJump;
     inputManager.OnDashPerformed -= HandleDash;
@@ -67,7 +67,7 @@ public class PlayerIdleState : IPlayerMovementState {
     stateManager.ChangeMovementState(new PlayerCrouchState());
   }
 
-  private void HandleStateAnimation() {
+  public void PlayAnimation() {
     if (!animatorManager.isCrouchingExit &&
         stateManager.actionState is not PlayerShootingState &&
         stateManager.actionState is not PlayerExShootingState &&

@@ -8,7 +8,7 @@ public class PlayerShootingState : IPlayerActionState {
   private PlayerInputManager.AimDirection previousCoordinate;
   private CupheadWeaponManager weaponManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -19,14 +19,14 @@ public class PlayerShootingState : IPlayerActionState {
     this.animatorManager = animatorManager;
 
     this.inputManager.OnShootCanceled += HandleShootingReleased;
-    HandleStateAnimation();
+    PlayAnimation();
   }
 
-  public void UpdateState() {
-    HandleStateAnimation();
+  public void Update() {
+    PlayAnimation();
   }
 
-  public void ExitState() {
+  public void Exit() {
     inputManager.OnShootCanceled -= HandleShootingReleased;
   }
 
@@ -34,7 +34,7 @@ public class PlayerShootingState : IPlayerActionState {
     stateManager.ChangeActionState(new PlayerNoneState());
   }
 
-  private void HandleStateAnimation() {
+  public void PlayAnimation() {
     switch (stateManager.movementState) {
       case PlayerIdleState: 
         if (stateManager.currentShootingState == PlayerStateManager.ShootingState.Aim) {

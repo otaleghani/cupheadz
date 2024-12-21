@@ -6,7 +6,7 @@ public class PlayerMovingState : IPlayerMovementState {
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -23,23 +23,29 @@ public class PlayerMovingState : IPlayerMovementState {
     this.inputManager.OnCrouchPerformed += HandleCrouch;
     this.inputManager.OnDashPerformed += HandleDash;
 
-    HandleStateAnimation();
+    PlayAnimation();
   }
 
-  public void UpdateState() {
+  public void Update() {
     if (!movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerJumpingState());
       return;
     }
-    HandleStateAnimation();
+    PlayAnimation();
   }
 
-  public void ExitState() {
+  public void Exit() {
     inputManager.OnMoveCanceled -= HandleMoveCanceled;
     inputManager.OnJumpPerformed -= HandleJump;
     inputManager.OnAimPerformed -= HandleAim;
     inputManager.OnCrouchPerformed -= HandleCrouch;
     inputManager.OnDashPerformed -= HandleDash;
+  }
+
+  public void PlayAnimation() {
+    if (stateManager.actionState is not PlayerShootingState) {
+      animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Running);
+    }
   }
 
   public void HandleMoveCanceled() {
@@ -62,9 +68,4 @@ public class PlayerMovingState : IPlayerMovementState {
     stateManager.ChangeMovementState(new PlayerCrouchState());
   }
 
-  private void HandleStateAnimation() {
-    if (stateManager.actionState is not PlayerShootingState) {
-      animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Running);
-    }
-  }
 }

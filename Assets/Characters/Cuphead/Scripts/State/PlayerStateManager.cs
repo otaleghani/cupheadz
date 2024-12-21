@@ -20,31 +20,32 @@ public class PlayerStateManager : MonoBehaviour {
   public enum ShootingState { Aim, Recoil };
   public ShootingState currentShootingState = ShootingState.Aim;
 
-  public Collider2D parryCollider;
+  //public Collider2D parryCollider;
+  public PlayerParryCollision parryCollision;
 
   void Awake() {
     inputManager = GetComponent<PlayerInputManager>();
     movementManager = GetComponent<PlayerMovementManager>();
     animatorManager = GetComponent<PlayerAnimatorManager>();
+    parryCollision = GetComponentInChildren<PlayerParryCollision>();
+    parryCollision.DisableCollider();
 
     movementState = new PlayerIdleState();
     actionState = new PlayerNoneState();
-
-    if (parryCollider != null) {
-      parryCollider.enabled = false;
-    }
   }
 
   private void OnEnable() {
     FightSceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
+    parryCollision.OnParryCollision += HandleParryCollision;
   }
   private void OnDisable() {
     FightSceneStateManager.Instance.OnChangeState -= HandleSceneStateChange;
+    parryCollision.OnParryCollision -= HandleParryCollision;
   }
 
   private void Start() {
-    movementState.EnterState(this, inputManager, movementManager, animatorManager);
-    actionState.EnterState(this, inputManager, movementManager, animatorManager);
+    movementState.Enter(this, inputManager, movementManager, animatorManager);
+    actionState.Enter(this, inputManager, movementManager, animatorManager);
     
     // Handles charms
     if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Heart]) {
@@ -66,44 +67,60 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   private void FixedUpdate() {
-    movementState.UpdateState();
-    actionState.UpdateState();
+    movementState.Update();
+    actionState.Update();
     if (superMeter <= 5) {
       superMeter += superMeterRateOfChange;
     }
-    Debug.Log(actionState);
-    Debug.Log(movementState);
-
+    //Debug.Log(actionState);
+    //Debug.Log(movementState);
   }
 
-  //public AddToSuperMeter(float number) {}
+  private void HandleParryCollision(Collider2D collider) {
+    IParryable parryableObject = collider.GetComponent<IParryable>();
+    if (parryableObject != null) {
+      parryableObject.OnParry();
+      actionState.PlayAnimation();
+      //if (actionState is PlayerParryingState) {
+      //  //actionState.
+      //}
+    }
+  }
 
   /// <summary> 
   /// Methods used to change the states
   /// </summary>
   public void ChangeMovementState(IPlayerMovementState newState) {
-    movementState.ExitState();
+    movementState.Exit();
     movementState = newState;
-    movementState.EnterState(this, inputManager, movementManager, animatorManager);
+    movementState.Enter(this, inputManager, movementManager, animatorManager);
   }
 
   public void ChangeActionState(IPlayerActionState newState) {
-    actionState.ExitState();
+    actionState.Exit();
     actionState = newState;
-    actionState.EnterState(this, inputManager, movementManager, animatorManager);
+    actionState.Enter(this, inputManager, movementManager, animatorManager);
   }
 
-  private void OnTriggerEnter2D(Collider2D collision) {
+  // Handles parry
+  //private void OnTriggerEnter2D(Collider2D collider) {
+  //  if (actionState is PlayerParryingState) {
+  //    IParryable parryableObject = collider.GetComponent<IParryable>();
+  //    if (parryableObject != null) {
+  //      parryableObject.OnParry();
+  //      // Make small jump
+  //    } else {
+  //      TakeDamage();
+  //    }
+  //  }
+  //}
+  //
+  // Handles enemy and bullet collision
+  private void OnCollisionEnter2D(Collision2D collision) {
     if (collision.gameObject.CompareTag("Enemy") || 
         collision.gameObject.CompareTag("EnemyBullet")) {
       TakeDamage();
-    }
-    if (actionState is PlayerParryingState) {
-      IParryable parryableObject = collision.GetComponent<IParryable>();
-      if (parryableObject != null) {
-        parryableObject.OnParry();
-        // Make a small jump 
-      } 
+      Debug.Log("Collision with enemy");
     }
   }
 

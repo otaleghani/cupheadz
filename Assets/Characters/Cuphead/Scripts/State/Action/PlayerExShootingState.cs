@@ -4,7 +4,7 @@ public class PlayerExShootingState : IPlayerActionState {
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -17,16 +17,16 @@ public class PlayerExShootingState : IPlayerActionState {
 
     this.animatorManager.OnExShootingAnimationEnd += HandleAnimationEnd;
     this.stateManager.ChangeMovementState(new PlayerLockedState());
-    HandleStateAnimation();
+    PlayAnimation();
   }
 
-  public void UpdateState() {}
+  public void Update() {}
 
-  public void ExitState() {
+  public void Exit() {
     this.animatorManager.OnExShootingAnimationEnd -= HandleAnimationEnd;
   }
 
-  private void HandleStateAnimation() {
+  public void PlayAnimation() {
     if (!movementManager.isGrounded) {
       animatorManager.ChangeAnimation(
           animatorManager.shootExAirAnimations[PlayerInputManager.CurrentCoordinate]);

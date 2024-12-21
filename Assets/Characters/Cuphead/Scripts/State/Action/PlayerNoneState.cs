@@ -4,7 +4,7 @@ public class PlayerNoneState : IPlayerActionState {
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
 
-  public void EnterState(
+  public void Enter(
     PlayerStateManager stateManager,
     PlayerInputManager inputManager,
     PlayerMovementManager movementManager,
@@ -18,12 +18,14 @@ public class PlayerNoneState : IPlayerActionState {
     this.inputManager.OnShootEXPerformed += HandleShootingEx;
   }
 
-  public void UpdateState() {}
+  public void Update() {}
 
-  public void ExitState() {
+  public void Exit() {
     inputManager.OnShootPerformed -= HandleShooting;
     inputManager.OnShootCanceled -= HandleShootingEx;
   }
+
+  public void PlayAnimation() {}
 
   private void HandleShooting() {
     stateManager.ChangeActionState(new PlayerShootingState());
