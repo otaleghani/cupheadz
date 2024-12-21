@@ -72,6 +72,8 @@ public class PlayerStateManager : MonoBehaviour {
       superMeter += superMeterRateOfChange;
     }
     Debug.Log(actionState);
+    Debug.Log(movementState);
+
   }
 
   //public AddToSuperMeter(float number) {}

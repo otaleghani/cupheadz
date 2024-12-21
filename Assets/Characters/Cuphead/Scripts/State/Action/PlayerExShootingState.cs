@@ -39,6 +39,14 @@ public class PlayerExShootingState : IPlayerActionState {
   private void HandleAnimationEnd() {
     // Todo: find a way to listen if you are shooting or not
     stateManager.ChangeActionState(new PlayerNoneState());
+    if (movementManager.isJumping) {
+      stateManager.ChangeMovementState(new PlayerJumpingState());
+      return;
+    }
+    if (inputManager.xPosition != 0) {
+      stateManager.ChangeMovementState(new PlayerMovingState());
+      return;
+    }
     stateManager.ChangeMovementState(new PlayerIdleState());
   }
 }

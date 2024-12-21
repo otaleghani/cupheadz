@@ -55,6 +55,7 @@ public class PlayerMovementManager : MonoBehaviour {
     //rb.gravityScale = 0f;
     rb.linearVelocity = new Vector2(0f, 0f);
     rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    if (isJumping) EndJump();
   }
   public void ReleaseHoldPosition() {
     rb.constraints = RigidbodyConstraints2D.None;

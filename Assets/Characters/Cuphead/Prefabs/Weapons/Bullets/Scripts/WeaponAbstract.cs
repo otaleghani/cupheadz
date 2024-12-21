@@ -67,14 +67,6 @@ public abstract class WeaponManager : MonoBehaviour {
     float angle = GetAngle(direction.x, direction.y);
     SpawnExBulletFromPool(direction, angle, spawn);
 
-    // Opposite sfx
-    // if (oX == 0) {
-    //    // x -+1
-    // }
-    // if (oY == 0) {}
-    //    // y -+1
-    // }
-    //
     int oX = -x;
     int oY = -y;
     Vector2 sfxCenterDirection = GetDirection(oX, oY);
@@ -87,10 +79,14 @@ public abstract class WeaponManager : MonoBehaviour {
     int botY = 0;
     if (oX == 0) {
       topX = 1;
-      botX = 1;
+      botX = -1;
+      topY = oY;
+      botY = oY;
     } else if (oY == 0) {
       topY = 1;
-      botY = 1;
+      botY = -1;
+      topX = oX;
+      botX = oX;
     } else {
       topY = oY;
       botX = oX;
