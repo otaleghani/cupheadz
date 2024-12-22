@@ -4,8 +4,8 @@ public class PlayerParryingState : IPlayerActionState {
   private PlayerInputManager inputManager;
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
-  private int parryFreezeFrames = 10;
-  private bool isParryPerformed = false;
+  private int parryFreezeFrames;
+  private bool isParryPerformed;
 
   public void Enter(
     PlayerStateManager stateManager,
@@ -18,8 +18,8 @@ public class PlayerParryingState : IPlayerActionState {
     this.animatorManager = animatorManager;
     this.movementManager = movementManager;
 
-    // Activate the parrying collider
-    //parryWindow = 10;
+    parryFreezeFrames = 10;
+    isParryPerformed = false;
     this.stateManager.parryCollision.EnableCollider();
     animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Parrying);
     this.animatorManager.OnParryAnimationEnd += HandleParryAnimationEnd;
@@ -28,31 +28,49 @@ public class PlayerParryingState : IPlayerActionState {
   public void Update() {
     if (isParryPerformed) {
       // todo: add pink sparkle
-      movementManager.HoldPosition();
-      animatorManager.Pause();
+      Lock();
+      int frameOfImpact = animatorManager.GetAnimationCurrentFrame();
+      animatorManager.ChangeAnimationFromFrame(PlayerAnimatorManager.PlayerAnimations.ParryingPink, frameOfImpact);
       parryFreezeFrames -= 1;
       if (parryFreezeFrames == 0) {
-        movementManager.ReleaseHoldPosition();
+        Unlock();
+        animatorManager.ChangeAnimationFromFrame(PlayerAnimatorManager.PlayerAnimations.Parrying, frameOfImpact);
         movementManager.StartJump();
+        //movementManager.
         movementManager.jumpHoldReleased = false;
-        animatorManager.Resume();
-        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Parrying);
         isParryPerformed = false;
       }
+    }
+    
+    if (movementManager.isGrounded) {
+      // If it's grounded it means that the player stopped the jumping
+      stateManager.ChangeActionState(new PlayerNoneState());
     }
   }
 
   public void Exit() {
-    this.stateManager.parryCollision.DisableCollider();
-    this.animatorManager.OnParryAnimationEnd -= HandleParryAnimationEnd;
+    stateManager.parryCollision.DisableCollider();
+    animatorManager.OnParryAnimationEnd -= HandleParryAnimationEnd;
   }
 
   public void PlayAnimation() {
     isParryPerformed = true;
   }
 
+
   public void HandleParryAnimationEnd() {
     stateManager.movementState.PlayAnimation();
+    isParryPerformed = false;
+    Unlock();
     stateManager.ChangeActionState(new PlayerNoneState());
+  }
+
+  private void Lock() {
+    movementManager.HoldPosition();
+    animatorManager.Pause();
+  }
+  private void Unlock() {
+    movementManager.ReleaseHoldPosition();
+    animatorManager.Resume();
   }
 }

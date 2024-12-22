@@ -592,17 +592,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFacingRight: 1
   currentGround: {fileID: 0}
-  movementSpeed: 4
-  dashSpeed: 10
-  dashCooldown: 0
   dashMaxCooldown: 1
   isDashingCooldown: 0
   isDashing: 0
-  maxJumpTime: 0.2
-  minJumpTime: 0.05
-  jumpHoldTimer: 0
-  jumpForce: 10
-  jumpAcceleration: 0.1
   isGrounded: 1
   isJumping: 0
   jumpHoldReleased: 0

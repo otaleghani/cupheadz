@@ -5,6 +5,7 @@ public class PlayerJumpingState : IPlayerMovementState {
   private PlayerInputManager inputManager;
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
+  private bool canParry;
 
   public void Enter(
     PlayerStateManager stateManager,
@@ -28,6 +29,7 @@ public class PlayerJumpingState : IPlayerMovementState {
     if (this.movementManager.isGrounded) {
       this.movementManager.StartJump();
     }
+    canParry = true;
   }
 
   public void Update() {
@@ -39,8 +41,6 @@ public class PlayerJumpingState : IPlayerMovementState {
       }
       return;
     }
-    //if (stateManager.actionState is not
-    //PlayAnimation();
   }
 
   public void Exit() {
@@ -65,7 +65,10 @@ public class PlayerJumpingState : IPlayerMovementState {
 
     // See if you are in the radius of a parry
     // than change to this state
-    stateManager.ChangeActionState(new PlayerParryingState());
+    if (canParry && stateManager.actionState is not PlayerParryingState) {
+      stateManager.ChangeActionState(new PlayerParryingState());
+      canParry = false;
+    }
   }
 
   private void HandleDash() {

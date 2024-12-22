@@ -67,8 +67,8 @@ public class PlayerStateManager : MonoBehaviour {
     if (superMeter <= 5) {
       superMeter += superMeterRateOfChange;
     }
-    //Debug.Log(actionState);
-    //Debug.Log(movementState);
+    Debug.Log(actionState);
+    Debug.Log(movementState);
   }
 
   private void HandleParryCollision(Collider2D collider) {

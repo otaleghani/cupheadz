@@ -49,6 +49,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     ShootingAimDiagonalUp,
     ShootingAimDiagonalDown,
     Parrying,
+    ParryingPink,
     ShootingExGroundUp,
     ShootingExGroundDown,
     ShootingExGroundFront,
@@ -112,6 +113,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     animations[PlayerAnimations.ShootingAimDiagonalDown] = "ShootAimDiagonalDown";
 
     animations[PlayerAnimations.Parrying] = "Parry";
+    animations[PlayerAnimations.ParryingPink] = "ParryPink";
 
     animations[PlayerAnimations.ShootingExGroundUp] = "ShootExGroundUp";
     animations[PlayerAnimations.ShootingExGroundDown] = "ShootExGroundDown";
@@ -181,11 +183,27 @@ public class PlayerAnimatorManager : MonoBehaviour {
       PlayerAnimations.ShootingExAirDiagonalDown;
   }
 
+  // Helper function used to Pause and Resume an animation
   public void Pause() {
     animator.speed = 0;
   }
   public void Resume() {
     animator.speed = 1;
+  }
+
+  // Helper function used to calculate the current frame of an animation
+  public int GetAnimationCurrentFrame() {
+    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+    float currentTime = stateInfo.normalizedTime * stateInfo.length;
+    // 24 beign the framerate
+    int currentFrame = Mathf.FloorToInt(currentTime * 24) % Mathf.FloorToInt(stateInfo.length * 24);
+    return currentFrame;
+  }
+
+  // Helper function to start an animation from a specific frame 
+  public void ChangeAnimationFromFrame(PlayerAnimations animation, int frame) {
+    float normalizedTime = frame / 24;
+    animator.Play(animations[animation], 0, normalizedTime);
   }
 
   /// <summary>

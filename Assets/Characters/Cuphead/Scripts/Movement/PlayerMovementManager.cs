@@ -64,6 +64,7 @@ public class PlayerMovementManager : MonoBehaviour {
     currentGround = collision;
   }
   private void HandleGroundCollisionExit() {
+    isGrounded = false;
     currentGround = null;
   }
 
@@ -84,7 +85,7 @@ public class PlayerMovementManager : MonoBehaviour {
     if (isJumping) EndJump();
   }
   public void ReleaseHoldPosition() {
-    rb.constraints = RigidbodyConstraints2D.None;
+    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
   }
   public void HoldYPosition() {
     //rb.gravityScale = 0f;
