@@ -12,21 +12,25 @@ public class PlayerMovementManager : MonoBehaviour {
   public Collider2D currentGround;
   
   [Header("Movement")]
-  [SerializeField] private float movementSpeed = 7f;
+  private float movementSpeed = 5.5f;
 
   [Header("Dash")]
-  [SerializeField] private float dashSpeed = 12f;
-  [SerializeField] private float dashCooldown;
+  private float dashSpeed = 12f;
+  private float dashCooldown;
   public float dashMaxCooldown = 1f;
   public bool isDashingCooldown = false;
   public bool isDashing = false;
 
   [Header("Jump")]
-  [SerializeField] private float maxJumpTime = 0.25f;
-  [SerializeField] private float minJumpTime = 0.055f;
-  [SerializeField] private float jumpHoldTimer = 0f;
-  [SerializeField] private float jumpForce = 10f;
-  [SerializeField] private float jumpAcceleration = 0.1f;
+  private float maxJumpTime = 0.3f;
+  private float minJumpTime = 0.1f;
+  private float jumpTransform = 0.33f;
+  private float ascendingGravity = 0f;
+  private float descendingGravity = 5f;
+
+  private float jumpHoldTimer = 0f;
+  private float jumpForce = 12f;
+  private float jumpAcceleration = 2f;
   public bool isGrounded = true;
   public bool isJumping = false;
   public bool jumpHoldReleased = false;
@@ -169,20 +173,24 @@ public class PlayerMovementManager : MonoBehaviour {
     }
   }
   public void StartJump() {
-    rb.gravityScale = 0;
+    rb.gravityScale = ascendingGravity;
     isJumping = true;
     isGrounded = false;
     jumpHoldTimer = 0f;
     jumpHoldReleased = false;
   }
   private void Jump() {
-    Vector2 newVelocity = rb.linearVelocity;
-    newVelocity.y = jumpForce + (jumpHoldTimer * jumpAcceleration);
-    rb.linearVelocity = newVelocity;
+    //Vector2 newVelocity = rb.linearVelocity;
+    //newVelocity.y = jumpForce + ((jumpHoldTimer * 20) * jumpAcceleration);
+    //rb.linearVelocity = newVelocity;
+
+    Vector3 newPosition = rb.transform.localPosition;
+    newPosition.y += jumpTransform - (jumpHoldTimer / 2);
+    rb.transform.localPosition = newPosition;
   }
   private void EndJump() {
+    rb.gravityScale = descendingGravity;
     isJumping = false;
-    rb.gravityScale = 3;
   }
   
   /// <summary>

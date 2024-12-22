@@ -61,11 +61,6 @@ public class PlayerStateManager : MonoBehaviour {
     }
   }
 
-  private void Update() {
-    //movementState.UpdateState();
-    //actionState.UpdateState();
-  }
-
   private void FixedUpdate() {
     movementState.Update();
     actionState.Update();
@@ -81,9 +76,6 @@ public class PlayerStateManager : MonoBehaviour {
     if (parryableObject != null) {
       parryableObject.OnParry();
       actionState.PlayAnimation();
-      //if (actionState is PlayerParryingState) {
-      //  //actionState.
-      //}
     }
   }
 

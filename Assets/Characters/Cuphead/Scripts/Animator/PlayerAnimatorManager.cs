@@ -181,6 +181,13 @@ public class PlayerAnimatorManager : MonoBehaviour {
       PlayerAnimations.ShootingExAirDiagonalDown;
   }
 
+  public void Pause() {
+    animator.speed = 0;
+  }
+  public void Resume() {
+    animator.speed = 1;
+  }
+
   /// <summary>
   /// Whenever the Recoil animation ends, change the ShootingState to Aim.
   /// Used to cycle throgh the Shooting animation based on the weapon fire rate.
