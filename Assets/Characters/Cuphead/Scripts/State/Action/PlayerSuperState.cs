@@ -1,9 +1,9 @@
-using UnityEngine;
 public class PlayerSuperState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
-  //private float counter = 5f;
+  private PlayerMovementManager movementManager;
+  private CupheadSuperManager superManager;
 
   public void Enter(
     PlayerStateManager stateManager,
@@ -14,17 +14,47 @@ public class PlayerSuperState : IPlayerActionState {
     this.stateManager = stateManager;
     this.inputManager = inputManager;
     this.animatorManager = animatorManager;
+    this.movementManager = movementManager;
+    this.superManager = stateManager.GetComponentInChildren<CupheadSuperManager>();
+
+    this.animatorManager.OnSuperAnimationEnd += HandleAnimationEnd;
 
     PlayAnimation();
+    superManager.UseSuper();
   }
 
   public void Update() {
-    //counter -= Time.deltaTime;
-    //if (counter <= 0) {
-    //  stateManager.ChangeActionState(new PlayerNoneState());
-    //}
   }
-  public void Exit() {}
+  public void Exit() {
+    movementManager.ReleaseHoldPosition();
+    animatorManager.OnSuperAnimationEnd -= HandleAnimationEnd;
+  }
 
-  public void PlayAnimation() {}
+  public void PlayAnimation() {
+    switch (superManager.equippedSuper)
+    {
+      case GameData.Super.EnergyBeam:
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.SuperEnergyBeam);
+        break;
+      case GameData.Super.Invincibility:
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.SuperInvincibility);
+        break;
+      case GameData.Super.GiantGhost:
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.SuperGiantGhost);
+        break;
+    }
+  }
+
+  private void HandleAnimationEnd() {
+    stateManager.ChangeActionState(new PlayerNoneState());
+    if (movementManager.isJumping) {
+      stateManager.ChangeMovementState(new PlayerJumpingState());
+      return;
+    }
+    if (inputManager.xPosition != 0) {
+      stateManager.ChangeMovementState(new PlayerMovingState());
+      return;
+    }
+    stateManager.ChangeMovementState(new PlayerIdleState());
+  }
 }

@@ -72,6 +72,7 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserManager.cs" />
     <Compile Include="Assets\Scripts\PostProduction\Overlay\OverlayCycler.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\WeaponAbstract.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\ISuperAttack\ISuperAttack.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\FileDataHandler.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerAimState.cs" />
     <Compile Include="Assets\Misc\ParrySpark\Scripts\ParrySpark.cs" />
@@ -81,10 +82,12 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\Charm\CupheadCharmsManager.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameData\GameData.cs" />
     <Compile Include="Assets\Scripts\Scenes\Changer\SceneChanger.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\CupheadSuperManager\CupheadSuperManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserSparkleManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Animator\PlayerAnimatorManager.cs" />
     <Compile Include="Assets\Scripts\Scenes\Fight\Animator\FightSceneAnimatorManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSuper.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerNoneState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerSuperState.cs" />
     <Compile Include="Assets\Scripts\Grounds\IDropOffGround.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterWeaponManager.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataPersistanceManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\DefaultExBulletSparkle.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\Invincibility\InvincibilitySuper.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerMovementState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerLockedState.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerShootingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerMovingState.cs" />
     <Compile Include="Assets\Scripts\Scenes\Fight\State\FightSceneStateManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\GiantGhost\GiantGhostSuper.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Collisions\Parry\PlayerParryCollision.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerJumpingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\PlayerStateManager.cs" />

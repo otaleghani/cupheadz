@@ -1,3 +1,4 @@
+using UnityEngine;
 // Here the player is not shooting
 public class PlayerNoneState : IPlayerActionState {
   private PlayerStateManager stateManager;
@@ -32,9 +33,11 @@ public class PlayerNoneState : IPlayerActionState {
   }
   private void HandleShootingEx() {
     // Here I need to actually calculate the shooting data
+    Debug.Log(stateManager.superMeter);
     if (stateManager.superMeter >= 5f) {
       stateManager.ChangeActionState(new PlayerSuperState());
       stateManager.ChangeMovementState(new PlayerLockedState());
+      return;
     } else if (stateManager.superMeter >= 1f) {
       stateManager.ChangeActionState(new PlayerExShootingState());
       stateManager.ChangeMovementState(new PlayerLockedState());

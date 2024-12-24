@@ -34,6 +34,13 @@ public class GameData {
     Specter
   }
 
+  public enum Super {
+    EnergyBeam,
+    Invincibility,
+    GiantGhost,
+    None
+  }
+
   public int deathCount;
   public Dictionary<Weapon, bool> unlockedWeapon = new Dictionary<Weapon, bool>();
   public Dictionary<string, Weapon> equippedWeapon = new Dictionary<string, Weapon>();
@@ -43,8 +50,18 @@ public class GameData {
   public Dictionary<Boss, bool> defeatedBoss = new Dictionary<Boss, bool>();
   public Dictionary<Boss, BossRating> defeatedBossRating = new Dictionary<Boss, BossRating>();
 
+  public Dictionary<Super, bool> unlockedSupers = new Dictionary<Super, bool>();
+  public Super equippedSuper;
+
   public GameData() {
     this.deathCount = 0;
+
+    this.unlockedSupers.Add(Super.EnergyBeam, false);
+    this.unlockedSupers.Add(Super.GiantGhost, false);
+    this.unlockedSupers.Add(Super.Invincibility, false);
+
+    // This one should be Super.None when creating a new game file.
+    this.equippedSuper = Super.EnergyBeam;
 
     this.unlockedWeapon.Add(Weapon.None, true);
     this.unlockedWeapon.Add(Weapon.Peashooter, true);

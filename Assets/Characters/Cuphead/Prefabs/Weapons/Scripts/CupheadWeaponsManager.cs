@@ -50,7 +50,6 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     firePoints[PlayerInputManager.AimDirection.DiagonalUp] = transform.Find("DiagonalUp");
     firePoints[PlayerInputManager.AimDirection.DiagonalDown] = transform.Find("DiagonalDown");
 
-
     fireExPoints[PlayerInputManager.AimDirection.Up] = transform.Find("UpEx");
     fireExPoints[PlayerInputManager.AimDirection.Down] = transform.Find("DownEx");
     fireExPoints[PlayerInputManager.AimDirection.Front] = transform.Find("FrontEx");

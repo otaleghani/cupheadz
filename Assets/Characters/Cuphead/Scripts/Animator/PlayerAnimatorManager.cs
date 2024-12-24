@@ -20,6 +20,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public event Action OnExShootingAnimationMidPoint;
   public event Action OnExShootingAnimationEnd;
   public event Action OnParryAnimationEnd;
+  public event Action OnSuperAnimationEnd;
 
   public enum PlayerAnimations {
     Dead,
@@ -60,6 +61,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
     ShootingExAirFront,
     ShootingExAirDiagonalUp,
     ShootingExAirDiagonalDown,
+    SuperEnergyBeam,
+    SuperInvincibility,
+    SuperGiantGhost,
   }
 
   private Dictionary<PlayerAnimations, string> animations = 
@@ -126,6 +130,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
     animations[PlayerAnimations.ShootingExAirDiagonalUp] = "ShootExAirDiagonalUp";
     animations[PlayerAnimations.ShootingExAirDiagonalDown] = "ShootExAirDiagonalDown";
 
+    animations[PlayerAnimations.SuperEnergyBeam] = "SuperEnergyBeam";
+    animations[PlayerAnimations.SuperInvincibility] = "SuperInvincibility";
+    animations[PlayerAnimations.SuperGiantGhost] = "SuperGiantGhost";
 
     aimAnimations[PlayerInputManager.AimDirection.Front] = 
       PlayerAnimations.AimingFront;
@@ -181,6 +188,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
       PlayerAnimations.ShootingExAirDiagonalUp;
     shootExAirAnimations[PlayerInputManager.AimDirection.DiagonalDown] = 
       PlayerAnimations.ShootingExAirDiagonalDown;
+
+
   }
 
   // Helper function used to Pause and Resume an animation
@@ -248,7 +257,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
   }
   public void OnExShootingEnd() {
     OnExShootingAnimationEnd?.Invoke();
-    //ChangeAnimation(PlayerAnimations.Idle);
+  }
+  public void OnSuperEnd() {
+    OnSuperAnimationEnd?.Invoke();
   }
 
   public void OnParryEnd() {

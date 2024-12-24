@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlayerStateManager : MonoBehaviour {
   [Header("Player stats")]
   public int hearts = 3;
-  public float superMeter = 4f;
+  public float superMeter = 5.1f;
   public float superMeterRateOfChange = 0f;
 
   private PlayerMovementManager movementManager;
@@ -64,7 +64,7 @@ public class PlayerStateManager : MonoBehaviour {
   private void FixedUpdate() {
     movementState.Update();
     actionState.Update();
-    if (superMeter <= 5) {
+    if (superMeter < 5) {
       superMeter += superMeterRateOfChange;
     }
     Debug.Log(actionState);
