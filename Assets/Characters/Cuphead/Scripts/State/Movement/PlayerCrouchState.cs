@@ -1,11 +1,8 @@
-using System;
-
 public class PlayerCrouchState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerMovementManager movementManager;
   private PlayerAnimatorManager animatorManager;
-  private Type previousActionState;
 
   public void Enter(
     PlayerStateManager stateManager, 
@@ -20,18 +17,18 @@ public class PlayerCrouchState : IPlayerMovementState {
 
     this.inputManager.OnCrouchCanceled += HandleCrouchCanceled;
     this.inputManager.OnJumpPerformed += HandleDropOff;
+    this.inputManager.OnShootPerformed += HandleShooting;
     this.animatorManager.isCrouchingEnter = true;
     PlayAnimation();
     this.movementManager.MoveStop();
   }
 
-  public void Update() {
-
-  }
+  public void Update() {}
 
   public void Exit() {
     inputManager.OnCrouchCanceled -= HandleCrouchCanceled;
     inputManager.OnJumpPerformed -= HandleDropOff;
+    inputManager.OnShootPerformed -= HandleShooting;
   }
 
   private void HandleCrouchCanceled() {
@@ -53,15 +50,19 @@ public class PlayerCrouchState : IPlayerMovementState {
     stateManager.ChangeMovementState(new PlayerJumpingState());
   }
 
+  private void HandleShooting() {
+    if (stateManager.actionState is not PlayerShootingState) {
+      stateManager.ChangeActionState(new PlayerShootingState());
+    }
+  }
+
   public void PlayAnimation() {
     if (animatorManager.isCrouchingEnter) {
       animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Crouching);
       return;
     }
-    if (stateManager.actionState.GetType() != previousActionState) {
-      if (stateManager.actionState is not PlayerShootingState) {
-        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingIdle);
-      }
+    if (stateManager.actionState is not PlayerShootingState) {
+      animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingIdle);
     }
   }
 }

@@ -12,7 +12,10 @@ using System.Collections.Generic;
 public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private Dictionary<PlayerInputManager.AimDirection, Transform> firePoints = 
     new Dictionary<PlayerInputManager.AimDirection, Transform>();
+  private Dictionary<PlayerInputManager.AimDirection, Transform> fireExPoints = 
+    new Dictionary<PlayerInputManager.AimDirection, Transform>();
   private Transform movingFirePoint; 
+  private Transform crouchingFirePoint; 
 
   private PlayerStateManager stateManager;
   private PlayerMovementManager movementManager;
@@ -46,7 +49,16 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     firePoints[PlayerInputManager.AimDirection.Front] = transform.Find("Front");
     firePoints[PlayerInputManager.AimDirection.DiagonalUp] = transform.Find("DiagonalUp");
     firePoints[PlayerInputManager.AimDirection.DiagonalDown] = transform.Find("DiagonalDown");
+
+
+    fireExPoints[PlayerInputManager.AimDirection.Up] = transform.Find("UpEx");
+    fireExPoints[PlayerInputManager.AimDirection.Down] = transform.Find("DownEx");
+    fireExPoints[PlayerInputManager.AimDirection.Front] = transform.Find("FrontEx");
+    fireExPoints[PlayerInputManager.AimDirection.DiagonalUp] = transform.Find("DiagonalUpEx");
+    fireExPoints[PlayerInputManager.AimDirection.DiagonalDown] = transform.Find("DiagonalDownEx");
+
     movingFirePoint = transform.Find("Moving");
+    crouchingFirePoint = transform.Find("Crouching");
   }
 
   private void OnEnable() {
@@ -91,10 +103,13 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   /// </summary>
   private void HandleShootEx() {
     GetDirections();
+    if (xDirection == 0 && yDirection == 0) {
+      movementManager.ExRecoil();
+    }
     CalculateDirectionOnAim();
     equippedWeapon.ExShoot(xDirection, yDirection, 
-      firePoints[PlayerInputManager.CurrentCoordinate],
-      firePoints[PlayerInputManager.CurrentOppositeCoordinate]);
+      fireExPoints[PlayerInputManager.CurrentCoordinate],
+      fireExPoints[PlayerInputManager.CurrentOppositeCoordinate]);
   }
 
   /// <summary>
@@ -119,12 +134,14 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
 
         case PlayerJumpingState:
           CalculateDirection();
-          // todo: Add firepoint for jumping state
+          equippedWeapon.Shoot(xDirection, yDirection, 
+            firePoints[PlayerInputManager.AimDirection.Front]);
           break;
 
         case PlayerCrouchState:
           CalculateDirection();
-          // todo: Add firePoint for crouching state
+          equippedWeapon.Shoot(xDirection, 0, 
+            crouchingFirePoint);
           break;
 
         case PlayerIdleState:

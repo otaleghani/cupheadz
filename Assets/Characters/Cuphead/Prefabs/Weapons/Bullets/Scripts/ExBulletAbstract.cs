@@ -7,7 +7,7 @@ public abstract class ExBullet : MonoBehaviour {
   [Header("Bullet properties")]
   public virtual float damage { get; protected set; } = 10f;
   public virtual float speed { get; protected set; } = 20f;
-  public virtual float lifeTime { get; protected set; } = 2f;
+  public virtual float lifeTime { get; protected set; } = 40f;
   private float lifeTimer;
 
   public Rigidbody2D rb;
@@ -51,6 +51,9 @@ public abstract class ExBullet : MonoBehaviour {
   /// Use this to add additional actions to the collider, like a damage over time.
   /// </summary>
   protected virtual void HandleCollision(Collider2D other) {
+    if (other.CompareTag("Player")){
+      return;
+    }
     IDamageable damageable = other.GetComponent<IDamageable>();
     if (damageable != null) {
       damageable.TakeDamage(damage);
@@ -70,7 +73,6 @@ public abstract class ExBullet : MonoBehaviour {
   }
 
   protected virtual void OnTriggerEnter2D(Collider2D other) {
-    Debug.Log("contact!");
     HandleCollision(other);
   }
 }

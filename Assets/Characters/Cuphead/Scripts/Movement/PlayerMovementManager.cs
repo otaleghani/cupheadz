@@ -12,10 +12,10 @@ public class PlayerMovementManager : MonoBehaviour {
   public Collider2D currentGround;
   
   [Header("Movement")]
-  private float movementSpeed = 5.5f;
+  private float movementSpeed = 6f / 1.5f;
 
   [Header("Dash")]
-  private float dashSpeed = 12f;
+  private float dashSpeed = 12f / 1.5f;
   private float dashCooldown;
   public float dashMaxCooldown = 1f;
   public bool isDashingCooldown = false;
@@ -23,8 +23,8 @@ public class PlayerMovementManager : MonoBehaviour {
 
   [Header("Jump")]
   private float maxJumpTime = 0.3f;
-  private float minJumpTime = 0.1f;
-  private float jumpTransform = 0.33f;
+  private float minJumpTime = 0.15f;
+  private float jumpTransform = 0.37f / 1.5f;
   private float ascendingGravity = 0f;
   private float descendingGravity = 5f;
 
@@ -46,6 +46,10 @@ public class PlayerMovementManager : MonoBehaviour {
     inputManager = GetComponent<PlayerInputManager>();
     stateManager = GetComponent<PlayerStateManager>();
     groundCollision = GetComponentInChildren<PlayerGroundCollision>();
+
+    movementSpeed *= rb.transform.localScale.x;
+    dashSpeed *= rb.transform.localScale.x;
+    jumpTransform *= rb.transform.localScale.x;
   }
 
   private void OnEnable() {
@@ -73,6 +77,31 @@ public class PlayerMovementManager : MonoBehaviour {
     HandleJump();
     HandleMove();
     HandleFlipCharacter();
+    HandleExRecoil();
+  }
+
+  private float exRecoilTimer;
+  private bool isRecoiling;
+  private float maxRecoilTime = 0.1f;
+  public void ExRecoil() {
+    exRecoilTimer = 0f;
+    isRecoiling = true;
+  }
+  private void HandleExRecoil() {
+    if (isRecoiling) {
+      ReleaseHoldPosition();
+      Vector2 newPosition = rb.linearVelocity;
+      if (isFacingRight) {
+        newPosition.x = movementSpeed * -1f;
+      } else {
+        newPosition.x = movementSpeed;
+      }
+      rb.linearVelocity = newPosition;
+      exRecoilTimer += Time.deltaTime;
+      if (exRecoilTimer > maxRecoilTime) {
+        isRecoiling = false;
+      }
+    }
   }
 
   /// <summary>

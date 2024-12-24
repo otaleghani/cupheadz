@@ -29,10 +29,10 @@ public class PlayerExShootingState : IPlayerActionState {
   public void PlayAnimation() {
     if (!movementManager.isGrounded) {
       animatorManager.ChangeAnimation(
-          animatorManager.shootExAirAnimations[PlayerInputManager.CurrentCoordinate]);
+        animatorManager.shootExAirAnimations[PlayerInputManager.CurrentCoordinate]);
     } else {
       animatorManager.ChangeAnimation(
-          animatorManager.shootExGroundAnimations[PlayerInputManager.CurrentCoordinate]);
+        animatorManager.shootExGroundAnimations[PlayerInputManager.CurrentCoordinate]);
     }
   }
 

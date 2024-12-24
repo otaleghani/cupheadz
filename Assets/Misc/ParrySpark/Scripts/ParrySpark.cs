@@ -4,8 +4,6 @@ public class ParrySpark : MonoBehaviour {
   private string animationToPlay;
   private ParrySparksManager manager;
 
-  //private poolManager
-
   private void Awake() {
     animator = GetComponent<Animator>();
     animationToPlay = "ParrySpark__Hand";

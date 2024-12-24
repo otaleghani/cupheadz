@@ -36,8 +36,7 @@ public class PlayerParryingState : IPlayerActionState {
         Unlock();
         animatorManager.ChangeAnimationFromFrame(PlayerAnimatorManager.PlayerAnimations.Parrying, frameOfImpact);
         movementManager.StartJump();
-        //movementManager.
-        movementManager.jumpHoldReleased = false;
+        movementManager.jumpHoldReleased = true;
         isParryPerformed = false;
       }
     }
