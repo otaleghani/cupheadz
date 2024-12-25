@@ -997,67 +997,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041323502}
   m_CullTransparentMesh: 1
---- !u!1001 &6918215020305029670
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3427894846675731052, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.155
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.835
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.050951503
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762059212826686529, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8897364026421808763, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
-      propertyPath: m_Name
-      value: Super__EnergyBeamSfx
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0d1d0712118347f4a9118b602d3a865e, type: 3}
 --- !u!1001 &7608294358277881604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1066,10 +1005,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1766688066970229760, guid: ab495601c12283e419dec294d817edc1, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 815a4c0fe51663840814a6c44a9c9589, type: 3}
+    - target: {fileID: 3580604267137862366, guid: ab495601c12283e419dec294d817edc1, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3580604267137862366, guid: ab495601c12283e419dec294d817edc1, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.32
+      objectReference: {fileID: 0}
     - target: {fileID: 6371120194414480597, guid: ab495601c12283e419dec294d817edc1, type: 3}
       propertyPath: m_Name
       value: Cuphead
@@ -1130,4 +1073,3 @@ SceneRoots:
   - {fileID: 1930444482}
   - {fileID: 381040674}
   - {fileID: 83810737}
-  - {fileID: 6918215020305029670}

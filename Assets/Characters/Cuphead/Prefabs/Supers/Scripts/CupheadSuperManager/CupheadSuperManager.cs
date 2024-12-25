@@ -25,12 +25,15 @@ public class CupheadSuperManager : MonoBehaviour, IDataPersistence {
     switch (super) {
       case GameData.Super.EnergyBeam: 
         obj = Instantiate(Resources.Load<GameObject>("EnergyBeam__Super"), transform);
+        obj.name = "EnergyBeam";
         break;
       case GameData.Super.Invincibility: 
         obj = Instantiate(Resources.Load<GameObject>("Invincibility__Super"), transform);
+        obj.name = "Invincibility";
         break;
       case GameData.Super.GiantGhost: 
         obj = Instantiate(Resources.Load<GameObject>("GiantGhost__Super"), transform);
+        obj.name = "GiantGhost";
         break;
     }
     return obj;
