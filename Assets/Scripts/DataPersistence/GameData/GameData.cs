@@ -61,7 +61,7 @@ public class GameData {
     this.unlockedSupers.Add(Super.Invincibility, false);
 
     // This one should be Super.None when creating a new game file.
-    this.equippedSuper = Super.EnergyBeam;
+    this.equippedSuper = Super.Invincibility;
 
     this.unlockedWeapon.Add(Weapon.None, true);
     this.unlockedWeapon.Add(Weapon.Peashooter, true);

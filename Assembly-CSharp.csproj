@@ -86,6 +86,7 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSfxManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserSparkleManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\Invincibility\InvincibilityManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Animator\PlayerAnimatorManager.cs" />
     <Compile Include="Assets\Scripts\Scenes\Fight\Animator\FightSceneAnimatorManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSuper.cs" />
@@ -125,8 +126,12 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\Collisions\Parry\PlayerParryCollision.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerJumpingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\PlayerStateManager.cs" />
+    <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamImpactManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerActionState.cs" />
     <Compile Include="Assets\Characters\MeatShield\MeatShieldManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Misc\DuotoneShader.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

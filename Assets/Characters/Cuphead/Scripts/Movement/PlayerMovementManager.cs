@@ -29,8 +29,8 @@ public class PlayerMovementManager : MonoBehaviour {
   private float descendingGravity = 5f;
 
   private float jumpHoldTimer = 0f;
-  private float jumpForce = 12f;
-  private float jumpAcceleration = 2f;
+  //private float jumpForce = 12f;
+  //private float jumpAcceleration = 2f;
   public bool isGrounded = true;
   public bool isJumping = false;
   public bool jumpHoldReleased = false;
@@ -178,6 +178,8 @@ public class PlayerMovementManager : MonoBehaviour {
     if (stateManager.movementState is not PlayerDashingState) {
       if (isFacingRight && inputManager.xPosition < 0 ||
       !isFacingRight && inputManager.xPosition > 0) {
+        //isFacingRight = !isFacingRight;
+        //stateManager.spriteRenderer.flipX = !isFacingRight;
         isFacingRight = !isFacingRight;
         Vector3 ls = transform.localScale;
         ls.x *= -1f;

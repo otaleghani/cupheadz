@@ -7,10 +7,14 @@ public class CupheadSuperManager : MonoBehaviour, IDataPersistence {
   public GameData.Super equippedSuper;
   private ISuperAttack superAttack;
   private GameObject superObj;
+  public PlayerMovementManager movementManager;
+  public PlayerStateManager stateManager;
 
   private void Awake() {}
 
   private void Start() {
+    movementManager = GetComponentInParent<PlayerMovementManager>();
+    stateManager = GetComponentInParent<PlayerStateManager>();
     superObj = EquipSuper(equippedSuper);
     superAttack = superObj.GetComponent<ISuperAttack>();
   }

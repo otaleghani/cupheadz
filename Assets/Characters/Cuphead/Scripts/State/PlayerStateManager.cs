@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Handles the current state of the character and its changes. The state is divided in movement
@@ -23,10 +24,22 @@ public class PlayerStateManager : MonoBehaviour {
   //public Collider2D parryCollider;
   public PlayerParryCollision parryCollision;
 
+  // Used to change the material in case of super-invicibility
+  public SpriteRenderer spriteRenderer;
+  private Material invincibilityMaterial;
+  private Material defaultMaterial;
+  private float invincibilityTime = 10f;
+  private bool isInvincible = false;
+
   void Awake() {
     inputManager = GetComponent<PlayerInputManager>();
     movementManager = GetComponent<PlayerMovementManager>();
     animatorManager = GetComponent<PlayerAnimatorManager>();
+
+    spriteRenderer = GetComponent<SpriteRenderer>();
+    invincibilityMaterial = Resources.Load<Material>("DuotoneMaterial");
+    defaultMaterial = spriteRenderer.material;
+
     parryCollision = GetComponentInChildren<PlayerParryCollision>();
     parryCollision.DisableCollider();
 
@@ -121,6 +134,7 @@ public class PlayerStateManager : MonoBehaviour {
   /// object can notify the other Game Objects.
   /// </summary>
   private void TakeDamage() {
+    if (isInvincible) return;
     hearts -= 1;
     if (hearts == 0) {
       FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
@@ -158,5 +172,20 @@ public class PlayerStateManager : MonoBehaviour {
       default:
         break;
     }
+  }
+
+  public void EnterInvincibility() {
+    spriteRenderer.material = invincibilityMaterial;
+    StartCoroutine(InvincibilityState());
+  }
+  public void ExitInvincibility() {
+    spriteRenderer.material = defaultMaterial;
+  }
+
+  private IEnumerator InvincibilityState() {
+    isInvincible = true;
+    yield return new WaitForSeconds(invincibilityTime);
+    isInvincible = false;
+    ExitInvincibility();
   }
 }
