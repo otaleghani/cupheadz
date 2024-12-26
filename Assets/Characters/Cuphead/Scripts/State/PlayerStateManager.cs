@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 /// <summary>
@@ -20,6 +21,8 @@ public class PlayerStateManager : MonoBehaviour {
   public IPlayerActionState actionState;
   public enum ShootingState { Aim, Recoil };
   public ShootingState currentShootingState = ShootingState.Aim;
+
+  public event Action<int> OnPlayerHealthChange;
 
   //public Collider2D parryCollider;
   public PlayerParryCollision parryCollision;
@@ -72,6 +75,8 @@ public class PlayerStateManager : MonoBehaviour {
     if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Coffee]) {
       superMeterRateOfChange = 0.005f;
     }
+
+    OnPlayerHealthChange?.Invoke(hearts);
   }
 
   private void FixedUpdate() {
@@ -127,6 +132,7 @@ public class PlayerStateManager : MonoBehaviour {
       TakeDamage();
       Debug.Log("Collision with enemy");
     }
+    OnPlayerHealthChange?.Invoke(hearts);
   }
 
   /// <summary>
