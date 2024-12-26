@@ -119,7 +119,7 @@ public class PlayerMovementManager : MonoBehaviour {
   public void HoldYPosition() {
     //rb.gravityScale = 0f;
     rb.linearVelocity = new Vector2(rb.linearVelocityX, 0f);
-    rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+    rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
   }
 
   /// <summary>
@@ -157,6 +157,7 @@ public class PlayerMovementManager : MonoBehaviour {
       }
     }
     if (isDashing) {
+      EndJump();
       Dash();
     }
   }
@@ -212,10 +213,6 @@ public class PlayerMovementManager : MonoBehaviour {
     jumpHoldReleased = false;
   }
   private void Jump() {
-    //Vector2 newVelocity = rb.linearVelocity;
-    //newVelocity.y = jumpForce + ((jumpHoldTimer * 20) * jumpAcceleration);
-    //rb.linearVelocity = newVelocity;
-
     Vector3 newPosition = rb.transform.localPosition;
     newPosition.y += jumpTransform - (jumpHoldTimer / 2);
     rb.transform.localPosition = newPosition;
@@ -224,38 +221,4 @@ public class PlayerMovementManager : MonoBehaviour {
     rb.gravityScale = descendingGravity;
     isJumping = false;
   }
-  
-  /// <summary>
-  /// Collide with ground
-  /// </summary>
-  //private void OnTriggerEnter2D(Collider2D collision) {
-  //  if (collision.CompareTag("Ground")) {
-  //    isGrounded = true;
-  //    isJumping = false;
-  //    jumpHoldReleased = true;
-  //    currentGround = collision;
-  //  }
-  //  //if (collision.CompareTag("Enemy") || collision.CompareTag("Bullet")) {
-  //  //  // take damage
-  //  //}
-  //  // todo: check if the trigger collider was actually the ground or not
-  //}
-  //private void OnCollisionEnter2D(Collision2D other) {
-  //  if (other.gameObject.CompareTag("Ground")) {
-  //    isGrounded = true;
-  //    isJumping = false;
-  //    jumpHoldReleased = true;
-  //    currentGround = other.gameObject.GetComponent<Collider2D>();
-  //    return;
-  //  }
-  //  if (other.gameObject.CompareTag("Enemy") ||
-  //      other.gameObject.CompareTag("EnemyBullet")) {
-  //    //stateManager.TakeDamage();
-  //  }
-
-  //  //if (collision.CompareTag("Enemy") || collision.CompareTag("Bullet")) {
-  //  //  // take damage
-  //  //}
-  //  // todo: check if the trigger collider was actually the ground or not
-  //}
 }

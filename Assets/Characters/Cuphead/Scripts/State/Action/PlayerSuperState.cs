@@ -20,7 +20,7 @@ public class PlayerSuperState : IPlayerActionState {
     this.animatorManager.OnSuperAnimationEnd += HandleAnimationEnd;
 
     PlayAnimation();
-    superManager.UseSuper();
+    this.superManager.UseSuper();
   }
 
   public void Update() {

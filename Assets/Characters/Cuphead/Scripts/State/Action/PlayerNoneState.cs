@@ -23,7 +23,7 @@ public class PlayerNoneState : IPlayerActionState {
 
   public void Exit() {
     inputManager.OnShootPerformed -= HandleShooting;
-    inputManager.OnShootCanceled -= HandleShootingEx;
+    inputManager.OnShootEXPerformed -= HandleShootingEx;
   }
 
   public void PlayAnimation() {}
@@ -32,8 +32,6 @@ public class PlayerNoneState : IPlayerActionState {
     stateManager.ChangeActionState(new PlayerShootingState());
   }
   private void HandleShootingEx() {
-    // Here I need to actually calculate the shooting data
-    Debug.Log(stateManager.superMeter);
     if (stateManager.superMeter >= 5f) {
       stateManager.ChangeActionState(new PlayerSuperState());
       stateManager.ChangeMovementState(new PlayerLockedState());
