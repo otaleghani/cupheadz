@@ -38,11 +38,11 @@ public class UiHealthCounter : MonoBehaviour {
 
   private void HandlePlayerHealthChange(int newHealth) {
     if (newHealth == 1) isFlickering = true;
-    if (newHealth == 0) {
+    if (newHealth <= 0) {
       healthText.text = "DEAD";
       panelBackground.color = gray;
     } else {
-      healthText.text = "HP. " + newHealth.ToString();
+      healthText.text = "HP.   " + newHealth.ToString();
     }
   }
 

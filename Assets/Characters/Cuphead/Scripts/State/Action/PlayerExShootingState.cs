@@ -18,6 +18,7 @@ public class PlayerExShootingState : IPlayerActionState {
     this.animatorManager.OnExShootingAnimationEnd += HandleAnimationEnd;
     this.stateManager.ChangeMovementState(new PlayerLockedState());
     PlayAnimation();
+    stateManager.RemoveToSuperMeter(1f);
   }
 
   public void Update() {}

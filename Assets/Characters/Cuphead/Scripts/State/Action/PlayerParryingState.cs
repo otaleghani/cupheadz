@@ -33,6 +33,7 @@ public class PlayerParryingState : IPlayerActionState {
       animatorManager.ChangeAnimationFromFrame(PlayerAnimatorManager.PlayerAnimations.ParryingPink, frameOfImpact);
       parryFreezeFrames -= 1;
       if (parryFreezeFrames == 0) {
+        stateManager.AddToSuperMeter(1f);
         Unlock();
         animatorManager.ChangeAnimationFromFrame(PlayerAnimatorManager.PlayerAnimations.Parrying, frameOfImpact);
         movementManager.StartJump();

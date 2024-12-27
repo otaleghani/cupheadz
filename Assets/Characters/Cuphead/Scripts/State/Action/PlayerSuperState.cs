@@ -21,6 +21,7 @@ public class PlayerSuperState : IPlayerActionState {
 
     PlayAnimation();
     this.superManager.UseSuper();
+    stateManager.RemoveToSuperMeter(5f);
   }
 
   public void Update() {

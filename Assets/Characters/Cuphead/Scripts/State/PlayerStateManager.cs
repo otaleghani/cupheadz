@@ -10,8 +10,8 @@ using System.Collections;
 public class PlayerStateManager : MonoBehaviour {
   [Header("Player stats")]
   public int hearts = 3;
-  public float superMeter = 5.1f;
-  public float superMeterRateOfChange = 0f;
+  public float superMeter = 0f;
+  public float superMeterRateOfChange = 0.2f;
 
   private PlayerMovementManager movementManager;
   private PlayerInputManager inputManager;
@@ -23,6 +23,7 @@ public class PlayerStateManager : MonoBehaviour {
   public ShootingState currentShootingState = ShootingState.Aim;
 
   public event Action<int> OnPlayerHealthChange;
+  public event Action<float> OnPlayerSuperMeterChange;
 
   //public Collider2D parryCollider;
   public PlayerParryCollision parryCollision;
@@ -77,13 +78,14 @@ public class PlayerStateManager : MonoBehaviour {
     }
 
     OnPlayerHealthChange?.Invoke(hearts);
+    OnPlayerSuperMeterChange?.Invoke(superMeter);
   }
 
   private void FixedUpdate() {
     movementState.Update();
     actionState.Update();
-    if (superMeter < 5) {
-      superMeter += superMeterRateOfChange;
+    if (superMeter < 5 && superMeterRateOfChange != 0f) {
+      AddToSuperMeter(superMeterRateOfChange);
     }
     Debug.Log(actionState);
     Debug.Log(movementState);
@@ -193,5 +195,16 @@ public class PlayerStateManager : MonoBehaviour {
     yield return new WaitForSeconds(invincibilityTime);
     isInvincible = false;
     ExitInvincibility();
+  }
+
+  public void AddToSuperMeter(float amount) {
+    superMeter += amount;
+    if (superMeter > 5f) superMeter = 5f;
+    OnPlayerSuperMeterChange?.Invoke(superMeter);
+  }
+  public void RemoveToSuperMeter(float amount) {
+    superMeter -= amount;
+    if (superMeter < 0f) superMeter = 0f;
+    OnPlayerSuperMeterChange?.Invoke(superMeter);
   }
 }
