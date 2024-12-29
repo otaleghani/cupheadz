@@ -34,6 +34,8 @@ public class PlayerStateManager : MonoBehaviour {
   private Material defaultMaterial;
   private float invincibilityTime = 10f;
   private bool isInvincible = false;
+  private bool isPaused = false;
+  public GameObject pauseUI;
 
   void Awake() {
     inputManager = GetComponent<PlayerInputManager>();
@@ -49,15 +51,42 @@ public class PlayerStateManager : MonoBehaviour {
 
     movementState = new PlayerIdleState();
     actionState = new PlayerNoneState();
+
+    //inputManager.SwitchToUi();
   }
 
   private void OnEnable() {
     FightSceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
     parryCollision.OnParryCollision += HandleParryCollision;
+    inputManager.OnPausePerformed += HandlePause;
   }
   private void OnDisable() {
     FightSceneStateManager.Instance.OnChangeState -= HandleSceneStateChange;
     parryCollision.OnParryCollision -= HandleParryCollision;
+    inputManager.OnPausePerformed -= HandlePause;
+  }
+
+  private void HandlePause() {
+    Debug.Log("Handling pause...");
+    isPaused = !isPaused;
+    if (isPaused) {
+      Pause();
+    } else {
+      Resume();
+    }
+  }
+
+  private void Pause() {
+    pauseUI.SetActive(true);
+    Time.timeScale = 0f;
+    inputManager.SwitchToUi();
+    //inputManager.SwitchActionMap("UI");
+  }
+  public void Resume() {
+    pauseUI.SetActive(false);
+    Time.timeScale = 1f;
+    inputManager.SwitchToPlayer();
+    //inputManager.SwitchActionMap("Player");
   }
 
   private void Start() {

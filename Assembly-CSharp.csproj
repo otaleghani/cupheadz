@@ -140,6 +140,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerExShootingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Scripts\CupheadWeaponsManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerDamagedState.cs" />
+    <Compile Include="Assets\Ui\Scripts\UiMenuButton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerParryingState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />

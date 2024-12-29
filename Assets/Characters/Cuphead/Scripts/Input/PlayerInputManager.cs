@@ -42,6 +42,8 @@ public class PlayerInputManager : MonoBehaviour {
   public event Action OnShootEXCanceled;
   public event Action OnSwitchWeaponPerformed;
   public event Action OnSwitchWeaponCanceled;
+  public event Action OnPausePerformed;
+  //public event Action OnPauseCanceled;
 
   private PlayerInput playerInput;
   private InputAction moveAction;
@@ -53,6 +55,8 @@ public class PlayerInputManager : MonoBehaviour {
   private InputAction crouchAction;
   private InputAction shootEXAction;
   private InputAction switchWeaponAction;
+  private InputAction pauseAction;
+  private InputAction closeAction;
 
   void Awake() {
     playerInput = GetComponent<PlayerInput>();
@@ -64,6 +68,9 @@ public class PlayerInputManager : MonoBehaviour {
     crouchAction = playerInput.actions["Crouch"];
     shootEXAction = playerInput.actions["ShootEX"];
     switchWeaponAction = playerInput.actions["SwitchWeapon"];
+    pauseAction = playerInput.actions["Pause"];
+
+    closeAction = playerInput.actions["Close"];
 
     coordinates["0,1"] = PlayerInputManager.AimDirection.Up;
     coordinates["0,-1"] = PlayerInputManager.AimDirection.Down;
@@ -93,6 +100,8 @@ public class PlayerInputManager : MonoBehaviour {
     shootEXAction.canceled += OnShootEXActionCanceled;
     switchWeaponAction.performed += OnSwitchWeaponActionPerformed;
     switchWeaponAction.canceled += OnSwitchWeaponActionCanceled;
+    pauseAction.performed += OnPauseActionPerformed;
+    closeAction.performed += OnPauseActionPerformed;
   }
 
   void OnDisable() {
@@ -112,6 +121,25 @@ public class PlayerInputManager : MonoBehaviour {
     shootEXAction.canceled -= OnShootEXActionCanceled;
     switchWeaponAction.performed -= OnSwitchWeaponActionPerformed;
     switchWeaponAction.canceled -= OnSwitchWeaponActionCanceled;
+    pauseAction.performed -= OnPauseActionPerformed;
+    closeAction.performed -= OnPauseActionPerformed;
+  }
+
+  public void SwitchToUi() {
+    playerInput.actions.FindActionMap("Player").Disable();
+    playerInput.actions.FindActionMap("UI").Enable();
+  }
+  public void SwitchToPlayer() {
+    playerInput.actions.FindActionMap("Player").Enable();
+    playerInput.actions.FindActionMap("UI").Disable();
+  }
+  public void SwitchActionMap(string map) {
+    playerInput.SwitchCurrentActionMap(map);
+  }
+
+  private void OnPauseActionPerformed(InputAction.CallbackContext context) {
+    Debug.Log("Pause Action Performed");
+    OnPausePerformed?.Invoke();
   }
 
   private void OnMoveActionPerformed(InputAction.CallbackContext context) {
