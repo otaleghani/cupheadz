@@ -16,6 +16,7 @@ public class PlayerInputManager : MonoBehaviour {
     DiagonalUp,
     DiagonalDown,
   }
+  public bool startUi;
   public int xPosition = 0;
   public int yPosition = 0;
   public Vector2 currentVector;
@@ -81,6 +82,10 @@ public class PlayerInputManager : MonoBehaviour {
     coordinates["-1,1"] = PlayerInputManager.AimDirection.DiagonalUp;
     coordinates["1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
     coordinates["-1,-1"] = PlayerInputManager.AimDirection.DiagonalDown;
+
+    if (startUi) {
+      SwitchToUi();
+    }
   }
 
   void OnEnable() {
@@ -102,6 +107,10 @@ public class PlayerInputManager : MonoBehaviour {
     switchWeaponAction.canceled += OnSwitchWeaponActionCanceled;
     pauseAction.performed += OnPauseActionPerformed;
     closeAction.performed += OnPauseActionPerformed;
+
+    //if (startUi) {
+    //  SwitchToUi();
+    //}
   }
 
   void OnDisable() {
@@ -138,7 +147,6 @@ public class PlayerInputManager : MonoBehaviour {
   }
 
   private void OnPauseActionPerformed(InputAction.CallbackContext context) {
-    Debug.Log("Pause Action Performed");
     OnPausePerformed?.Invoke();
   }
 

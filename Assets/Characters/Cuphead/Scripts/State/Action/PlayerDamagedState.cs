@@ -2,6 +2,12 @@ public class PlayerDamagedState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
+  private PlayerMovementManager movementManager;
+  private bool isFacingRight;
+
+  public PlayerDamagedState(bool isFacingRight) {
+    this.isFacingRight = isFacingRight;
+  }
 
   public void Enter(
     PlayerStateManager stateManager,
@@ -11,15 +17,36 @@ public class PlayerDamagedState : IPlayerActionState {
   ) {
     this.stateManager = stateManager;
     this.inputManager = inputManager;
-    this.animatorManager= animatorManager;
+    this.animatorManager = animatorManager;
+    this.movementManager = movementManager;
+    this.animatorManager.OnDamageAnimationEnd += HandleAnimationEnd;
 
-    // set the animation with new system
+    //this.movementManager.isFacingRight = !isFacingRight;
+    this.movementManager.ExRecoil();
+    this.stateManager.ChangeMovementState(new PlayerDamagedMovementState());
+
+    PlayAnimation();
   }
 
-  public void Update() {
-    // update a counter, or wait for the animation to finish
+  public void Update() {}
+
+  public void Exit() {
+    this.animatorManager.OnDamageAnimationEnd += HandleAnimationEnd;
+  }
+  public void PlayAnimation() {
+    animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Damage);
   }
 
-  public void Exit() {}
-  public void PlayAnimation() {}
+  private void HandleAnimationEnd() {
+    stateManager.ChangeActionState(new PlayerNoneState());
+    if (movementManager.isJumping) {
+      stateManager.ChangeMovementState(new PlayerJumpingState());
+      return;
+    }
+    if (inputManager.xPosition != 0) {
+      stateManager.ChangeMovementState(new PlayerMovingState());
+      return;
+    }
+    stateManager.ChangeMovementState(new PlayerIdleState());
+  }
 }

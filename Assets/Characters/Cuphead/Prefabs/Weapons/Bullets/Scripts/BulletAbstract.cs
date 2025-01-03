@@ -8,6 +8,7 @@ public abstract class Bullet : MonoBehaviour {
   public float damage = 10f;
   public float speed = 20f;
   public float lifeTime = 1f;
+  public float superMeterAmountOnHit = 0.1f;
   public float lifeTimer;
 
   public Rigidbody2D rb;
@@ -55,12 +56,13 @@ public abstract class Bullet : MonoBehaviour {
     if (damageable != null) {
       damageable.TakeDamage(damage);
       animator.SetBool("MadeContact", true);
-    }
-    else {
+    } else {
       animator.SetBool("MadeContact", true);
     }
     rb.linearVelocityX = 0f;
     rb.linearVelocityY = 0f;
+    // Here I have to add to the player the number of 
+    PlayerStateManager.instance.AddToSuperMeter(superMeterAmountOnHit);
   }
 
   /// <summary>

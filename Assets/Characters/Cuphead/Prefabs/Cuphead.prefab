@@ -779,7 +779,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.032312855, y: 0.6242491}
+  m_Offset: {x: 0.03231287, y: 0.6420744}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -789,7 +789,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5833708, y: 1.2247431}
+  m_Size: {x: 0.5833708, y: 1.1890925}
   m_EdgeRadius: 0
 --- !u!50 &897116002252091730
 Rigidbody2D:
@@ -910,11 +910,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hearts: 3
-  superMeter: 6
-  superMeterRateOfChange: 0
+  superMeter: 0
+  superMeterRateOfChange: 0.002
   currentShootingState: 0
   parryCollision: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  pauseUI: {fileID: 0}
 --- !u!1 &6405141890029721011
 GameObject:
   m_ObjectHideFlags: 0

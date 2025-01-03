@@ -21,9 +21,12 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public event Action OnExShootingAnimationEnd;
   public event Action OnParryAnimationEnd;
   public event Action OnSuperAnimationEnd;
+  public event Action OnDamageAnimationEnd;
+  public event Action OnDeathAnimationEnd;
 
   public enum PlayerAnimations {
-    Dead,
+    Death,
+    Damage,
     Idle,
     Running,
     RunningShooting,
@@ -87,7 +90,8 @@ public class PlayerAnimatorManager : MonoBehaviour {
     stateManager = GetComponent<PlayerStateManager>();
     animator = GetComponent<Animator>();
 
-    animations[PlayerAnimations.Dead] = "Dead";
+    animations[PlayerAnimations.Death] = "Death";
+    animations[PlayerAnimations.Damage] = "Damage";
     animations[PlayerAnimations.Idle] = "Idle";
     animations[PlayerAnimations.Running] = "Run";
     animations[PlayerAnimations.RunningShooting] = "RunShoot";
@@ -188,8 +192,6 @@ public class PlayerAnimatorManager : MonoBehaviour {
       PlayerAnimations.ShootingExAirDiagonalUp;
     shootExAirAnimations[PlayerInputManager.AimDirection.DiagonalDown] = 
       PlayerAnimations.ShootingExAirDiagonalDown;
-
-
   }
 
   // Helper function used to Pause and Resume an animation
@@ -261,8 +263,13 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public void OnSuperEnd() {
     OnSuperAnimationEnd?.Invoke();
   }
-
   public void OnParryEnd() {
     OnParryAnimationEnd?.Invoke();
+  }
+  public void OnDamageEnd() {
+    OnDamageAnimationEnd?.Invoke();
+  }
+  public void OnDeathEnd() {
+    OnDeathAnimationEnd?.Invoke();
   }
 }

@@ -129,7 +129,9 @@ public class PlayerMovementManager : MonoBehaviour {
     if (stateManager.movementState is not PlayerAimState &&
         stateManager.movementState is not PlayerDashingState &&
         stateManager.movementState is not PlayerDeathState &&
-        stateManager.movementState is not PlayerCrouchState) {
+        stateManager.movementState is not PlayerCrouchState &&
+        stateManager.actionState is not PlayerDamagedState &&
+        stateManager.actionState is not PlayerDeathState) {
       Move();
     }
   }
@@ -179,8 +181,6 @@ public class PlayerMovementManager : MonoBehaviour {
     if (stateManager.movementState is not PlayerDashingState) {
       if (isFacingRight && inputManager.xPosition < 0 ||
       !isFacingRight && inputManager.xPosition > 0) {
-        //isFacingRight = !isFacingRight;
-        //stateManager.spriteRenderer.flipX = !isFacingRight;
         isFacingRight = !isFacingRight;
         Vector3 ls = transform.localScale;
         ls.x *= -1f;
@@ -220,5 +220,14 @@ public class PlayerMovementManager : MonoBehaviour {
   private void EndJump() {
     rb.gravityScale = descendingGravity;
     isJumping = false;
+  }
+
+  public void DisableCollider() { 
+    //rb.simulated = false; 
+    this.GetComponent<Collider2D>().enabled = false;
+  }
+  public void EnableCollider() {
+    //rb.simulated = true; 
+    this.GetComponent<Collider2D>().enabled = true;
   }
 }

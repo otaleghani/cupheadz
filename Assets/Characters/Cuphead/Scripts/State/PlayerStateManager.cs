@@ -8,10 +8,12 @@ using System.Collections;
 /// player params, like life points and super meter
 /// </summary>
 public class PlayerStateManager : MonoBehaviour {
+  public static PlayerStateManager instance;
+
   [Header("Player stats")]
   public int hearts = 3;
   public float superMeter = 0f;
-  public float superMeterRateOfChange = 0.2f;
+  public float superMeterRateOfChange = 0f;
 
   private PlayerMovementManager movementManager;
   private PlayerInputManager inputManager;
@@ -38,6 +40,11 @@ public class PlayerStateManager : MonoBehaviour {
   public GameObject pauseUI;
 
   void Awake() {
+    if (instance == null) {
+      instance = this;
+    } else {
+      Debug.LogWarning("Found more than one instances of PlayerStateManager");
+    }
     inputManager = GetComponent<PlayerInputManager>();
     movementManager = GetComponent<PlayerMovementManager>();
     animatorManager = GetComponent<PlayerAnimatorManager>();
@@ -67,7 +74,6 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   private void HandlePause() {
-    Debug.Log("Handling pause...");
     isPaused = !isPaused;
     if (isPaused) {
       Pause();
@@ -160,21 +166,50 @@ public class PlayerStateManager : MonoBehaviour {
   private void OnCollisionEnter2D(Collision2D collision) {
     if (collision.gameObject.CompareTag("Enemy") || 
         collision.gameObject.CompareTag("EnemyBullet")) {
-      TakeDamage();
-      Debug.Log("Collision with enemy");
+      TakeDamage(collision.contacts[0].point.x > 0.5 ? true : false);
+      StartCoroutine(TemporaryInvulnerability(collision.gameObject));
     }
     OnPlayerHealthChange?.Invoke(hearts);
+  }
+  private void OnCollisionStay2D(Collision2D collision) {
+    if (collision.gameObject.CompareTag("Enemy") || 
+        collision.gameObject.CompareTag("EnemyBullet")) {
+      TakeDamage(collision.contacts[0].point.x > 0.5 ? true : false);
+      StartCoroutine(TemporaryInvulnerability(collision.gameObject));
+    }
+    OnPlayerHealthChange?.Invoke(hearts);
+  }
+
+
+  private IEnumerator TemporaryInvulnerability(GameObject gameObject) {
+    isInvincible = true;
+
+    foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
+      obj.GetComponent<Rigidbody2D>().simulated = false;
+    foreach (var obj in GameObject.FindGameObjectsWithTag("EnemyBullet"))
+      obj.GetComponent<Rigidbody2D>().simulated = false;
+
+    yield return new WaitForSeconds(2);
+
+    foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
+      obj.GetComponent<Rigidbody2D>().simulated = true;
+    foreach (var obj in GameObject.FindGameObjectsWithTag("EnemyBullet"))
+      obj.GetComponent<Rigidbody2D>().simulated = true;
+
+    isInvincible = false;
   }
 
   /// <summary>
   /// Helper function to take damage. It also changes the Scene state to Lose, so that the scene
   /// object can notify the other Game Objects.
   /// </summary>
-  private void TakeDamage() {
+  private void TakeDamage(bool isFacingRight) {
     if (isInvincible) return;
     hearts -= 1;
     if (hearts == 0) {
       FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
+    } else {
+      ChangeActionState(new PlayerDamagedState(isFacingRight));
     }
   }
 
@@ -195,8 +230,8 @@ public class PlayerStateManager : MonoBehaviour {
         // Disable the colliders
         break;
       case FightSceneStateManager.SceneState.Lose:
-        ChangeActionState(new PlayerNoneState());
-        ChangeMovementState(new PlayerDeathState());
+        ChangeActionState(new PlayerDeathState());
+        ChangeMovementState(new PlayerDeathMovementState());
         break;
       case FightSceneStateManager.SceneState.Play:
         ChangeMovementState(new PlayerIdleState());

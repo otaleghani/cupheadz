@@ -1,6 +1,4 @@
-
-// Here the player is not shooting
-public class PlayerDeathState : IPlayerMovementState {
+public class PlayerDamagedMovementState : IPlayerMovementState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
@@ -14,10 +12,11 @@ public class PlayerDeathState : IPlayerMovementState {
   ) {
     this.stateManager = stateManager;
     this.inputManager = inputManager;
-    this.movementManager = movementManager;
     this.animatorManager = animatorManager;
+    this.movementManager = movementManager;
 
-    this.animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Dead);
+    this.movementManager.StartJump();
+    this.movementManager.jumpHoldReleased = true;
   }
 
   public void Update() {}

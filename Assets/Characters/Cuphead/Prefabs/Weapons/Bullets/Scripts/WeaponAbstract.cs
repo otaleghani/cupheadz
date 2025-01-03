@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// Manages the different pools of bullets, exBullets and sparkles.
 /// </summary>
 public abstract class WeaponManager : MonoBehaviour {
-  public virtual float fireRate { get; protected set; } = 1f;
+  public virtual float fireRate { get; protected set; } = 0.1f;
   public virtual float exFireRate { get; protected set; } = 2f;
 
   public virtual string weaponPrefabName {get; protected set;} = "Peashooter__Bullet";
