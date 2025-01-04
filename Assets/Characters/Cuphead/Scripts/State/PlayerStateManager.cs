@@ -60,6 +60,7 @@ public class PlayerStateManager : MonoBehaviour {
     actionState = new PlayerNoneState();
 
     //inputManager.SwitchToUi();
+    inputManager.SwitchToPlayer();
   }
 
   private void OnEnable() {

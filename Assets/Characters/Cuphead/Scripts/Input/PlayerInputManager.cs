@@ -45,6 +45,7 @@ public class PlayerInputManager : MonoBehaviour {
   public event Action OnSwitchWeaponCanceled;
   public event Action OnPausePerformed;
   //public event Action OnPauseCanceled;
+  public event Action OnUICancel;
 
   private PlayerInput playerInput;
   private InputAction moveAction;
@@ -58,6 +59,7 @@ public class PlayerInputManager : MonoBehaviour {
   private InputAction switchWeaponAction;
   private InputAction pauseAction;
   private InputAction closeAction;
+  private InputAction cancelAction;
 
   void Awake() {
     playerInput = GetComponent<PlayerInput>();
@@ -72,6 +74,7 @@ public class PlayerInputManager : MonoBehaviour {
     pauseAction = playerInput.actions["Pause"];
 
     closeAction = playerInput.actions["Close"];
+    cancelAction = playerInput.actions["Cancel"];
 
     coordinates["0,1"] = PlayerInputManager.AimDirection.Up;
     coordinates["0,-1"] = PlayerInputManager.AimDirection.Down;
@@ -107,6 +110,7 @@ public class PlayerInputManager : MonoBehaviour {
     switchWeaponAction.canceled += OnSwitchWeaponActionCanceled;
     pauseAction.performed += OnPauseActionPerformed;
     closeAction.performed += OnPauseActionPerformed;
+    cancelAction.performed += OnCancelActionPerformed;
 
     //if (startUi) {
     //  SwitchToUi();
@@ -132,6 +136,7 @@ public class PlayerInputManager : MonoBehaviour {
     switchWeaponAction.canceled -= OnSwitchWeaponActionCanceled;
     pauseAction.performed -= OnPauseActionPerformed;
     closeAction.performed -= OnPauseActionPerformed;
+    cancelAction.performed -= OnCancelActionPerformed;
   }
 
   public void SwitchToUi() {
@@ -210,5 +215,8 @@ public class PlayerInputManager : MonoBehaviour {
   }
   private void OnSwitchWeaponActionCanceled(InputAction.CallbackContext context) {
     OnSwitchWeaponCanceled?.Invoke();
+  }
+  private void OnCancelActionPerformed(InputAction.CallbackContext context) {
+    OnUICancel?.Invoke();
   }
 }

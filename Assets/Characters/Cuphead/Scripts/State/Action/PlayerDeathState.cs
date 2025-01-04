@@ -1,3 +1,5 @@
+using UnityEngine.SceneManagement;
+
 public class PlayerDeathState : IPlayerActionState {
   private PlayerStateManager stateManager;
   private PlayerInputManager inputManager;
@@ -28,5 +30,7 @@ public class PlayerDeathState : IPlayerActionState {
 
   private void HandleAnimationEnd() {
     stateManager.gameObject.SetActive(false);
+
+    SceneManager.LoadScene("Map");
   }
 }

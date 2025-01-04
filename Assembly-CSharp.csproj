@@ -120,6 +120,7 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\ExBulletSfxAbstract.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Collisions\Ground\PlayerGroundCollision.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameData\BossRating.cs" />
+    <Compile Include="Assets\Ui\Scripts\UiMap.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterWeaponManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />

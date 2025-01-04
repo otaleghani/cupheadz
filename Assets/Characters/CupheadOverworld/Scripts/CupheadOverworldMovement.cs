@@ -22,6 +22,7 @@ public class CupheadOverworldMovement : MonoBehaviour {
     inputManager.OnMovePerformed += HandleMove;
     inputManager.OnMoveCanceled += HandleMoveCanceled;
     inputManager.OnJumpPerformed += HandleInteract;
+    inputManager.OnJumpPerformed += HandleInteract;
   }
   private void OnDisable() {
     inputManager.OnMovePerformed -= HandleMove;
