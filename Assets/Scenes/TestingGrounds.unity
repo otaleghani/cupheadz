@@ -915,8 +915,8 @@ Transform:
   m_GameObject: {fileID: 598704552}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4334, y: -4.8154, z: -0.036999088}
-  m_LocalScale: {x: 18.154066, y: 1.2983, z: 1}
+  m_LocalPosition: {x: 10.535, y: -4.8154, z: -0.036999088}
+  m_LocalScale: {x: 40.09142, y: 1.2983, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1566227835}
@@ -1253,6 +1253,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928958360}
   m_CullTransparentMesh: 1
+--- !u!1 &948003973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6371120194414480597, guid: ab495601c12283e419dec294d817edc1, type: 3}
+  m_PrefabInstance: {fileID: 7608294358277881604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1003800513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,7 +1432,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1102287505}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1177402115}
+        m_TargetAssemblyTypeName: UiPauseMenu, Assembly-CSharp
+        m_MethodName: ReturnToMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &1102287505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,6 +1494,7 @@ GameObject:
   - component: {fileID: 1177402112}
   - component: {fileID: 1177402114}
   - component: {fileID: 1177402113}
+  - component: {fileID: 1177402115}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -1542,6 +1560,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177402111}
   m_CullTransparentMesh: 1
+--- !u!114 &1177402115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177402111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695a3894b05e6714fac052d7234f32e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1236803319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,6 +1954,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4821516419001007017, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4860656054627793703, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6755662586233969118, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 948003973}
+    - target: {fileID: 6755662586233969118, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+      propertyPath: leftBound
+      value: 
+      objectReference: {fileID: 1682954040}
+    - target: {fileID: 6755662586233969118, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+      propertyPath: rightBound
+      value: 
+      objectReference: {fileID: 1682954039}
     - target: {fileID: 8311223266137948836, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -1933,6 +1983,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+--- !u!1 &1682954039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3929775924285516671, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+  m_PrefabInstance: {fileID: 1682954038}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1682954040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3348640453697316445, guid: 92b705323a9bbbf419e3017180c7e5a2, type: 3}
+  m_PrefabInstance: {fileID: 1682954038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1693129500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2833,6 +2893,34 @@ PrefabInstance:
     - target: {fileID: 8042225608540560975, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186235661113506665, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186235661113506665, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186235661113506665, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1177402115}
+    - target: {fileID: 9186235661113506665, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186235661113506665, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Retry
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186235661113506665, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UiPauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186235661113506665, guid: deecd2c8a94053a49bbc0361be64216b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -171,7 +171,7 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
         break;
 
       case GameData.Weapon.None:
-        obj = Instantiate(Resources.Load<GameObject>("Chaser__Weapon"), transform);
+        obj = Instantiate(Resources.Load<GameObject>("Peashooter__Weapon"), transform);
         obj.name = "Chaser__Weapon";
         break;
 

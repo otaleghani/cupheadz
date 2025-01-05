@@ -54,14 +54,11 @@ public class PlayerStateManager : MonoBehaviour {
     defaultMaterial = spriteRenderer.material;
 
     parryCollision = GetComponentInChildren<PlayerParryCollision>();
-    parryCollision.DisableCollider();
 
     movementState = new PlayerIdleState();
     actionState = new PlayerNoneState();
-
-    //inputManager.SwitchToUi();
-    inputManager.SwitchToPlayer();
   }
+
 
   private void OnEnable() {
     FightSceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
@@ -97,6 +94,9 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
   private void Start() {
+    inputManager.SwitchToPlayer();
+    parryCollision.DisableCollider();
+
     movementState.Enter(this, inputManager, movementManager, animatorManager);
     actionState.Enter(this, inputManager, movementManager, animatorManager);
     

@@ -18,9 +18,7 @@ public class DataPersistenceManager : MonoBehaviour {
       Debug.Log("Found more than one DataPersistenceManager in the scene.");
     }
     instance = this;
-  }
 
-  private void Start() {
     this.dataHandler = new FileDataHandler(
       Application.persistentDataPath, 
       fileName,
@@ -28,6 +26,16 @@ public class DataPersistenceManager : MonoBehaviour {
     );
     this.dataPersistenceObjects = FindAllDataPersistenceObjects();
     LoadGame();
+  }
+
+  private void Start() {
+    //this.dataHandler = new FileDataHandler(
+    //  Application.persistentDataPath, 
+    //  fileName,
+    //  useEncryption
+    //);
+    //this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+    //LoadGame();
   }
 
   public void NewGame() {

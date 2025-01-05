@@ -13,7 +13,9 @@ public class PlayerParryCollision : MonoBehaviour {
     collider.enabled = true;
   }
   public void DisableCollider() {
-    collider.enabled = false;
+    if (collider != null) {
+      collider.enabled = false;
+    }
   }
 
   private void OnTriggerEnter2D(Collider2D collider) {

@@ -118,6 +118,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterSparkleManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\ExBulletSfxAbstract.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraMovement.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Collisions\Ground\PlayerGroundCollision.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameData\BossRating.cs" />
     <Compile Include="Assets\Ui\Scripts\UiMap.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Ui\Scripts\UiPauseMenu.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\GiantGhost\GiantGhostSuper.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Collisions\Parry\PlayerParryCollision.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
