@@ -3,6 +3,7 @@ using UnityEngine;
 public class TestParryObject : MonoBehaviour, IParryable {
   private ParrySparksManager parrySparksManager;
   private int counter = 0;
+  private Sprite sprite;
 
   private void Awake() {
     parrySparksManager = GameObject.Find("ParrySparksManager").GetComponent<ParrySparksManager>();
@@ -10,13 +11,16 @@ public class TestParryObject : MonoBehaviour, IParryable {
 
   public void OnParry() {
     parrySparksManager.ShowSpark(gameObject.transform);
-    gameObject.SetActive(false);
+    //StartCoroutine(ReActivateAfter(2));
+    //gameObject.SetActive(false);
+    ObjectResetter.instance.ResetAfter(gameObject, 2);
   }
 
-  private void FixedUpdate() {
-    counter += 1;
-    if (counter > 50) {
-      gameObject.SetActive(true);
-    }
-  }
+  //private IEnumerator ReActivateAfter(int seconds) {
+  //  sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+  //  gameObject.GetComponent<SpriteRenderer>().sprite = null;
+  //  yield return new WaitForSeconds(seconds);
+  //  gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+  //  Debug.Log("Got out");
+  //}
 }

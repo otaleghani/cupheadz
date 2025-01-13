@@ -67,7 +67,7 @@ public class PlayerJumpingState : IPlayerMovementState {
     // than change to this state
     if (canParry && stateManager.actionState is not PlayerParryingState) {
       stateManager.ChangeActionState(new PlayerParryingState());
-      canParry = false;
+      //canParry = false;
     }
   }
 

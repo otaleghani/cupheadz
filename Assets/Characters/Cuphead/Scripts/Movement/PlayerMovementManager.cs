@@ -67,15 +67,17 @@ public class PlayerMovementManager : MonoBehaviour {
     jumpHoldReleased = true;
     currentGround = collision;
   }
-  private void HandleGroundCollisionExit() {
-    isGrounded = false;
-    currentGround = null;
+  private void HandleGroundCollisionExit(Collider2D collision) {
+    if (collision == currentGround) {
+      isGrounded = false;
+      currentGround = null;
+    }
   }
 
   private void FixedUpdate() {
     HandleDash();
-    HandleJump();
     HandleMove();
+    HandleJump();
     HandleFlipCharacter();
     HandleExRecoil();
   }
@@ -108,7 +110,7 @@ public class PlayerMovementManager : MonoBehaviour {
   /// Helper function used to stop the player character in the current position.
   /// </summary>
   public void HoldPosition() {
-    //rb.gravityScale = 0f;
+    // rb.gravityScale = 0f;
     rb.linearVelocity = new Vector2(0f, 0f);
     rb.constraints = RigidbodyConstraints2D.FreezeAll;
     if (isJumping) EndJump();
@@ -136,9 +138,13 @@ public class PlayerMovementManager : MonoBehaviour {
     }
   }
   private void Move() {
-    Vector2 newPosition = rb.linearVelocity;
-    newPosition.x = movementSpeed * inputManager.xPosition;
-    rb.linearVelocity = newPosition;
+    //Vector2 newPosition = rb.linearVelocity;
+    //newPosition.x = movementSpeed * inputManager.xPosition;
+    //rb.linearVelocity = newPosition;
+    rb.linearVelocityX = movementSpeed * inputManager.xPosition;
+    //Vector3 newPosition = rb.transform.localPosition;
+    //newPosition.x += (movementSpeed * inputManager.xPosition) / 30;
+    //rb.transform.localPosition = newPosition;
   }
   public void MoveStop() {
     Vector2 newPosition = rb.linearVelocity;

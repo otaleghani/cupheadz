@@ -28,16 +28,6 @@ public class DataPersistenceManager : MonoBehaviour {
     LoadGame();
   }
 
-  private void Start() {
-    //this.dataHandler = new FileDataHandler(
-    //  Application.persistentDataPath, 
-    //  fileName,
-    //  useEncryption
-    //);
-    //this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-    //LoadGame();
-  }
-
   public void NewGame() {
     this.gameData = new GameData();
   }
@@ -61,6 +51,9 @@ public class DataPersistenceManager : MonoBehaviour {
     Debug.Log("Saved. Count = " + gameData.deathCount);
     dataHandler.Save(gameData);
   }
+  private void SaveCurrentGame() {
+    dataHandler.Save(gameData);
+  }
 
   private void OnApplicationQuit() {
     SaveGame();
@@ -70,5 +63,11 @@ public class DataPersistenceManager : MonoBehaviour {
     IEnumerable<IDataPersistence> dataPersistenceObjects =
       FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>();
     return new List<IDataPersistence>(dataPersistenceObjects);
+  }
+
+  public void ChangeSuper(GameData.Super super) {
+    gameData.equippedSuper = super;
+    Debug.Log(gameData.equippedSuper);
+    SaveCurrentGame();
   }
 }

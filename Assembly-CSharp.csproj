@@ -77,6 +77,7 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\WeaponAbstract.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\ISuperAttack\ISuperAttack.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\FileDataHandler.cs" />
+    <Compile Include="Assets\Scripts\Misc\ObjectResetter.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerAimState.cs" />
     <Compile Include="Assets\Misc\ParrySpark\Scripts\ParrySpark.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterExBulletManager.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Scripts\DataPersistence\GameData\GameData.cs" />
     <Compile Include="Assets\Scripts\Scenes\Changer\SceneChanger.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\CupheadSuperManager\CupheadSuperManager.cs" />
+    <Compile Include="Assets\Scripts\Grounds\DropOffGround.cs" />
     <Compile Include="Assets\Ui\Scripts\UiSplashScreen.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSfxManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />

@@ -23,7 +23,12 @@ public class PlayerCrouchState : IPlayerMovementState {
     this.movementManager.MoveStop();
   }
 
-  public void Update() {}
+  public void Update() {
+    if (!movementManager.isGrounded) {
+      stateManager.ChangeMovementState(new PlayerJumpingState());
+      return;
+    }
+  }
 
   public void Exit() {
     inputManager.OnCrouchCanceled -= HandleCrouchCanceled;
@@ -45,9 +50,10 @@ public class PlayerCrouchState : IPlayerMovementState {
     IDropOffGround dropOffGround = movementManager.currentGround.GetComponent<IDropOffGround>();
     if (dropOffGround != null) {
       dropOffGround.DeactivateCollider(1f);
+      //movementManager.isGrounded = false;
     }
     // I don't know if you would actually need to do this
-    stateManager.ChangeMovementState(new PlayerJumpingState());
+    //stateManager.ChangeMovementState(new PlayerJumpingState());
   }
 
   private void HandleShooting() {

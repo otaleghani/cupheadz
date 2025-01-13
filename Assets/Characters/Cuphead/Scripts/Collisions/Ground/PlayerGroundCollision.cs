@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerGroundCollision : MonoBehaviour {
   public event Action<Collider2D> OnGroundCollisionEnter;
-  public event Action OnGroundCollisionExit;
+  public event Action<Collider2D> OnGroundCollisionExit;
 
   private void OnTriggerEnter2D(Collider2D collider) {
     if (collider.CompareTag("Ground")) {
@@ -13,7 +13,7 @@ public class PlayerGroundCollision : MonoBehaviour {
   }
   private void OnTriggerExit2D(Collider2D collider) {
     if (collider.CompareTag("Ground")) {
-      OnGroundCollisionExit?.Invoke();
+      OnGroundCollisionExit?.Invoke(collider);
     }
   }
 }
