@@ -18,8 +18,8 @@ public abstract class WeaponManager : MonoBehaviour {
   private GameObject exBulletPrefab = null;
   private GameObject exSfxPrefab = null;
 
-  private Bullet bulletData;
-  private ExBullet exBulletData;
+  protected Bullet bulletData;
+  protected ExBullet exBulletData;
 
   private Queue<GameObject> bulletPoolQueue = new Queue<GameObject>();
   private Queue<GameObject> sparklePoolQueue = new Queue<GameObject>();

@@ -27,6 +27,9 @@ public class PlayerMovingState : IPlayerMovementState {
   }
 
   public void Update() {
+    if (inputManager.xPosition == 0) {
+      stateManager.ChangeMovementState(new PlayerIdleState());
+    }
     if (!movementManager.isGrounded) {
       stateManager.ChangeMovementState(new PlayerJumpingState());
       return;

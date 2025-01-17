@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\PostProduction\Overlay\OverlayCycler.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\WeaponAbstract.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\ISuperAttack\ISuperAttack.cs" />
+    <Compile Include="Assets\Scripts\Bosses\BossStateManager.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\FileDataHandler.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectResetter.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerAimState.cs" />

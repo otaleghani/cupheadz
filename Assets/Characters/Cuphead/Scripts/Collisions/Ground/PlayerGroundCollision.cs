@@ -7,7 +7,11 @@ public class PlayerGroundCollision : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collider) {
     if (collider.CompareTag("Ground")) {
-      //PlayerMovementManager.a
+      OnGroundCollisionEnter?.Invoke(collider);
+    }
+  }
+  private void OnTriggerStay2D(Collider2D collider) {
+    if (collider.CompareTag("Ground")) {
       OnGroundCollisionEnter?.Invoke(collider);
     }
   }

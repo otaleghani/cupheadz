@@ -144,9 +144,12 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
           break;
 
         case PlayerIdleState:
-          CalculateDirection();
-          equippedWeapon.Shoot(xDirection, 0, 
-            firePoints[PlayerInputManager.AimDirection.Front]);
+          //CalculateDirection();
+          //equippedWeapon.Shoot(xDirection, 0, 
+          //  firePoints[PlayerInputManager.AimDirection.Front]);
+          CalculateDirectionOnAim();
+          equippedWeapon.Shoot(xDirection, yDirection, 
+            firePoints[PlayerInputManager.CurrentCoordinate]);
           break;
       }
       stateManager.currentShootingState = PlayerStateManager.ShootingState.Recoil;

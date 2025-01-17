@@ -16,6 +16,7 @@ public class PlayerShootingState : IPlayerActionState {
     this.animatorManager = animatorManager;
 
     this.inputManager.OnShootCanceled += HandleShootingReleased;
+    //this.input
     PlayAnimation();
   }
 
@@ -35,10 +36,11 @@ public class PlayerShootingState : IPlayerActionState {
     switch (stateManager.movementState) {
       case PlayerIdleState: 
         if (stateManager.currentShootingState == PlayerStateManager.ShootingState.Aim) {
-          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.ShootingAimFront);
+          animatorManager.ChangeAnimation(animatorManager.shootAimAnimations[PlayerInputManager.CurrentCoordinate]);
         } else {
-          animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.ShootingRecoilFront);
+          animatorManager.ChangeAnimation(animatorManager.shootRecoilAnimations[PlayerInputManager.CurrentCoordinate]);
         }
+        previousCoordinate = PlayerInputManager.CurrentCoordinate;
         break;
       case PlayerMovingState:
         animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.RunningShooting);

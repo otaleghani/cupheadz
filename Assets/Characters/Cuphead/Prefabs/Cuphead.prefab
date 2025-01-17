@@ -846,7 +846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFacingRight: 1
   currentGround: {fileID: 0}
-  dashMaxCooldown: 1
+  dashMaxCooldown: 0.5
   isDashingCooldown: 0
   isDashing: 0
   isGrounded: 1
@@ -864,6 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16859733c08a6b94288015d4739742ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startUi: 0
   xPosition: 0
   yPosition: 0
   currentVector: {x: 0, y: 0}

@@ -1,0 +1,16 @@
+*.png
+*.jpg
+*.meta
+*.unity
+*.mat
+*.anim
+*.controller
+*.prefab
+*.ttf
+*.TTF
+*.shader
+*.txt
+*.psd
+*.shadergraph
+*.otf
+*.cginc

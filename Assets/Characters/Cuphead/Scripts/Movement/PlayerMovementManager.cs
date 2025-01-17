@@ -17,7 +17,7 @@ public class PlayerMovementManager : MonoBehaviour {
   [Header("Dash")]
   private float dashSpeed = 12f / 1.5f;
   private float dashCooldown;
-  public float dashMaxCooldown = 1f;
+  public float dashMaxCooldown = 0.2f;
   public bool isDashingCooldown = false;
   public bool isDashing = false;
 
@@ -68,6 +68,7 @@ public class PlayerMovementManager : MonoBehaviour {
     currentGround = collision;
   }
   private void HandleGroundCollisionExit(Collider2D collision) {
+    Debug.Log("exited");
     if (collision == currentGround) {
       isGrounded = false;
       currentGround = null;
