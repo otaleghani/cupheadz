@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BossAttackManager : MonoBehaviour, IBossAttack {
+public abstract class BossAttackManager : MonoBehaviour, IBossAction {
   public string AnimationName;
 
   
