@@ -95,7 +95,9 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSfxManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserSparkleManager.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\SpecterCauldron.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\Invincibility\InvincibilityManager.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\SickleManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Animator\PlayerAnimatorManager.cs" />
     <Compile Include="Assets\Scripts\Map\MapInteractableObjectManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Assets\Scripts\Bosses\BossAttackManager.cs" />
     <Compile Include="Assets\Scripts\Scenes\Fight\Animator\FightSceneAnimatorManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDeathMovementState.cs" />
+    <Compile Include="Assets\Scripts\CoroutineQueueManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSuper.cs" />
     <Compile Include="Assets\Ui\Scripts\UiSuperMeter.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerNoneState.cs" />
@@ -154,6 +157,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDashingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerExShootingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Scripts\CupheadWeaponsManager.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\CauldronBulletGroundCheck.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerDamagedState.cs" />
     <Compile Include="Assets\Ui\Scripts\UiMenuButton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
@@ -178,11 +182,13 @@
     <Compile Include="Assets\Ui\Scripts\UiPauseMenu.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\GiantGhost\GiantGhostSuper.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Collisions\Parry\PlayerParryCollision.cs" />
+    <Compile Include="Assets\Scripts\BootstrapperManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerJumpingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\PlayerStateManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamImpactManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerActionState.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\CauldronBulletManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\GiantGhost\GiantGhostManager.cs" />
     <Compile Include="Assets\Characters\MeatShield\MeatShieldManager.cs" />
   </ItemGroup>

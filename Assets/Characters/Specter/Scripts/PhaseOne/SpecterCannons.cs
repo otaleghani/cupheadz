@@ -3,9 +3,7 @@ public class SpecterCannons : IBossAction {
     SpecterStateManager.Instance.ChangeAnimation("Phase1__CannonTransform"); 
   }
   
-  public void Update() {
-    // How do I know when it's time to return to Idle?
-  }
+  public void Update() { }
   
   public void Exit() { }
 }

@@ -5,7 +5,7 @@ public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
   GameObject leftPoint = GameObject.Find("IdleMoveLeft");
   GameObject rightPoint = GameObject.Find("IdleMoveRight");
 
-  GameObject lastVisited;
+  public GameObject lastVisited;
   float movementDuration = 1.3f;
   int trips;    
   int maxTrips;
@@ -19,7 +19,6 @@ public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
       SpecterStateManager.Instance.Move(rightPoint, "arc", movementDuration);
     } else {
       SpecterStateManager.Instance.Move(leftPoint, "arc", movementDuration);
-      
     }
   }
   

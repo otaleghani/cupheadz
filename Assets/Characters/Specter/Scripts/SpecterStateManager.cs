@@ -38,6 +38,7 @@ public class SpecterStateManager : BossStateManager {
     _bossAttacks = new Dictionary<int, System.Collections.Generic.List<IBossAction>>();
     _bossAttacks[0] = new List<IBossAction>();
     _bossAttacks[0].Add(new SpecterCannons());
+    //_bossAttacks[0].Add(new SpecterCauldron());
     
     _bossTransitions = new Dictionary<int, IBossAction>();
 
@@ -88,9 +89,41 @@ public class SpecterStateManager : BossStateManager {
   public void AnimEndP1CannonShoot() {
     Idle();
   }
+
+  //public enum
   public void CannonShoot() {
     GameObject sickle = Instantiate(Resources.Load<GameObject>("SpecterSickle"));
     sickle.transform.SetPositionAndRotation(transform.Find("SickleSpawnPoint").transform.position, Quaternion.Euler(0, 0, 0));
-        //Debug.Log("fire in the hoooole!");
+    sickle.GetComponent<SickleManager>().ExitScreen();
   }
+
+  public void AnimEndP1PortalIn() {
+    transform.position = GameObject.Find("SpecterMovePoints/Cauldron").transform.position;
+    ChangeAnimation("Phase1__CauldronPortalIn");
+    
+    // TODO: Add LayerChange
+    //GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("");
+    //gameObject.layer = LayerMask.NameToLayer("Enemy");
+  }
+  
+  public void AnimEndP1CauldronPortalIn() {
+    ChangeAnimation("Phase1__CauldronIdle");
+  }
+
+  public void AnimEndP1CauldronIdle() {
+    ChangeAnimation("Phase1__CauldronAttack");
+  }
+  public void AnimEndP1CauldronAttack() {
+    ChangeAnimation("Phase1__CauldronPortalOut");
+  }
+  public void AnimEndP1CauldronPortalOut() {
+    // TODO: Move to correct move point
+    SpecterIdlePhaseOne idle = _bossIdle[0] as SpecterIdlePhaseOne;
+    transform.position = idle.lastVisited.transform.position; 
+    ChangeAnimation("Phase1__PortalOut");
+  }
+  public void AnimEndP1PortalOut() {
+    Idle();
+  }
+  
 }

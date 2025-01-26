@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7894651004491751400}
   - component: {fileID: 6873783700035262261}
   - component: {fileID: 2518684878955225257}
+  - component: {fileID: 6692847927543517266}
   m_Layer: 0
   m_Name: SpecterSickle
   m_TagString: Untagged
@@ -138,3 +139,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6692847927543517266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5134538456257553137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534d77fb66f186a428b74aaaa57b9f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

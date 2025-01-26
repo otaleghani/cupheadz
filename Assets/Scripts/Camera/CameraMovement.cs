@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
-  public GameObject player;
-  public GameObject leftBound;
-  public GameObject rightBound;
+  private GameObject player;
+  private GameObject leftBound;
+  private GameObject rightBound;
 
   public Vector3 offset = new Vector3(0, 0, -10);
   public Vector3 movementOffset = new Vector3(2, 0, 0);
@@ -12,12 +12,22 @@ public class CameraMovement : MonoBehaviour {
   private Vector3 desiredOffset;
   private Vector3 currentOffset;
 
+  private void Awake() {
+    player = GameObject.Find("Cuphead");
+    if (transform.Find("LeftBound") != null && transform.Find("RightBound") != null) {
+      leftBound = transform.Find("LeftBound").gameObject;
+      rightBound = transform.Find("RightBound").gameObject;
+    } else {
+      Destroy(this);
+    }
+  }
+  
   private void LateUpdate() {
     if (player == null) {
       Debug.LogWarning("CameraFollow: No target assigned to follow.");
       return;
     }
-
+    
     Vector3 dynamicOffset = Vector3.zero;
     if (player.GetComponent<PlayerInputManager>() != null) {
       if (player.GetComponent<PlayerInputManager>().xPosition > 0.1f && 

@@ -69,6 +69,7 @@ public abstract class BossStateManager : MonoBehaviour, IDamageable {
 	
 	/// Based on the current phase, get one attack randomly
 	public void Attack() {
+		Debug.Log("The count is: " + _bossAttacks [_bossPhase].Count);
 		ChangeBossAction(_bossAttacks[_bossPhase][UnityEngine.Random.Range(0, _bossAttacks[_bossPhase].Count)]);
 		_state = BossState.Attack;
 	}
