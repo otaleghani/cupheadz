@@ -17,7 +17,7 @@ public class UIMap : MonoBehaviour {
 
   public void GoInSpecter() {
     Debug.Log("Change the scene");
-    SceneManager.LoadScene("Specter");
+    SceneManager.LoadScene("SpecterTesting");
     Time.timeScale = 1f;
   }
 }

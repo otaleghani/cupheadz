@@ -68,7 +68,6 @@ public class PlayerMovementManager : MonoBehaviour {
     currentGround = collision;
   }
   private void HandleGroundCollisionExit(Collider2D collision) {
-    Debug.Log("exited");
     if (collision == currentGround) {
       isGrounded = false;
       currentGround = null;

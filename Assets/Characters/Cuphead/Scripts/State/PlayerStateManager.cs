@@ -123,8 +123,8 @@ public class PlayerStateManager : MonoBehaviour {
     if (superMeter < 5 && superMeterRateOfChange != 0f) {
       AddToSuperMeter(superMeterRateOfChange);
     }
-    //Debug.Log(actionState);
-    //Debug.Log(movementState);
+    Debug.Log(actionState);
+    Debug.Log(movementState);
   }
 
   private void HandleParryCollision(Collider2D collider) {
@@ -164,38 +164,59 @@ public class PlayerStateManager : MonoBehaviour {
   //}
   //
   // Handles enemy and bullet collision
-  private void OnCollisionEnter2D(Collision2D collision) {
-    if (collision.gameObject.CompareTag("Enemy") || 
-        collision.gameObject.CompareTag("EnemyBullet")) {
-      TakeDamage(collision.contacts[0].point.x > 0.5 ? true : false);
-      StartCoroutine(TemporaryInvulnerability(collision.gameObject));
+  private void OnTriggerEnter2D(Collider2D other) {
+    if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet")) {
+      TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false);
+      StartCoroutine(TemporaryInvulnerability(gameObject));
     }
     OnPlayerHealthChange?.Invoke(hearts);
   }
-  private void OnCollisionStay2D(Collision2D collision) {
-    if (collision.gameObject.CompareTag("Enemy") || 
-        collision.gameObject.CompareTag("EnemyBullet")) {
-      TakeDamage(collision.contacts[0].point.x > 0.5 ? true : false);
-      StartCoroutine(TemporaryInvulnerability(collision.gameObject));
+  private void OnTriggerStay2D(Collider2D other) {
+    if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet")) {
+      TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false);
+      StartCoroutine(TemporaryInvulnerability(gameObject));
     }
     OnPlayerHealthChange?.Invoke(hearts);
   }
+  private Vector2 CalculateApproximateContactPoint(Collider2D other) {
+    Vector2 ownCenter = GetComponent<Collider2D>().bounds.center;
+    Vector2 otherCenter = other.bounds.center;
+    Vector2 midPoint = (ownCenter + otherCenter) / 2f;
+    return midPoint;
+  }
+  
+  // private void OnCollisionEnter2D(Collision2D collision) {
+  //   if (collision.gameObject.CompareTag("Enemy") || 
+  //       collision.gameObject.CompareTag("EnemyBullet")) {
+  //     TakeDamage(collision.contacts[0].point.x > 0.5 ? true : false);
+  //     StartCoroutine(TemporaryInvulnerability(collision.gameObject));
+  //   }
+  //   OnPlayerHealthChange?.Invoke(hearts);
+  // }
+  // private void OnCollisionStay2D(Collision2D collision) {
+  //   if (collision.gameObject.CompareTag("Enemy") || 
+  //       collision.gameObject.CompareTag("EnemyBullet")) {
+  //     TakeDamage(collision.contacts[0].point.x > 0.5 ? true : false);
+  //     StartCoroutine(TemporaryInvulnerability(collision.gameObject));
+  //   }
+  //   OnPlayerHealthChange?.Invoke(hearts);
+  // }
 
 
   private IEnumerator TemporaryInvulnerability(GameObject gameObject) {
     isInvincible = true;
 
-    foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
-      obj.GetComponent<Rigidbody2D>().simulated = false;
-    foreach (var obj in GameObject.FindGameObjectsWithTag("EnemyBullet"))
-      obj.GetComponent<Rigidbody2D>().simulated = false;
+    // foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
+    //   obj.GetComponent<Rigidbody2D>().simulated = false;
+    // foreach (var obj in GameObject.FindGameObjectsWithTag("EnemyBullet"))
+    //   obj.GetComponent<Rigidbody2D>().simulated = false;
 
     yield return new WaitForSeconds(2);
 
-    foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
-      obj.GetComponent<Rigidbody2D>().simulated = true;
-    foreach (var obj in GameObject.FindGameObjectsWithTag("EnemyBullet"))
-      obj.GetComponent<Rigidbody2D>().simulated = true;
+    // foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
+    //   obj.GetComponent<Rigidbody2D>().simulated = true;
+    // foreach (var obj in GameObject.FindGameObjectsWithTag("EnemyBullet"))
+    //   obj.GetComponent<Rigidbody2D>().simulated = true;
 
     isInvincible = false;
   }

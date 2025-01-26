@@ -2,13 +2,18 @@ using UnityEngine;
 //using System.Collections;
 
 public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
-  GameObject leftPoint = GameObject.Find("IdleMoveLeft");
-  GameObject rightPoint = GameObject.Find("IdleMoveRight");
+  private GameObject leftPoint;
+  private GameObject rightPoint;
 
   public GameObject lastVisited;
   float movementDuration = 1.3f;
   int trips;    
   int maxTrips;
+
+  private void Awake() {
+    leftPoint = GameObject.Find("IdleMoveLeft");
+    rightPoint = GameObject.Find("IdleMoveRight");
+  }
   
   public void Enter() {
     maxTrips = Random.Range(3, 6);

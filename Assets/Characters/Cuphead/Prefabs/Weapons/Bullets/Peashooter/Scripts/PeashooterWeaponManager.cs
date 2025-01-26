@@ -15,12 +15,12 @@ public class PeashooterWeaponManager : WeaponManager {
     set { base.PoolBulletSize = 5; }
   }
 
-  private float offset = 0.3f;
+  private float offset = 0.2f;
   private Vector3 spawnPosition;
 
   protected override void SpawnBulletFromPool(Vector2 direction, float angle, Transform spawn) {
     spawnPosition = spawn.position;
-    if (direction.y == 0f) {
+    if (direction.y == 0f && PlayerStateManager.instance.movementState is not PlayerCrouchState) {
       // If we are shooting on a straight line we want to alternate with bullets a little on the top
       // or the bottom
       spawnPosition = new Vector3(spawn.position.x, spawn.position.y + offset, spawn.position.z);

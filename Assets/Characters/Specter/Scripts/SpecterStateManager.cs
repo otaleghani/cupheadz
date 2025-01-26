@@ -11,12 +11,15 @@ public class SpecterStateManager : BossStateManager {
   protected override void Awake() {
     base.Awake();
     _bossHealth = 1000;
+		_bossCurrentHealth = _bossHealth;
     GenerateBossfightAttacks();
   }
 
-  private void Start() {
+  protected override void Start() {
+    base.Start();
     _currentAction = _bossIdle[0];
     _currentAction.Enter();
+    _attackType = UnityEngine.Random.Range(0, 2);
   }
   
   protected override void CalculateCurrentPhase() {
@@ -31,6 +34,7 @@ public class SpecterStateManager : BossStateManager {
         Debug.Log("Phase 3");
         break;
     }
+    
   }
   
   protected override void GenerateBossfightAttacks() {
@@ -38,12 +42,12 @@ public class SpecterStateManager : BossStateManager {
     _bossAttacks = new Dictionary<int, System.Collections.Generic.List<IBossAction>>();
     _bossAttacks[0] = new List<IBossAction>();
     _bossAttacks[0].Add(new SpecterCannons());
-    //_bossAttacks[0].Add(new SpecterCauldron());
+    _bossAttacks[0].Add(new SpecterCauldron());
     
     _bossTransitions = new Dictionary<int, IBossAction>();
 
     _bossIdle = new Dictionary<int, IBossAction>();
-    _bossIdle[0] = new SpecterIdlePhaseOne();
+    _bossIdle[0] = GetComponent<SpecterIdlePhaseOne>();
   }
 
   public override void Move(GameObject destination, string type, float duration) {
@@ -84,17 +88,30 @@ public class SpecterStateManager : BossStateManager {
     OnMoveEnd?.Invoke();
   }
   public void AnimEndP1CannonTransform() {
-    ChangeAnimation("Phase1__CannonShoot");
+    if (UnityEngine.Random.Range(0, 2) == 1) {
+      ChangeAnimation("Phase1__CannonShootVariant");
+    } else {
+      ChangeAnimation("Phase1__CannonShoot");
+    }
   }
   public void AnimEndP1CannonShoot() {
     Idle();
+    CannonShootReset();
   }
 
-  //public enum
+
+  private int _sickleCounter = 1;
+  private int _attackType;
   public void CannonShoot() {
     GameObject sickle = Instantiate(Resources.Load<GameObject>("SpecterSickle"));
     sickle.transform.SetPositionAndRotation(transform.Find("SickleSpawnPoint").transform.position, Quaternion.Euler(0, 0, 0));
-    sickle.GetComponent<SickleManager>().ExitScreen();
+    SpecterIdlePhaseOne idle = _bossIdle[0] as SpecterIdlePhaseOne;
+    sickle.GetComponent<SickleManager>().StartSickle(idle.lastVisited.name == "IdleMoveLeft", _sickleCounter, _attackType);
+    _sickleCounter++;
+  }
+  public void CannonShootReset() {
+    _sickleCounter = 1;
+    _attackType = UnityEngine.Random.Range(0, 2);
   }
 
   public void AnimEndP1PortalIn() {
@@ -115,6 +132,8 @@ public class SpecterStateManager : BossStateManager {
   }
   public void AnimEndP1CauldronAttack() {
     ChangeAnimation("Phase1__CauldronPortalOut");
+    // Here spawn
+    CauldronSpawnerManager.Instance.SpawnBullets();
   }
   public void AnimEndP1CauldronPortalOut() {
     // TODO: Move to correct move point
@@ -125,5 +144,4 @@ public class SpecterStateManager : BossStateManager {
   public void AnimEndP1PortalOut() {
     Idle();
   }
-  
 }

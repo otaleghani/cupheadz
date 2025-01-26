@@ -14,9 +14,9 @@ public class CameraMovement : MonoBehaviour {
 
   private void Awake() {
     player = GameObject.Find("Cuphead");
-    if (transform.Find("LeftBound") != null && transform.Find("RightBound") != null) {
-      leftBound = transform.Find("LeftBound").gameObject;
-      rightBound = transform.Find("RightBound").gameObject;
+    if (GameObject.Find("LeftBound") != null && GameObject.Find("RightBound") != null) {
+      leftBound = GameObject.Find("LeftBound");
+      rightBound = GameObject.Find("RightBound");
     } else {
       Destroy(this);
     }

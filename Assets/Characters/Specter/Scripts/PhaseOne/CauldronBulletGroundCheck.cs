@@ -9,4 +9,9 @@ public class CauldronBulletGroundCheck : MonoBehaviour {
       GroundDetected?.Invoke();
     }
   }
+  private void OnTriggerStay2D(Collider2D other) {
+    if (other.CompareTag("Ground")) {
+      GroundDetected?.Invoke();
+    }
+  }
 }

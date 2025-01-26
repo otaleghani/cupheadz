@@ -6,6 +6,4 @@ public class PeashooterBullet : Bullet {
     animator = GetComponent<Animator>();
     weaponManager = GameObject.Find("Peashooter__Weapon").GetComponent<WeaponManager>();
   }
-
-
 }

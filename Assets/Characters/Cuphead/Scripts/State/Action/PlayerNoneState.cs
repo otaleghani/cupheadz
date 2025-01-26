@@ -21,7 +21,9 @@ public class PlayerNoneState : IPlayerActionState {
     PlayAnimation();
   }
 
-  public void Update() {}
+  public void Update() {
+    PlayAnimation();
+  }
 
   public void Exit() {
     inputManager.OnShootPerformed -= HandleShooting;

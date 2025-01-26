@@ -62,7 +62,9 @@ public abstract class Bullet : MonoBehaviour {
     rb.linearVelocityX = 0f;
     rb.linearVelocityY = 0f;
     // Here I have to add to the player the number of 
-    PlayerStateManager.instance.AddToSuperMeter(superMeterAmountOnHit);
+    if (other.CompareTag("Enemy")) {
+      PlayerStateManager.instance.AddToSuperMeter(superMeterAmountOnHit);
+    }
   }
 
   /// <summary>
