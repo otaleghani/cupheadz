@@ -40,6 +40,7 @@ public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
       SpecterStateManager.Instance.Move(leftPoint, "arc", movementDuration);
       lastVisited = rightPoint;
     } else {
+      // Maybe RightPoint??
       SpecterStateManager.Instance.Move(rightPoint, "arc", movementDuration);
       lastVisited = leftPoint;
     }
