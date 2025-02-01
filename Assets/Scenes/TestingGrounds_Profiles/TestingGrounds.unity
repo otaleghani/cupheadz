@@ -3807,6 +3807,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cuphead
       objectReference: {fileID: 0}
+    - target: {fileID: 7419381989958703777, guid: ab495601c12283e419dec294d817edc1, type: 3}
+      propertyPath: pauseUI
+      value: 
+      objectReference: {fileID: 1177402111}
     - target: {fileID: 8111233372400257039, guid: ab495601c12283e419dec294d817edc1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.4

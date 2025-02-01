@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2618148132611943019}
   - component: {fileID: 8231404964109507367}
   - component: {fileID: 2593309981610285437}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CheckGround
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

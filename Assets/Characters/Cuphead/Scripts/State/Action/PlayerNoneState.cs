@@ -31,6 +31,8 @@ public class PlayerNoneState : IPlayerActionState {
   }
 
   public void PlayAnimation() {
+    if (stateManager.movementState is PlayerDeathState) return;
+    
     if (stateManager.movementState is PlayerCrouchState) {
       animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingIdle);
     }

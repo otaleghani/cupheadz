@@ -228,7 +228,7 @@ public class PlayerStateManager : MonoBehaviour {
   private void TakeDamage(bool isFacingRight) {
     if (isInvincible) return;
     hearts -= 1;
-    if (hearts == 0) {
+    if (hearts <= 0) {
       FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
     } else {
       ChangeActionState(new PlayerDamagedState(isFacingRight));
@@ -254,6 +254,7 @@ public class PlayerStateManager : MonoBehaviour {
       case FightSceneStateManager.SceneState.Lose:
         ChangeActionState(new PlayerDeathState());
         ChangeMovementState(new PlayerDeathMovementState());
+        
         break;
       case FightSceneStateManager.SceneState.Play:
         ChangeMovementState(new PlayerIdleState());

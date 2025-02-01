@@ -42,7 +42,7 @@ public class SpecterStateManager : BossStateManager {
     _bossAttacks = new Dictionary<int, System.Collections.Generic.List<IBossAction>>();
     _bossAttacks[0] = new List<IBossAction>();
     _bossAttacks[0].Add(new SpecterCannons());
-    _bossAttacks[0].Add(new SpecterCauldron());
+    //_bossAttacks[0].Add(new SpecterCauldron());
     
     _bossTransitions = new Dictionary<int, IBossAction>();
 
@@ -95,14 +95,19 @@ public class SpecterStateManager : BossStateManager {
     }
   }
   public void AnimEndP1CannonShoot() {
+    ChangeAnimation("Phase1__CannonTransformOut");
+  }
+  public void AnimEndP1CannonTransformOut() {
     Idle();
     CannonShootReset();
   }
+  
 
 
   private int _sickleCounter = 1;
   private int _attackType;
   public void CannonShoot() {
+    // Here add the gameobject
     GameObject sickle = Instantiate(Resources.Load<GameObject>("SpecterSickle"));
     sickle.transform.SetPositionAndRotation(transform.Find("SickleSpawnPoint").transform.position, Quaternion.Euler(0, 0, 0));
     SpecterIdlePhaseOne idle = _bossIdle[0] as SpecterIdlePhaseOne;
@@ -112,6 +117,7 @@ public class SpecterStateManager : BossStateManager {
   public void CannonShootReset() {
     _sickleCounter = 1;
     _attackType = UnityEngine.Random.Range(0, 2);
+    
   }
 
   public void AnimEndP1PortalIn() {

@@ -14,6 +14,7 @@ public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
     leftPoint = GameObject.Find("IdleMoveLeft");
     rightPoint = GameObject.Find("IdleMoveRight");
   }
+
   
   public void Enter() {
     maxTrips = Random.Range(3, 6);
@@ -51,5 +52,9 @@ public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
       SpecterStateManager.Instance.Attack();
       SpecterStateManager.Instance.Stop();
     }
+  }
+
+  private void OnDestroy() {
+    SpecterStateManager.OnMoveEnd -= OnMoveEnd;
   }
 }
