@@ -19,18 +19,36 @@ public class FightSceneStateManager : MonoBehaviour {
   }
 
   private void Awake() {
-    currentState = SceneState.Entry;
     if (Instance == null) {
       Instance = this;
-      //DontDestroyOnLoad(gameObject);
     } else {
       Destroy(gameObject);
     }
+  }
+
+  private void Start() {
+    ChangeState(SceneState.Entry);
+  }
+
+  private void FixedUpdate() {
+    Debug.Log(currentState);
   }
 
   public void ChangeState(SceneState newState) {
     currentState = newState;
     // Notifies the new state, so that the other scripts can manage the current gamestate
     OnChangeState?.Invoke(currentState);
+    HandleNewState();
+  }
+
+  public void HandleNewState() {
+    switch (currentState) {
+      case SceneState.Entry:
+        IrisTransitionManager.Instance.PlayIn();
+        // Play animation of cuphead
+        // Play animation of boss
+        //BossStateManager.Instance.
+        break;
+    }
   }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// I think that I can trash this one because the animations are related to other prefabs, not this one
 public class FightSceneAnimatorManager : MonoBehaviour {
   private Animator animator;
 

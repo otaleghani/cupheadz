@@ -55,7 +55,7 @@ public class PlayerStateManager : MonoBehaviour {
 
     parryCollision = GetComponentInChildren<PlayerParryCollision>();
 
-    movementState = new PlayerIdleState();
+    movementState = new PlayerIntroState();
     actionState = new PlayerNoneState();
   }
 
@@ -243,8 +243,10 @@ public class PlayerStateManager : MonoBehaviour {
   private void HandleSceneStateChange(FightSceneStateManager.SceneState currentState) {
     switch (currentState) {
       case FightSceneStateManager.SceneState.Entry:
-        ChangeMovementState(new PlayerIdleState());
+        //ChangeMovementState(new PlayerIdleState());
         //ChangeActionState(new PlayerEntryState());
+        //ChangeMovementState(new PlayerIntroState());
+        
         break;
       case FightSceneStateManager.SceneState.Win:
         ChangeMovementState(new PlayerIdleState());

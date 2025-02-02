@@ -23,8 +23,10 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public event Action OnSuperAnimationEnd;
   public event Action OnDamageAnimationEnd;
   public event Action OnDeathAnimationEnd;
+  public event Action OnIntroAnimationEnd;
 
   public enum PlayerAnimations {
+    Intro,
     Death,
     Damage,
     Idle,
@@ -90,6 +92,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     stateManager = GetComponent<PlayerStateManager>();
     animator = GetComponent<Animator>();
 
+    animations[PlayerAnimations.Intro] = "Intro";
     animations[PlayerAnimations.Death] = "Death";
     animations[PlayerAnimations.Damage] = "Damage";
     animations[PlayerAnimations.Idle] = "Idle";
@@ -271,5 +274,9 @@ public class PlayerAnimatorManager : MonoBehaviour {
   }
   public void OnDeathEnd() {
     OnDeathAnimationEnd?.Invoke();
+  }
+
+  public void OnIntroEnd() {
+    OnIntroAnimationEnd?.Invoke();
   }
 }
