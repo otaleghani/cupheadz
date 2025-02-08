@@ -33,4 +33,9 @@ public class IrisTransitionManager : MonoBehaviour {
   public void OnIrisOutEnd() {
     // TODO: Change scene
   }
+
+  public void PlayIntroPt1() {
+    AudioManager.Instance.Play("Soundtrack");
+    AudioManager.Instance.Play("IntroPt1");
+  }
 }

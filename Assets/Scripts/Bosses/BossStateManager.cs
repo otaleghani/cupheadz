@@ -53,7 +53,6 @@ public abstract class BossStateManager : MonoBehaviour, IDamageable {
 	protected virtual void Start() { }
 
 	private void FixedUpdate() {
-		Debug.Log(_currentAction);
 		_currentAction.Update();
 		//if (_counter <= 0 && _state == BossState.Idle) {
 			//Attack();

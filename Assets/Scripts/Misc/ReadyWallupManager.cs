@@ -22,4 +22,8 @@ public class ReadyWallupManager : MonoBehaviour {
     FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Play);
     _animator.Play(_none);
   }
+
+  public void OnWallUpScreen() {
+    AudioManager.Instance.Play("IntroPt2");
+  }
 }

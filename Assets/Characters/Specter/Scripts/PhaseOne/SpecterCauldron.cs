@@ -1,7 +1,7 @@
 public class SpecterCauldron : IBossAction {
   public void Enter() {
     SpecterStateManager.Instance.ChangeAnimation("Phase1__PortalIn");
-    SpecterStateManager.Instance.DisableCollider();
+    // SpecterStateManager.Instance.DisableCollider();
   }
   public void Update() { }
   

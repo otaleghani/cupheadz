@@ -10,16 +10,20 @@ public class SpecterStateManager : BossStateManager {
 
   protected override void Awake() {
     base.Awake();
-    _bossHealth = 1000;
+    _bossHealth = 3000;
 		_bossCurrentHealth = _bossHealth;
     GenerateBossfightAttacks();
   }
 
   protected override void Start() {
     base.Start();
-    _currentAction = _bossIdle[0];
+    _currentAction = _bossTransitions[0];
     _currentAction.Enter();
     _attackType = UnityEngine.Random.Range(0, 2);
+
+    // AudioManager.Instance.Play("Soundtrack");
+    AudioManager.Instance.Play("Static");
+    // AudioManager.Instance.Play("IntroPt1");
   }
   
   protected override void CalculateCurrentPhase() {
@@ -42,9 +46,10 @@ public class SpecterStateManager : BossStateManager {
     _bossAttacks = new Dictionary<int, System.Collections.Generic.List<IBossAction>>();
     _bossAttacks[0] = new List<IBossAction>();
     _bossAttacks[0].Add(new SpecterCannons());
-    //_bossAttacks[0].Add(new SpecterCauldron());
+    _bossAttacks[0].Add(new SpecterCauldron());
     
     _bossTransitions = new Dictionary<int, IBossAction>();
+    _bossTransitions[0] = GetComponent<SpecterTransitionPhaseOne>();
 
     _bossIdle = new Dictionary<int, IBossAction>();
     _bossIdle[0] = GetComponent<SpecterIdlePhaseOne>();
@@ -83,6 +88,10 @@ public class SpecterStateManager : BossStateManager {
     transform.position = destination;
   }
 
+  // This is the intro
+  public void AnimEndP1Transition() {
+    Idle();
+  }
   public void AnimEndP1Idle() {
     StopCoroutine(_moveRoutine);
     OnMoveEnd?.Invoke();
@@ -149,5 +158,18 @@ public class SpecterStateManager : BossStateManager {
   }
   public void AnimEndP1PortalOut() {
     Idle();
+  }
+
+  public void SpriteCauldronLayer() {
+    GetComponent<SpriteRenderer>().sortingLayerName = "Background";
+    GetComponent<SpriteRenderer>().sortingOrder = 3;
+    gameObject.tag = "EnemyUnreachable";    
+    gameObject.layer = LayerMask.NameToLayer("EnemyUnreachable");
+  }
+  public void SpriteSpecterLayer() {
+    GetComponent<SpriteRenderer>().sortingLayerName = "Boss";
+    GetComponent<SpriteRenderer>().sortingOrder = 0;
+    gameObject.tag = "Enemy";    
+    gameObject.layer = LayerMask.NameToLayer("Enemy");
   }
 }

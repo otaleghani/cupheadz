@@ -846,7 +846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFacingRight: 1
   currentGround: {fileID: 0}
-  dashMaxCooldown: 0.5
+  dashMaxCooldown: 0.2
   isDashingCooldown: 0
   isDashing: 0
   isGrounded: 1

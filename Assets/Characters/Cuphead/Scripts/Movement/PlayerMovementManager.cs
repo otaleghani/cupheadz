@@ -17,14 +17,14 @@ public class PlayerMovementManager : MonoBehaviour {
   [Header("Dash")]
   private float dashSpeed = 12f / 1.5f;
   private float dashCooldown;
-  public float dashMaxCooldown = 0.2f;
+  private float dashMaxCooldown = 0.05f; // OLD_VALUES: 0.5
   public bool isDashingCooldown = false;
   public bool isDashing = false;
 
   [Header("Jump")]
   private float maxJumpTime = 0.3f;
   private float minJumpTime = 0.15f;
-  private float jumpTransform = 0.37f / 1.5f;
+  private float jumpTransform = 0.45f / 1.5f; // OLD_VALUES: 0.37 
   private float ascendingGravity = 0f;
   private float descendingGravity = 5f;
 

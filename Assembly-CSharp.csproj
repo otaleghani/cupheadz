@@ -97,6 +97,7 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSfxManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserSparkleManager.cs" />
+    <Compile Include="Assets\Scripts\Sound\Sound.cs" />
     <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\SpecterCauldron.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\Invincibility\InvincibilityManager.cs" />
     <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\SickleManager.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Assets\Ui\Debug\BossHealthCounter.cs" />
     <Compile Include="Assets\Scripts\Bosses\BossAttackManager.cs" />
     <Compile Include="Assets\Scripts\Scenes\Fight\Animator\FightSceneAnimatorManager.cs" />
+    <Compile Include="Assets\Scripts\Sound\AudioManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDeathMovementState.cs" />
     <Compile Include="Assets\Scripts\CoroutineQueueManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSuper.cs" />
@@ -132,6 +134,8 @@
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterSparkleManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\ExBulletSfxAbstract.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraMovement.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\TombstonesAnimationManager.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\SpecterTransitionPhaseOne.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\Collisions\Ground\PlayerGroundCollision.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameData\BossRating.cs" />
     <Compile Include="Assets\Ui\Scripts\UiMap.cs" />
@@ -171,6 +175,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerParryingState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\BulletSparkleAbstract.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\TombstonesPlayerCheck.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Peashooter\Scripts\PeashooterBulletManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerDeathState.cs" />

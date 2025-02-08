@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7146116627471482359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2213457863272952573}
+  - component: {fileID: 160174367310744270}
+  m_Layer: 0
+  m_Name: SpecterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2213457863272952573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146116627471482359}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8515519, y: 0.28739083, z: -0.09241219}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &160174367310744270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146116627471482359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e86c83b30fcf641acddfb3a5791c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - Name: Soundtrack
+    Clip: {fileID: 8300000, guid: 24b1d1b8cc9bd3f4aab367fd525380c9, type: 3}
+    Volume: 0.4
+    Pitch: 0
+    Loop: 1
+    Source: {fileID: 0}
+  - Name: Static
+    Clip: {fileID: 8300000, guid: ab22f413660c27d459312f36c827b2d8, type: 3}
+    Volume: 0.8
+    Pitch: 0
+    Loop: 1
+    Source: {fileID: 0}
+  - Name: IntroPt1
+    Clip: {fileID: 8300000, guid: 7a236e94afb98474f8f7865088f6b00a, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: IntroPt2
+    Clip: {fileID: 8300000, guid: 4e1e4088a6ba22c4a85731c792234e0a, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
