@@ -21,12 +21,21 @@ public class AudioManager : MonoBehaviour {
     }
   }
   
-  public void Play (string name) {
+  public void Play(string name) {
     Sound s = Array.Find(Sounds, sound => sound.Name == name);
     if (s == null) {
       Debug.LogWarning("Found a null sound, check your code for this sound: " + name);
       return;
     }
     s.Source.Play();
+  }
+
+  public void Stop(string name) {
+    Sound s = Array.Find(Sounds, sound => sound.Name == name);
+    if (s == null) {
+      Debug.LogWarning("Found a null sound, check your code for this sound: " + name);
+      return;
+    }
+    s.Source.Stop();
   }
 }

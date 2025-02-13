@@ -35,6 +35,9 @@ public class PlayerIdleState : IPlayerMovementState {
     if (inputManager.xPosition != 0) {
       stateManager.ChangeMovementState(new PlayerMovingState());
     }
+    // if (inputManager.yPosition > 0) {
+    //   stateManager.ChangeMovementState(new PlayerAimState());
+    // }
     PlayAnimation();
   }
 
@@ -76,6 +79,10 @@ public class PlayerIdleState : IPlayerMovementState {
         stateManager.actionState is not PlayerExShootingState &&
         stateManager.actionState is not PlayerSuperState &&
         stateManager.actionState is not PlayerDeathState) {
+      if (inputManager.yPosition > 0) {
+        animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.AimingUp);
+        return;
+      }
       animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Idle);
     }
   }

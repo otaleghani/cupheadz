@@ -47,8 +47,8 @@ MonoBehaviour:
   Sounds:
   - Name: Soundtrack
     Clip: {fileID: 8300000, guid: 24b1d1b8cc9bd3f4aab367fd525380c9, type: 3}
-    Volume: 0.4
-    Pitch: 0
+    Volume: 0.2
+    Pitch: 0.1
     Loop: 1
     Source: {fileID: 0}
   - Name: Static
@@ -65,6 +65,186 @@ MonoBehaviour:
     Source: {fileID: 0}
   - Name: IntroPt2
     Clip: {fileID: 8300000, guid: 4e1e4088a6ba22c4a85731c792234e0a, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: IntroPt2
+    Clip: {fileID: 8300000, guid: 4e1e4088a6ba22c4a85731c792234e0a, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Intro1
+    Clip: {fileID: 8300000, guid: 114bdecff0b6adf40be1fcaef5127481, type: 3}
+    Volume: 0.5
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Intro2
+    Clip: {fileID: 8300000, guid: fbf9cbb8f2e37044d937c8da9db0766e, type: 3}
+    Volume: 0.5
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Idle__1
+    Clip: {fileID: 8300000, guid: 3360752354339994797ff02695e57472, type: 3}
+    Volume: 0.2
+    Pitch: 0.1
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Idle__2
+    Clip: {fileID: 8300000, guid: 46c473a27fdb3b7468202cb7a94c13af, type: 3}
+    Volume: 0.2
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Idle__3
+    Clip: {fileID: 8300000, guid: 8b9fb27aec8aa3842a4a7265b2eec7d3, type: 3}
+    Volume: 0.2
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Idle__4
+    Clip: {fileID: 8300000, guid: 9ae0ee885daed3d41be5016b1e726f37, type: 3}
+    Volume: 0.2
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Idle__5
+    Clip: {fileID: 8300000, guid: f46de576b73593f4da5906305c16f5ba, type: 3}
+    Volume: 0.2
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cannon__Transform
+    Clip: {fileID: 8300000, guid: f87fa1c0ff3f6914a9a455ac8f95bfa7, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cannon__Shoot
+    Clip: {fileID: 8300000, guid: ea33a0eceaa9bfd4995bd2c4752f1210, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cannon__Sickle
+    Clip: {fileID: 8300000, guid: c7ed8c852258fea4686111edc98b3659, type: 3}
+    Volume: 1
+    Pitch: 0.1
+    Loop: 1
+    Source: {fileID: 0}
+  - Name: Specter__Block__Stone
+    Clip: {fileID: 8300000, guid: cedb2860862ddf9488ff3b0313c63d0b, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Block__OOF
+    Clip: {fileID: 8300000, guid: 42b6f14577714074d8fe0374c2446ff5, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__IdleVoice__1
+    Clip: {fileID: 8300000, guid: 976e86f123e42cf4cad1c3cfefd7454e, type: 3}
+    Volume: 0.3
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__IdleVoice__2
+    Clip: {fileID: 8300000, guid: 1a169d37d49805f4cbc6b5298507c9fc, type: 3}
+    Volume: 0.3
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__IdleVoice__3
+    Clip: {fileID: 8300000, guid: 05f095f2c7bb1904c93d0eec0a08a7fd, type: 3}
+    Volume: 0.3
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Portal__1
+    Clip: {fileID: 8300000, guid: 1d63ea94a9c3dc64291fe633ad1385ba, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Portal__2
+    Clip: {fileID: 8300000, guid: 4b258e6607e29bb4ab1b7d4419e569c2, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Portal__3
+    Clip: {fileID: 8300000, guid: 8d1525a592e471e4297d47e1c9edb740, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Portal__4
+    Clip: {fileID: 8300000, guid: 5f6e100a596c1fa4abf0e2801b0333f1, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Tree__Grunt
+    Clip: {fileID: 8300000, guid: 27010bbbe539e814aa5200052b6d4e46, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Tree__Movement
+    Clip: {fileID: 8300000, guid: 0f1b0a92addbddf43a670e1ce06cfc57, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Portal
+    Clip: {fileID: 8300000, guid: 99561a2fd34c35c48bafc7de2f23d3ec, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Bonk
+    Clip: {fileID: 8300000, guid: e8c873923ff0c46489d7e8441a3f1030, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Slime
+    Clip: {fileID: 8300000, guid: cf09cca216a47724d9c69066d7c4757a, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Magic
+    Clip: {fileID: 8300000, guid: 810ad8798801fa6408b88bb32aa67ec1, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Bullet__1
+    Clip: {fileID: 8300000, guid: de059acd2a907de49a0cdcc5a72618bd, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Bullet__2
+    Clip: {fileID: 8300000, guid: d40ff4576d2982a47aba9389c718fdc9, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Bullet__3
+    Clip: {fileID: 8300000, guid: df9b9113a9c4a3d42a56dcb045ed800a, type: 3}
+    Volume: 1
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: Specter__Cauldron__Bullet__4
+    Clip: {fileID: 8300000, guid: 29970a588c2e94449be357adf11d7167, type: 3}
     Volume: 1
     Pitch: 0
     Loop: 0

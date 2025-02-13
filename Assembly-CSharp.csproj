@@ -96,6 +96,7 @@
     <Compile Include="Assets\Ui\Scripts\UiSplashScreen.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamSfxManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerCrouchState.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\SkeletonSquareManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserSparkleManager.cs" />
     <Compile Include="Assets\Scripts\Sound\Sound.cs" />
     <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\SpecterCauldron.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Assets\Characters\CupheadOverworld\Scripts\CupheadOverworldMovement.cs" />
     <Compile Include="Assets\Ui\Scripts\UiHealthCounter.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\Invincibility\InvincibilitySuper.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\SpecterClock.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerShootingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerMovingState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\SpecterAudioManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Scripts\Scenes\Fight\State\FightSceneStateManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />

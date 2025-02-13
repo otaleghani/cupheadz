@@ -45,8 +45,9 @@ public class SpecterStateManager : BossStateManager {
     
     _bossAttacks = new Dictionary<int, System.Collections.Generic.List<IBossAction>>();
     _bossAttacks[0] = new List<IBossAction>();
-    _bossAttacks[0].Add(new SpecterCannons());
+    // _bossAttacks[0].Add(new SpecterCannons());
     _bossAttacks[0].Add(new SpecterCauldron());
+    // _bossAttacks[0].Add(new SpecterClock());
     
     _bossTransitions = new Dictionary<int, IBossAction>();
     _bossTransitions[0] = GetComponent<SpecterTransitionPhaseOne>();
@@ -86,6 +87,11 @@ public class SpecterStateManager : BossStateManager {
     }
     //OnMoveEnd?.Invoke();
     transform.position = destination;
+  }
+
+  public override void Idle() {
+    base.Idle();
+    SpecterAudioManager.Instance.PlayIdleSound();
   }
 
   // This is the intro
@@ -171,5 +177,18 @@ public class SpecterStateManager : BossStateManager {
     GetComponent<SpriteRenderer>().sortingOrder = 0;
     gameObject.tag = "Enemy";    
     gameObject.layer = LayerMask.NameToLayer("Enemy");
+  }
+
+  public void AnimEndP1Clock() {
+    Idle();
+    // Spawn either left or right the shit
+    if (isFacingRight) {
+      GameObject obj = Instantiate(Resources.Load<GameObject>("SkeletonSquare"));
+      Vector3 ls = obj.transform.localScale;
+      ls.x *= -1f;
+      obj.transform.localScale = ls;
+    } else {
+      Instantiate(Resources.Load<GameObject>("SkeletonSquare"));
+    }
   }
 }

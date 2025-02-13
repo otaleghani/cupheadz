@@ -23,6 +23,7 @@ public class PlayerStateManager : MonoBehaviour {
   public IPlayerActionState actionState;
   public enum ShootingState { Aim, Recoil };
   public ShootingState currentShootingState = ShootingState.Aim;
+  public bool IsShooting = false; // Used to signal if the player is pressing the shoot button or not
 
   public event Action<int> OnPlayerHealthChange;
   public event Action<float> OnPlayerSuperMeterChange;
@@ -64,11 +65,15 @@ public class PlayerStateManager : MonoBehaviour {
     FightSceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
     parryCollision.OnParryCollision += HandleParryCollision;
     inputManager.OnPausePerformed += HandlePause;
+    inputManager.OnShootPerformed += HandleShootPerformed;
+    inputManager.OnShootCanceled += HandleShootCanceled;
   }
   private void OnDisable() {
     FightSceneStateManager.Instance.OnChangeState -= HandleSceneStateChange;
     parryCollision.OnParryCollision -= HandleParryCollision;
     inputManager.OnPausePerformed -= HandlePause;
+    inputManager.OnShootPerformed -= HandleShootPerformed;
+    inputManager.OnShootCanceled -= HandleShootCanceled;
   }
 
   private void HandlePause() {
@@ -296,4 +301,11 @@ public class PlayerStateManager : MonoBehaviour {
     if (superMeter < 0f) superMeter = 0f;
     OnPlayerSuperMeterChange?.Invoke(superMeter);
   }
+
+  private void HandleShootPerformed() {
+    IsShooting = true;
+  }  
+  private void HandleShootCanceled() {
+    IsShooting = false;
+  }  
 }

@@ -104,9 +104,9 @@ GameObject:
   - component: {fileID: 5649153867136171159}
   - component: {fileID: 8399970510166137601}
   - component: {fileID: 6400306516132461314}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: TombstoneOne
-  m_TagString: Enemy
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

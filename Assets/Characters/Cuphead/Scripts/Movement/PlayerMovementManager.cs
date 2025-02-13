@@ -23,8 +23,8 @@ public class PlayerMovementManager : MonoBehaviour {
 
   [Header("Jump")]
   private float maxJumpTime = 0.3f;
-  private float minJumpTime = 0.15f;
-  private float jumpTransform = 0.45f / 1.5f; // OLD_VALUES: 0.37 
+  private float minJumpTime = 0.19f; // OLD_VALUES: 0.15
+  private float jumpTransform = 0.45f / 1.5f; // OLD_VALUES: 0.37  | 0.45
   private float ascendingGravity = 0f;
   private float descendingGravity = 5f;
 
@@ -217,12 +217,37 @@ public class PlayerMovementManager : MonoBehaviour {
     isGrounded = false;
     jumpHoldTimer = 0f;
     jumpHoldReleased = false;
+    
+    jumpStartY = rb.transform.localPosition.y;
   }
+  
+  // Old jump
   private void Jump() {
+    // if (jumpHoldReleased)
+    
     Vector3 newPosition = rb.transform.localPosition;
     newPosition.y += jumpTransform - (jumpHoldTimer / 2);
     rb.transform.localPosition = newPosition;
   }
+  
+  // New jump
+  float jumpStartY;
+  // public AnimationCurve jumpCurve;
+  // private void Jump() {
+  //   float t = Mathf.Lerp(minJumpTime, maxJumpTime, jumpHoldTimer);
+    
+  //   // float easeOutValue = -t * t + 2 * t;
+  //   // float easeOutValue = 1 - Mathf.Pow(1 - t, 3);
+  //   // float currentJumpOffset = jumpTransform * easeOutValue;
+
+  //   float curveValue = jumpCurve.Evaluate(t);
+  //   float currentJumpOffset = jumpTransform + (jumpTransform * curveValue);
+
+  //   Vector3 newPosition = rb.transform.localPosition;
+  //   newPosition.y = jumpStartY + currentJumpOffset;
+  //   rb.transform.localPosition = newPosition;
+  // }
+  
   private void EndJump() {
     rb.gravityScale = descendingGravity;
     isJumping = false;

@@ -15,7 +15,7 @@ public class PlayerNoneState : IPlayerActionState {
     this.inputManager = inputManager;
     this.animatorManager = animatorManager;
 
-    this.inputManager.OnShootPerformed += HandleShooting;
+    // this.inputManager.OnShootPerformed += HandleShooting;
     this.inputManager.OnShootEXPerformed += HandleShootingEx;
 
     PlayAnimation();
@@ -23,10 +23,14 @@ public class PlayerNoneState : IPlayerActionState {
 
   public void Update() {
     PlayAnimation();
+    
+    if (stateManager.IsShooting && stateManager.actionState is not PlayerShootingState) {
+      stateManager.ChangeActionState(new PlayerShootingState());
+    }
   }
 
   public void Exit() {
-    inputManager.OnShootPerformed -= HandleShooting;
+    // inputManager.OnShootPerformed -= HandleShooting;
     inputManager.OnShootEXPerformed -= HandleShootingEx;
   }
 
@@ -36,17 +40,17 @@ public class PlayerNoneState : IPlayerActionState {
     if (stateManager.movementState is PlayerCrouchState) {
       animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.CrouchingIdle);
     }
-    if (stateManager.movementState is PlayerIdleState) {
-      animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Idle);
-    }
+    // if (stateManager.movementState is PlayerIdleState) {
+    //   animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Idle);
+    // }
     if (stateManager.movementState is PlayerMovingState) {
       animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Running);
     }
   }
 
-  private void HandleShooting() {
-    stateManager.ChangeActionState(new PlayerShootingState());
-  }
+  // private void HandleShooting() {
+  //   stateManager.ChangeActionState(new PlayerShootingState());
+  // }
   private void HandleShootingEx() {
     if (stateManager.superMeter >= 5f) {
       stateManager.ChangeActionState(new PlayerSuperState());

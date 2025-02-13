@@ -89,7 +89,7 @@ public abstract class BossStateManager : MonoBehaviour, IDamageable {
 	}
 
 	/// Based on the current phase, get the idle action
-	public void Idle() {
+	public virtual void Idle() {
 		ChangeBossAction(_bossIdle[_bossPhase]);
 		_state = BossState.Idle;
 	}
