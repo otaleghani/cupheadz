@@ -79,3 +79,4 @@ crashlytics-build.properties
 *.PNG
 *.JPEG
 ProjectSettings/
+*.mp3
