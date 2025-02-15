@@ -51,6 +51,8 @@ public class CupheadOverwolrdAnimatorManager : MonoBehaviour {
     standAnimations[Animation.MoveFront] = Animation.StandFront;
     standAnimations[Animation.MoveDiagonalDown] = Animation.StandDiagonalDown;
     standAnimations[Animation.MoveDown] = Animation.StandDown;
+    standAnimations[Animation.StandDown] = Animation.StandDown;
+    
     moveAnimations[(0,0)] = Animation.StandDown;
   }
 

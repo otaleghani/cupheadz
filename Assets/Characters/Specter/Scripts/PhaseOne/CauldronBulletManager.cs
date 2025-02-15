@@ -28,6 +28,7 @@ public class CauldronBulletManager : MonoBehaviour {
 
   private void HandleGroundDetected() {
     _animator.Play("Specter__CauldronBulletSplash");
+    SpecterAudioManager.Instance.CauldronBulletSplash();
   }
   
   private void HandlePlayerDetected() {

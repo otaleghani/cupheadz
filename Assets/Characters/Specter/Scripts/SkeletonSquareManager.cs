@@ -20,6 +20,7 @@ public class SkeletonSquareManager : MonoBehaviour {
   private PolygonCollider2D polygonCollider;
   private SpriteRenderer spriteRenderer;
   private List<Vector2> physicsShapePoints = new List<Vector2>();  
+  
   private void Awake() {
     p0 = transform.parent.Find("MovePoints/0")?.gameObject;
     p1 = transform.parent.Find("MovePoints/1")?.gameObject;
@@ -34,8 +35,12 @@ public class SkeletonSquareManager : MonoBehaviour {
     spriteRenderer = GetComponent<SpriteRenderer>();
   }
 
+  public void PlaySound() {
+    AudioManager.Instance.Play("Specter__Block__Stone");
+    AudioManager.Instance.Play("Specter__Block__OOF");
+  }
   
- void LateUpdate() {
+  void LateUpdate() {
     // Get the current sprite from the SpriteRenderer.
     Sprite currentSprite = spriteRenderer.sprite;
     if (currentSprite != null) {

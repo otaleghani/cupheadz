@@ -6,6 +6,7 @@ public class SpecterAudioManager : MonoBehaviour {
   
   private List<string> idleMovement;
   private List<string> idleVoices;
+  private List<string> cauldronBulletSplash;
   private string lastIdleMovement;  
   private string lastIdleVoices;  
 
@@ -18,6 +19,7 @@ public class SpecterAudioManager : MonoBehaviour {
   
     idleMovement = new List<string>();
     idleVoices = new List<string>();
+    cauldronBulletSplash = new List<string>();
 
     idleMovement.Add("Specter__Idle__1");
     idleMovement.Add("Specter__Idle__2");
@@ -28,6 +30,11 @@ public class SpecterAudioManager : MonoBehaviour {
     idleVoices.Add("Specter__IdleVoice__1");
     idleVoices.Add("Specter__IdleVoice__2");
     idleVoices.Add("Specter__IdleVoice__3");
+    
+    cauldronBulletSplash.Add("Specter__Cauldron__Bullet__1");
+    cauldronBulletSplash.Add("Specter__Cauldron__Bullet__2");
+    cauldronBulletSplash.Add("Specter__Cauldron__Bullet__3");
+    cauldronBulletSplash.Add("Specter__Cauldron__Bullet__4");
   }
   public void IntroWhoosh() {
     // Start: 6
@@ -50,8 +57,10 @@ public class SpecterAudioManager : MonoBehaviour {
   }
 
   public void StopIdleSound() {
-    AudioManager.Instance.Stop(lastIdleMovement);
-    AudioManager.Instance.Stop(lastIdleVoices);
+    if (lastIdleMovement != null && lastIdleVoices != null) {
+      AudioManager.Instance.Stop(lastIdleMovement);
+      AudioManager.Instance.Stop(lastIdleVoices);
+    }
   }
 
   public void CannonTransformSound() {
@@ -63,10 +72,10 @@ public class SpecterAudioManager : MonoBehaviour {
   }
   
   public void PlaySickleSound() {
-    AudioManager.Instance.Play("Specter__Cannon__Sickle");
+    // AudioManager.Instance.Play("Specter__Cannon__Sickle");
   }
   public void StopSickleSound() {
-    AudioManager.Instance.Stop("Specter__Cannon__Sickle");
+    // AudioManager.Instance.Stop("Specter__Cannon__Sickle");
   }
 
   public void PortalOpen() {
@@ -87,5 +96,38 @@ public class SpecterAudioManager : MonoBehaviour {
     // 34
     AudioManager.Instance.Play("Specter__Portal__4");
   }
+
+  public void CauldronPortal() {
+    // 16
+    AudioManager.Instance.Play("Specter__Cauldron__Portal");
+  }
+  public void CauldronBonk() {
+    AudioManager.Instance.Play("Specter__Cauldron__Bonk");
+  }
+  public void CauldronSlime() {
+    AudioManager.Instance.Play("Specter__Cauldron__Slime");
+  }
+  public void CauldronMagic() {
+    AudioManager.Instance.Play("Specter__Cauldron__Magic");
+  }
+
+  public void CauldronBulletSplash() {
+    AudioManager.Instance.Play(cauldronBulletSplash[Random.Range(0, cauldronBulletSplash.Count)]);
+  }
+
+  public void TreeGrunt() {
+    AudioManager.Instance.Play("Tree__Grunt");
+  }
   
+  public void TreeMovement() {
+    AudioManager.Instance.Play("Tree__Movement");
+  }
+
+  public void SpecterClockDing() {
+    AudioManager.Instance.Play("Specter__Clock__Ding");
+  }
+
+  public void SpecterClockDong() {
+    AudioManager.Instance.Play("Specter__Clock__Dong");
+  }
 }

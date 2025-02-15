@@ -17,7 +17,7 @@ public class PlayerIdleState : IPlayerMovementState {
     this.movementManager = movementManager;
     this.animatorManager = animatorManager;
     
-    this.inputManager.OnMovePerformed += HandleMove;
+    // this.inputManager.OnMovePerformed += HandleMove;
     this.inputManager.OnJumpPerformed += HandleJump;
     this.inputManager.OnDashPerformed += HandleDash;
     this.inputManager.OnAimPerformed += HandleAim;
@@ -42,7 +42,7 @@ public class PlayerIdleState : IPlayerMovementState {
   }
 
   public void Exit() {
-    inputManager.OnMovePerformed -= HandleMove;
+    // inputManager.OnMovePerformed -= HandleMove;
     inputManager.OnJumpPerformed -= HandleJump;
     inputManager.OnDashPerformed -= HandleDash;
     inputManager.OnAimPerformed -= HandleAim;

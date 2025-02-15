@@ -642,6 +642,7 @@ GameObject:
   - component: {fileID: 3579665745255740251}
   - component: {fileID: 6487106464912553194}
   - component: {fileID: 7419381989958703777}
+  - component: {fileID: 4832134538676934883}
   m_Layer: 6
   m_Name: Cuphead
   m_TagString: Player
@@ -659,7 +660,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.47419074, y: -2.3787675, z: 0.057903476}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1.05, y: 1.05, z: 1.05}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8396730965560583768}
@@ -846,7 +847,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFacingRight: 1
   currentGround: {fileID: 0}
-  dashMaxCooldown: 0.2
   isDashingCooldown: 0
   isDashing: 0
   isGrounded: 1
@@ -914,9 +914,18 @@ MonoBehaviour:
   superMeter: 0
   superMeterRateOfChange: 0.002
   currentShootingState: 0
+  IsShooting: 0
   parryCollision: {fileID: 0}
   spriteRenderer: {fileID: 0}
   pauseUI: {fileID: 0}
+--- !u!81 &4832134538676934883
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6371120194414480597}
+  m_Enabled: 1
 --- !u!1 &6405141890029721011
 GameObject:
   m_ObjectHideFlags: 0

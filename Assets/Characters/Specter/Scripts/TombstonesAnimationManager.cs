@@ -11,4 +11,11 @@ public class TombstonesAnimationManager : MonoBehaviour {
   public void EndOfAttack() {
     _animator.Play("Idle");
   }
+
+  public void PlaySwoosh() {
+    AudioManager.Instance.Play("Specter__Tombstone__Swoosh");
+  }
+  public void PlayBonk() {
+    AudioManager.Instance.Play("Specter__Tombstone__Bonk");
+  }
 }

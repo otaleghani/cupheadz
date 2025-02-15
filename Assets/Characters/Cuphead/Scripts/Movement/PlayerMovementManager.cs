@@ -15,17 +15,18 @@ public class PlayerMovementManager : MonoBehaviour {
   private float movementSpeed = 6f / 1.5f;
 
   [Header("Dash")]
-  private float dashSpeed = 12f / 1.5f;
+  private float dashSpeed = 15f / 1.5f;
   private float dashCooldown;
   private float dashMaxCooldown = 0.05f; // OLD_VALUES: 0.5
   public bool isDashingCooldown = false;
   public bool isDashing = false;
 
   [Header("Jump")]
-  private float maxJumpTime = 0.3f;
-  private float minJumpTime = 0.19f; // OLD_VALUES: 0.15
-  private float jumpTransform = 0.45f / 1.5f; // OLD_VALUES: 0.37  | 0.45
-  private float ascendingGravity = 0f;
+  private float maxJumpTime = 0.27f;
+  private float minJumpTime = 0.21f; // OLD_VALUES: 0.15 | 0.19
+  private float jumpTransform = 0.18f / 1.5f; // OLD_VALUES: 0.37  | 0.45
+  private float jumpForce = 1f;
+  private float ascendingGravity = 1f;
   private float descendingGravity = 5f;
 
   private float jumpHoldTimer = 0f;
@@ -222,11 +223,12 @@ public class PlayerMovementManager : MonoBehaviour {
   }
   
   // Old jump
+  
   private void Jump() {
-    // if (jumpHoldReleased)
-    
+    rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
     Vector3 newPosition = rb.transform.localPosition;
-    newPosition.y += jumpTransform - (jumpHoldTimer / 2);
+    // newPosition.y += jumpTransform - (jumpHoldTimer / 2);
+    newPosition.y += jumpTransform;
     rb.transform.localPosition = newPosition;
   }
   

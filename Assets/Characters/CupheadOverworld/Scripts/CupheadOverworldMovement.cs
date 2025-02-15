@@ -22,7 +22,6 @@ public class CupheadOverworldMovement : MonoBehaviour {
     inputManager.OnMovePerformed += HandleMove;
     inputManager.OnMoveCanceled += HandleMoveCanceled;
     inputManager.OnJumpPerformed += HandleInteract;
-    inputManager.OnJumpPerformed += HandleInteract;
   }
   private void OnDisable() {
     inputManager.OnMovePerformed -= HandleMove;
@@ -48,7 +47,6 @@ public class CupheadOverworldMovement : MonoBehaviour {
   }
 
   private void HandleMoveCanceled() {
-
     animatorManager.PlayAnimation(animatorManager.standAnimations[animatorManager.lastMovementAnimation]);
     movement = new Vector2(0, 0);
   }

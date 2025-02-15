@@ -17,7 +17,7 @@ public class SickleManager : MonoBehaviour {
   }
 
   public void StartSickle(bool isLeft, int slowFactor, int attackType) {
-    SpecterAudioManager.Instance.PlaySickleSound();
+    // SpecterAudioManager.Instance.PlaySickleSound();
     _coroutineManager.EnqueueCoroutine(Move(GameObject.Find("Specter/SickleExitPoint").transform.position, _exitScreenDuration, 0));
     if (isLeft) {
       _coroutineManager.EnqueueCoroutine(Move(

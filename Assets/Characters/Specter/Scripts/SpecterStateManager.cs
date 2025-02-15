@@ -45,9 +45,9 @@ public class SpecterStateManager : BossStateManager {
     
     _bossAttacks = new Dictionary<int, System.Collections.Generic.List<IBossAction>>();
     _bossAttacks[0] = new List<IBossAction>();
-    // _bossAttacks[0].Add(new SpecterCannons());
+    _bossAttacks[0].Add(new SpecterCannons());
     _bossAttacks[0].Add(new SpecterCauldron());
-    // _bossAttacks[0].Add(new SpecterClock());
+    _bossAttacks[0].Add(new SpecterClock());
     
     _bossTransitions = new Dictionary<int, IBossAction>();
     _bossTransitions[0] = GetComponent<SpecterTransitionPhaseOne>();
