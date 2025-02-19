@@ -22,10 +22,10 @@ public class PlayerMovementManager : MonoBehaviour {
   public bool isDashing = false;
 
   [Header("Jump")]
-  private float maxJumpTime = 0.27f;
-  private float minJumpTime = 0.21f; // OLD_VALUES: 0.15 | 0.19
-  private float jumpTransform = 0.18f / 1.5f; // OLD_VALUES: 0.37  | 0.45
-  private float jumpForce = 1f;
+  private float maxJumpTime = 0.20f; // OLD_VALUES: 0.27
+  private float minJumpTime = 0.15f; // OLD_VALUES: 0.15 | 0.19 | 0.21
+  private float jumpTransform = 0.28f / 1.5f; // OLD_VALUES: 0.37  | 0.45 | 0.18 |
+  private float jumpForce = 1.1f;
   private float ascendingGravity = 1f;
   private float descendingGravity = 5f;
 
