@@ -9,6 +9,8 @@ using System.Collections;
 /// </summary>
 public class PlayerStateManager : MonoBehaviour {
   public static PlayerStateManager instance;
+  
+  public string LastContact;
 
   [Header("Player stats")]
   public int hearts = 3;
@@ -171,14 +173,14 @@ public class PlayerStateManager : MonoBehaviour {
   // Handles enemy and bullet collision
   private void OnTriggerEnter2D(Collider2D other) {
     if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet")) {
-      TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false);
+      TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false, other.name);
       StartCoroutine(TemporaryInvulnerability(gameObject));
     }
     OnPlayerHealthChange?.Invoke(hearts);
   }
   private void OnTriggerStay2D(Collider2D other) {
     if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet")) {
-      TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false);
+      TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false, other.name);
       StartCoroutine(TemporaryInvulnerability(gameObject));
     }
     OnPlayerHealthChange?.Invoke(hearts);
@@ -230,11 +232,12 @@ public class PlayerStateManager : MonoBehaviour {
   /// Helper function to take damage. It also changes the Scene state to Lose, so that the scene
   /// object can notify the other Game Objects.
   /// </summary>
-  private void TakeDamage(bool isFacingRight) {
+  private void TakeDamage(bool isFacingRight, string colliderName) {
     if (isInvincible) return;
     hearts -= 1;
     if (hearts <= 0) {
       FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
+      LastContact = colliderName;
     } else {
       ChangeActionState(new PlayerDamagedState(isFacingRight));
     }
@@ -261,8 +264,8 @@ public class PlayerStateManager : MonoBehaviour {
       case FightSceneStateManager.SceneState.Lose:
         ChangeActionState(new PlayerDeathState());
         ChangeMovementState(new PlayerDeathMovementState());
-        
         break;
+        
       case FightSceneStateManager.SceneState.Play:
         ChangeMovementState(new PlayerIdleState());
         ChangeActionState(new PlayerNoneState());

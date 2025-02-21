@@ -186,6 +186,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Characters\Specter\Scripts\SpecterStateManager.cs" />
+    <Compile Include="Assets\Scripts\Scenes\DeathCardManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerShootingState.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerMovingState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\PlayerStateManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\EnergyBeam\EnergyBeamImpactManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\IPlayerActionState.cs" />
+    <Compile Include="Assets\Scripts\Scenes\DeathCard.cs" />
     <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\CauldronBulletManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Supers\Scripts\GiantGhost\GiantGhostManager.cs" />
     <Compile Include="Assets\Characters\MeatShield\MeatShieldManager.cs" />

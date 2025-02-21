@@ -13,6 +13,7 @@ public class SpecterStateManager : BossStateManager {
     _bossHealth = 3000;
 		_bossCurrentHealth = _bossHealth;
     GenerateBossfightAttacks();
+    FightSceneStateManager.Instance.CurrentScene = FightSceneStateManager.SceneName.Specter;
   }
 
   protected override void Start() {

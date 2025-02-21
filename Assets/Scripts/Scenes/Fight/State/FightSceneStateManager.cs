@@ -8,6 +8,13 @@ using System;
 public class FightSceneStateManager : MonoBehaviour {
   // Singleton instance so that the other script can change the SceneState
   public static FightSceneStateManager Instance { get; private set; }
+
+
+  public enum SceneName {
+    Specter,
+  }
+  public SceneName CurrentScene;
+  
   public SceneState currentState { get; private set; }
   public event Action<SceneState> OnChangeState;
   public enum SceneState {
@@ -17,6 +24,8 @@ public class FightSceneStateManager : MonoBehaviour {
     Win,
     Lose
   }
+
+  public GameObject DeathCard;
 
   private void Awake() {
     if (Instance == null) {
@@ -31,7 +40,7 @@ public class FightSceneStateManager : MonoBehaviour {
   }
 
   private void FixedUpdate() {
-    Debug.Log(currentState);
+    // Debug.Log(currentState);
   }
 
   public void ChangeState(SceneState newState) {
@@ -50,5 +59,10 @@ public class FightSceneStateManager : MonoBehaviour {
         //BossStateManager.Instance.
         break;
     }
+  }
+
+  public void ActivateDeathCard(string name) {
+    DeathCard.SetActive(true);
+    DeathCardManager.Instance.ToDisplay(name);
   }
 }

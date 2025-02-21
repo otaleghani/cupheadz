@@ -29,8 +29,9 @@ public class PlayerDeathState : IPlayerActionState {
   }
 
   private void HandleAnimationEnd() {
+    FightSceneStateManager.Instance.ActivateDeathCard(stateManager.LastContact);
     stateManager.gameObject.SetActive(false);
-
-    SceneManager.LoadScene("Map");
+    // After the death, spawn the actual death card
+    // SceneManager.LoadScene("Map");
   }
 }
