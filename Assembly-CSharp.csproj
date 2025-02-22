@@ -70,6 +70,7 @@
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerIdleState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Misc\BulletPoolManager.cs" />
+    <Compile Include="Assets\Scripts\Scenes\DeathFlags.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Chaser\Scripts\ChaserManager.cs" />

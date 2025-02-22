@@ -1,10 +1,11 @@
-using UnityEngine.Audio;
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class AudioManager : MonoBehaviour {
   public static AudioManager Instance;
   public Sound[] Sounds;
+  private AudioSource _soundtrack;
 
   private void Awake() {
     if (Instance == null) {
@@ -16,8 +17,9 @@ public class AudioManager : MonoBehaviour {
       s.Source = gameObject.AddComponent<AudioSource>();
       s.Source.clip = s.Clip;
       s.Source.volume = s.Volume;
-      // s.Source.pitch = s.Pitch;
+      s.Source.pitch = s.Pitch;
       s.Source.loop = s.Loop;
+      if (s.Name == "Soundtrack") _soundtrack = s.Source; 
     }
   }
   
@@ -37,5 +39,33 @@ public class AudioManager : MonoBehaviour {
       return;
     }
     s.Source.Stop();
+  }
+
+  public void SlowDownSoundtrack() {
+    // _soundtrack.pitch = 0.5f;
+    Debug.Log("Called! PITCHING DOWN");
+    StartCoroutine(PitchDown());
+    foreach (Sound s in Sounds) {
+      if (s.Name != "Soundtrack") {
+        s.Source.volume = 0f;
+      }
+    }
+  }
+
+  private IEnumerator PitchDown() {
+    if (_soundtrack.pitch == 1f) {
+      float elapsed = 0f;
+      float duration = 2f;
+      float targetPitch = 0.5f;
+      float startPitch = 1f;
+
+      while (elapsed <= duration) {
+        float t = elapsed / duration;
+        _soundtrack.pitch = Mathf.Lerp(startPitch, targetPitch, t);
+        elapsed += Time.deltaTime;
+        yield return null;
+      }
+      _soundtrack.pitch = targetPitch;
+    }
   }
 }

@@ -5,17 +5,19 @@ using System;
 /// Scene manager is used in every scene where there is gameplay, so run and gun and 
 /// bossfights scenes.
 /// </summary>
+[DefaultExecutionOrder(-900)]
 public class FightSceneStateManager : MonoBehaviour {
   // Singleton instance so that the other script can change the SceneState
   public static FightSceneStateManager Instance { get; private set; }
 
-
   public enum SceneName {
     Specter,
   }
+  
   public SceneName CurrentScene;
   
   public SceneState currentState { get; private set; }
+  
   public event Action<SceneState> OnChangeState;
   public enum SceneState {
     Entry,
@@ -33,10 +35,12 @@ public class FightSceneStateManager : MonoBehaviour {
     } else {
       Destroy(gameObject);
     }
+    DeathCard = Instantiate(DeathCard, transform.Find("Canvas").transform);
   }
 
   private void Start() {
     ChangeState(SceneState.Entry);
+    DeathCard.SetActive(false);
   }
 
   private void FixedUpdate() {
@@ -51,6 +55,7 @@ public class FightSceneStateManager : MonoBehaviour {
   }
 
   public void HandleNewState() {
+    Debug.Log("Called HandleNewState");
     switch (currentState) {
       case SceneState.Entry:
         IrisTransitionManager.Instance.PlayIn();
@@ -58,11 +63,16 @@ public class FightSceneStateManager : MonoBehaviour {
         // Play animation of boss
         //BossStateManager.Instance.
         break;
+      case SceneState.Lose:
+        transform.Find("Canvas/YouDied").gameObject.SetActive(true);
+        break;
     }
   }
 
   public void ActivateDeathCard(string name) {
     DeathCard.SetActive(true);
-    DeathCardManager.Instance.ToDisplay(name);
+    DeathCardManager.Instance.ToDisplay();
+    BossStateManager.Instance.DeathCard();
+    PlayerStateManager.instance.inputManager.SwitchToUi();
   }
 }

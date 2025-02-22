@@ -26,6 +26,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
   public event Action OnIntroAnimationEnd;
 
   public enum PlayerAnimations {
+    None,
     Intro,
     Death,
     Damage,
@@ -92,6 +93,7 @@ public class PlayerAnimatorManager : MonoBehaviour {
     stateManager = GetComponent<PlayerStateManager>();
     animator = GetComponent<Animator>();
 
+    animations[PlayerAnimations.None] = "None";
     animations[PlayerAnimations.Intro] = "Intro";
     animations[PlayerAnimations.Death] = "Death";
     animations[PlayerAnimations.Damage] = "Damage";

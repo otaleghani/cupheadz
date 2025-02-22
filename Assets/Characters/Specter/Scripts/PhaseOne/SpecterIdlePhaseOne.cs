@@ -14,7 +14,6 @@ public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
     leftPoint = GameObject.Find("IdleMoveLeft");
     rightPoint = GameObject.Find("IdleMoveRight");
   }
-
   
   public void Enter() {
     maxTrips = Random.Range(3, 6);
@@ -49,6 +48,9 @@ public class SpecterIdlePhaseOne : MonoBehaviour, IBossAction {
     trips += 1;
     
     if (trips >= maxTrips) {
+      if (SpecterStateManager.Instance.isPlayerDead) {
+        return;
+      }
       SpecterStateManager.Instance.Attack();
       SpecterStateManager.Instance.Stop();
     }

@@ -2,16 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
+using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DeathCardManager : MonoBehaviour {
   public static DeathCardManager Instance;
-  
+  public List<DeathCard> DeathCards;
+  public DeathFlags DeathFlags;
   private GameObject _flagPrefab;
-  private List<DeathCard> _deathCards;
   private DeathCard _currentDeathCard;
-  private DeathFlags _deathFlags;
 
   private float _containerWidth;
   
@@ -21,32 +21,29 @@ public class DeathCardManager : MonoBehaviour {
     } else {
       Debug.LogWarning("Found more than one DeathCardManager in scene.");
     }
-    _deathCards = new List<DeathCard>();
+    // DeathCards = new List<DeathCard>();
     _flagPrefab = Resources.Load<GameObject>("DeathFlags/DeathFlagPrefab");
     _containerWidth = transform.Find("DeathFlagContainer").gameObject.GetComponent<RectTransform>().sizeDelta.x;
   }
 
-  private void Start() {
-    switch (FightSceneStateManager.Instance.CurrentScene) {
-      case FightSceneStateManager.SceneName.Specter:
-      _deathCards = Resources.LoadAll<DeathCard>("DeathCards/Specter").ToList();
-      _deathFlags = Resources.Load<DeathFlags>("DeathFlags/Specter/Specter__DeathFlags");
-      SpawnFlags();
-      ToDisplay("Specter");
-      break;
-    }
-  }
+  // private void Start() {
+  //   switch (FightSceneStateManager.Instance.CurrentScene) {
+  //     case FightSceneStateManager.SceneName.Specter:
+  //     DeathCards = Resources.LoadAll<DeathCard>("DeathCards/Specter").ToList();
+  //     DeathFlags = Resources.Load<DeathFlags>("DeathFlags/Specter/Specter__DeathFlags");
+  //     SpawnFlags();
+  //     ToDisplay("Specter");
+  //     break;
+  //   }
+  // }
 
-  public void ToDisplay(string name) {
-    switch (name) {
-      case "Specter":
-      case "Specter__Sickle":
-      _currentDeathCard = _deathCards.Find(card => card.Name == "FirstPhase");
-      transform.Find("Quote").gameObject.GetComponent<TMP_Text>().text = $"\"{_currentDeathCard.Phrase}\"";
-      transform.Find("WantedImage").gameObject.GetComponent<Image>().sprite = _currentDeathCard.Sprite;
-      break;
-    }
-
+  public void ToDisplay() {
+    SpawnFlags();
+    AudioManager.Instance.SlowDownSoundtrack();
+    EventSystem.current.SetSelectedGameObject(transform.Find("Buttons/Retry").gameObject);
+    _currentDeathCard = DeathCards[BossStateManager.Instance.BossPhase];
+    transform.Find("Quote").gameObject.GetComponent<TMP_Text>().text = $"\"{_currentDeathCard.Phrase}\"";
+    transform.Find("WantedImage").gameObject.GetComponent<Image>().sprite = _currentDeathCard.Sprite;
     StartCoroutine(MoveIndicator());
   }
 
@@ -54,7 +51,7 @@ public class DeathCardManager : MonoBehaviour {
   /// Spawns the different flags inside of the GameObject for the given scene
   /// </summary>
   private void SpawnFlags() {
-    foreach (int point in _deathFlags.Points) {
+    foreach (int point in DeathFlags.Points) {
       GameObject flag = Instantiate(_flagPrefab, transform.Find("DeathFlagContainer").transform);
       flag.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
       flag.GetComponent<RectTransform>().sizeDelta = new Vector2((point / 100f) * _containerWidth, 50);
@@ -99,5 +96,17 @@ public class DeathCardManager : MonoBehaviour {
     Vector2 finalPos = indicator.anchoredPosition;
     finalPos.x = targetX;
     indicator.anchoredPosition = finalPos;   
+  }
+
+  public void ButtonRetry() {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+  }
+
+  public void ButtonExitToMap() {
+    SceneManager.LoadScene("Map");
+  }
+
+  public void ButtonQuitGame() {
+    SceneManager.LoadScene("SplashScreen");
   }
 }

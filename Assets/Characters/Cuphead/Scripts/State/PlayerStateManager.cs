@@ -18,7 +18,7 @@ public class PlayerStateManager : MonoBehaviour {
   public float superMeterRateOfChange = 0f;
 
   private PlayerMovementManager movementManager;
-  private PlayerInputManager inputManager;
+  public PlayerInputManager inputManager;
   private PlayerAnimatorManager animatorManager;
 
   public IPlayerMovementState movementState;
@@ -211,7 +211,6 @@ public class PlayerStateManager : MonoBehaviour {
 
 
   private IEnumerator TemporaryInvulnerability(GameObject gameObject) {
-    isInvincible = true;
 
     // foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
     //   obj.GetComponent<Rigidbody2D>().simulated = false;
@@ -233,8 +232,11 @@ public class PlayerStateManager : MonoBehaviour {
   /// object can notify the other Game Objects.
   /// </summary>
   private void TakeDamage(bool isFacingRight, string colliderName) {
+    if (hearts <= 0) FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
+    
     if (isInvincible) return;
     hearts -= 1;
+    isInvincible = true;
     if (hearts <= 0) {
       FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
       LastContact = colliderName;

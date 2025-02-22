@@ -93,6 +93,9 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
   private void CalculateDirection() {
     if (xDirection == 0) xDirection = movementManager.isFacingRight ? 1 : -1;
   }
+  private void CalculateDirectionOnJump() {
+    if (yDirection == 1) xDirection = 0;
+  }
   private void CalculateDirectionOnAim() {
     if (xDirection == 0 && yDirection == 0) xDirection = movementManager.isFacingRight ? 1 : -1;
   }
@@ -132,7 +135,7 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
           break;
 
         case PlayerJumpingState:
-          CalculateDirection();
+          CalculateDirectionOnJump();
           equippedWeapon.Shoot(xDirection, yDirection, 
             firePoints[PlayerInputManager.AimDirection.Front]);
           break;
