@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFacingRight: 0
+  isPlayerDead: 0
 --- !u!114 &3747050941461272519
 MonoBehaviour:
   m_ObjectHideFlags: 0

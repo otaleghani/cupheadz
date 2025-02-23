@@ -50,6 +50,10 @@ public class AudioManager : MonoBehaviour {
         s.Source.volume = 0f;
       }
     }
+
+    foreach (TreeManager tree in FindObjectsByType<TreeManager>(FindObjectsSortMode.None)) {
+      tree.NoMoreSounds();
+    }
   }
 
   private IEnumerator PitchDown() {

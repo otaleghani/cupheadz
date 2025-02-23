@@ -264,8 +264,10 @@ public class PlayerStateManager : MonoBehaviour {
         // Disable the colliders
         break;
       case FightSceneStateManager.SceneState.Lose:
-        ChangeActionState(new PlayerDeathState());
-        ChangeMovementState(new PlayerDeathMovementState());
+        if (actionState is not PlayerDeathState) {
+          ChangeActionState(new PlayerDeathState());
+          ChangeMovementState(new PlayerDeathMovementState());
+        }
         break;
         
       case FightSceneStateManager.SceneState.Play:

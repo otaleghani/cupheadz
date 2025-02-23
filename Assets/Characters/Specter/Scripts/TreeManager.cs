@@ -16,4 +16,10 @@ public class TreeManager : MonoBehaviour {
       counter = 0f;
     }
   }
+
+  public void NoMoreSounds() {
+    foreach (AudioSource source in GetComponents<AudioSource>()){
+      source.volume = 0f;      
+    }
+  }
 }

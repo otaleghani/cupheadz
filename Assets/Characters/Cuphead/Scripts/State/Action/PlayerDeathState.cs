@@ -18,15 +18,14 @@ public class PlayerDeathState : IPlayerActionState {
     this.animatorManager = animatorManager;
     this.animatorManager.OnDeathAnimationEnd += HandleAnimationEnd;
 
-    PlayAnimation();
+    // PlayAnimation();
+    animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Death);
     this.movementManager.HoldPosition();
   }
 
   public void Update() {}
   public void Exit() {}
-  public void PlayAnimation() {
-    animatorManager.ChangeAnimation(PlayerAnimatorManager.PlayerAnimations.Death);
-  }
+  public void PlayAnimation() {}
 
   private void HandleAnimationEnd() {
     FightSceneStateManager.Instance.ActivateDeathCard(stateManager.LastContact);

@@ -253,10 +253,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 453167012737253981, guid: 65e82d70dce3f944db066a908b371360, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1215626889657305517, guid: 65e82d70dce3f944db066a908b371360, type: 3}
       propertyPath: m_Name
       value: BossFightUi
@@ -299,10 +295,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2917691613753077755, guid: 65e82d70dce3f944db066a908b371360, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3923144910891732893, guid: 65e82d70dce3f944db066a908b371360, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -647,10 +639,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeRight
       objectReference: {fileID: 0}
-    - target: {fileID: 8982257901558196270, guid: 0248d9fd7c46ee044bfdb5218f9667fd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -940,10 +928,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Specter
       objectReference: {fileID: 0}
-    - target: {fileID: 5107056958972342398, guid: 1ad40989fe342124bb0de156f708eb47, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -960,10 +944,6 @@ PrefabInstance:
     - target: {fileID: 7605985021184574652, guid: 9471791e0dc767e4d80512b8055a0ba7, type: 3}
       propertyPath: m_Name
       value: TreeLeft
-      objectReference: {fileID: 0}
-    - target: {fileID: 7605985021184574652, guid: 9471791e0dc767e4d80512b8055a0ba7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9149743175380723660, guid: 9471791e0dc767e4d80512b8055a0ba7, type: 3}
       propertyPath: m_LocalPosition.x
