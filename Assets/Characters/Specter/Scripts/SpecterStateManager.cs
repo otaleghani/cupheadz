@@ -124,6 +124,8 @@ public class SpecterStateManager : BossStateManager {
   private int _attackType;
   public void CannonShoot() {
     // Here add the gameobject
+    // randomly choose to create a parriable sickle
+    
     GameObject sickle = Instantiate(Resources.Load<GameObject>("SpecterSickle"));
     sickle.transform.SetPositionAndRotation(transform.Find("SickleSpawnPoint").transform.position, Quaternion.Euler(0, 0, 0));
     SpecterIdlePhaseOne idle = _bossIdle[0] as SpecterIdlePhaseOne;

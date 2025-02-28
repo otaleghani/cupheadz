@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TestParryObject : MonoBehaviour, IParryable {
   private ParrySparksManager parrySparksManager;
-  private int counter = 0;
+  //private int counter = 0;
   private Sprite sprite;
 
   private void Awake() {

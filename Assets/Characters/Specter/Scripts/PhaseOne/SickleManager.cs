@@ -86,3 +86,11 @@ public class SickleManager : MonoBehaviour {
 
   //private IEnumerator MoveBoomerang(Vector3 destination, float duration, float height, )
 }
+
+public class ParrySickleManager : SickleManager, IParryable {
+  // Apply the material to make it pink
+
+  public void OnParry() {
+    GameObject.Find("ParrySparksManager").GetComponent<ParrySparksManager>().ShowSpark(gameObject.transform);
+  }
+}

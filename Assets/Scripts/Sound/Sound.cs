@@ -6,7 +6,7 @@ public class Sound {
   public AudioClip Clip;
   [Range(0f, 1f)]  
   public float Volume;
-  [Range(.1f, 3f)]  
+  [Range(.1f, 3f)]
   public float Pitch;
 
   public bool Loop;
