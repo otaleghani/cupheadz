@@ -58,13 +58,16 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
 
     movingFirePoint = transform.Find("Moving");
     crouchingFirePoint = transform.Find("Crouching");
+
   }
 
   private void OnEnable() {
     animatorManager.OnExShootingAnimationMidPoint += HandleShootEx;
+    inputManager.OnSwitchWeaponPerformed += ChangeWeapon;
   }
   private void OnDisable() {
     animatorManager.OnExShootingAnimationMidPoint -= HandleShootEx;
+    inputManager.OnSwitchWeaponPerformed -= ChangeWeapon;
   }
 
 
@@ -195,4 +198,12 @@ public class CupheadWeaponManager : MonoBehaviour, IDataPersistence {
     secondWeaponId = gameData.equippedWeapon["second"];
   }
   public void SaveData(ref GameData gameData) {}
+
+  private void ChangeWeapon() {
+    if (equippedWeapon == firstWeapon) {
+      equippedWeapon = secondWeapon;
+    } else {
+      equippedWeapon = firstWeapon;
+    }
+  }
 }

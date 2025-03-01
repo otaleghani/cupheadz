@@ -66,7 +66,7 @@ public class GameData {
     this.unlockedWeapon.Add(Weapon.None, true);
     this.unlockedWeapon.Add(Weapon.Peashooter, true);
     this.unlockedWeapon.Add(Weapon.Spread, false);
-    this.unlockedWeapon.Add(Weapon.Chase, false);
+    this.unlockedWeapon.Add(Weapon.Chase, true);
     this.unlockedWeapon.Add(Weapon.Lobber, false);
     this.unlockedWeapon.Add(Weapon.Charge, false);
     this.unlockedWeapon.Add(Weapon.Roundabout, false);
@@ -75,7 +75,7 @@ public class GameData {
     this.unlockedWeapon.Add(Weapon.Twist_up, false);
 
     this.equippedWeapon.Add("first", Weapon.Peashooter);
-    this.equippedWeapon.Add("second", Weapon.Peashooter);
+    this.equippedWeapon.Add("second", Weapon.Chase);
 
     this.unlockedCharm.Add(Charm.None, true);
     this.unlockedCharm.Add(Charm.Heart, false);
