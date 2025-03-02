@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6289121510135204499}
   - component: {fileID: 3509486445704025027}
   - component: {fileID: 8346421684644587753}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chaser__ExBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1317101290078830579}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.093269914, y: -3.1346486, z: 0.1423383}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 1260011595
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 04519a07c6fb81e43bb6f8811fdccfb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f514a9c510ef38d4583b45458923b0c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -152,17 +152,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.4141599, y: 0.0065221786}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.93, y: 0.5}
-    oldSize: {x: 4.65, y: 1.93}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.79, y: 0.82}
     newSize: {x: 4.65, y: 1.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8895459, y: 0.6383195}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!95 &3509486445704025027
 Animator:
@@ -174,7 +174,7 @@ Animator:
   m_GameObject: {fileID: 1317101290078830579}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ebd6d21fcace00745a0e4f65c98e99c0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3d43753466d488e43b08726b24cefc82, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

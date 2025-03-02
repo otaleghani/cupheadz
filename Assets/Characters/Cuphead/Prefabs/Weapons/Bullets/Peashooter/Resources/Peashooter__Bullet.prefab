@@ -198,10 +198,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21bb9d003f923f1419db2ff7551e1ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 4
   speed: 20
   lifeTime: 2
+  superMeterAmountOnHit: 0.1
   lifeTimer: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
   direction: {x: 1, y: 0}
+  weaponManager: {fileID: 0}

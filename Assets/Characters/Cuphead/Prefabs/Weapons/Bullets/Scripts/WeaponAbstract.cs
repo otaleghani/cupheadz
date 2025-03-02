@@ -67,6 +67,10 @@ public abstract class WeaponManager : MonoBehaviour {
     float angle = GetAngle(direction.x, direction.y);
     SpawnExBulletFromPool(direction, angle, spawn);
 
+    SpawnExSfx(x, y, sfxSpawn);
+  }
+
+  public virtual void SpawnExSfx(int x, int y, Transform sfxSpawn) {
     int oX = -x;
     int oY = -y;
     Vector2 sfxCenterDirection = GetDirection(oX, oY);

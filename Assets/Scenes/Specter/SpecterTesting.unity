@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &417634759 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4748390717696207527, guid: 834a935263fc1b04b88b2b58c3ba7e98, type: 3}
+  m_PrefabInstance: {fileID: 1294131938}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &921245462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6751828051339381644, guid: 65e82d70dce3f944db066a908b371360, type: 3}
@@ -297,10 +302,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4672076880670460575, guid: 65e82d70dce3f944db066a908b371360, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -91.40991
-      objectReference: {fileID: 0}
+    - target: {fileID: 3954166065018205365, guid: 65e82d70dce3f944db066a908b371360, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 417634759}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -998,6 +1003,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1879663787}
   - {fileID: 7608294358277881604}
   - {fileID: 225275046774201464}
   - {fileID: 3048943424225830351}
@@ -1012,4 +1018,3 @@ SceneRoots:
   - {fileID: 6487713280925111946}
   - {fileID: 7938914336838201744}
   - {fileID: 5339485864062217265}
-  - {fileID: 1879663787}

@@ -20,7 +20,7 @@ public abstract class ExBullet : MonoBehaviour {
     animator = GetComponent<Animator>();
     weaponManager = FindFirstObjectByType<WeaponManager>();
   }
-  private void OnEnable() {
+  protected virtual void OnEnable() {
     lifeTimer = lifeTime;
   }
 
@@ -51,7 +51,7 @@ public abstract class ExBullet : MonoBehaviour {
   /// Use this to add additional actions to the collider, like a damage over time.
   /// </summary>
   protected virtual void HandleCollision(Collider2D other) {
-    if (other.CompareTag("Player")){
+    if (other.CompareTag("Player") || other.CompareTag("Ground")){
       return;
     }
     IDamageable damageable = other.GetComponent<IDamageable>();

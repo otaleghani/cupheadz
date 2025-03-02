@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6289121510135204499}
   - component: {fileID: 1783215904684376206}
   - component: {fileID: 3509486445704025027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Peashooter__ExBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

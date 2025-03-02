@@ -43,7 +43,6 @@ public class AudioManager : MonoBehaviour {
 
   public void SlowDownSoundtrack() {
     // _soundtrack.pitch = 0.5f;
-    Debug.Log("Called! PITCHING DOWN");
     StartCoroutine(PitchDown());
     foreach (Sound s in Sounds) {
       if (s.Name != "Soundtrack") {
@@ -60,16 +59,43 @@ public class AudioManager : MonoBehaviour {
     if (_soundtrack.pitch == 1f) {
       float elapsed = 0f;
       float duration = 2f;
-      float targetPitch = 0.5f;
+      float targetPitch = 0.7f;
+      float startVolume = _soundtrack.volume;
+      float targetVolume = 1f;
       float startPitch = 1f;
+      
+      float lowPassStart = 22000f;
+      float lowPassTarget = 1500f;
+      float highPassStart = 10f;
+      float highPassTarget = 1500f;
+      float distorStart = 0f;
+      float distorTarget = 0.5f;
+      
+      AudioLowPassFilter lowPassFilter = _soundtrack.GetComponent<AudioLowPassFilter>();
+      if (lowPassFilter == null) lowPassFilter = _soundtrack.gameObject.AddComponent<AudioLowPassFilter>();
+      AudioHighPassFilter highPassFilter = _soundtrack.GetComponent<AudioHighPassFilter>();
+      if (highPassFilter == null) highPassFilter = _soundtrack.gameObject.AddComponent<AudioHighPassFilter>();
+      AudioDistortionFilter distortion = _soundtrack.GetComponent<AudioDistortionFilter>();
+      if (distortion == null) distortion = _soundtrack.gameObject.AddComponent<AudioDistortionFilter>();
+      
+      lowPassFilter.lowpassResonanceQ = 1f;
+      highPassFilter.highpassResonanceQ = 1f;
 
       while (elapsed <= duration) {
         float t = elapsed / duration;
         _soundtrack.pitch = Mathf.Lerp(startPitch, targetPitch, t);
+        _soundtrack.volume = Mathf.Lerp(startVolume, targetVolume, t);
+        lowPassFilter.cutoffFrequency = Mathf.Lerp(lowPassStart, lowPassTarget, t);
+        highPassFilter.cutoffFrequency = Mathf.Lerp(highPassStart, highPassTarget, t);
+        distortion.distortionLevel = Mathf.Lerp(distorStart, distorTarget, t);
         elapsed += Time.deltaTime;
         yield return null;
       }
       _soundtrack.pitch = targetPitch;
+
+      lowPassFilter.cutoffFrequency = 1500f;
+      highPassFilter.cutoffFrequency = 1500f;
+      distortion.distortionLevel = 0.5f;
     }
   }
 }
