@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public enum BossState
 {
@@ -15,7 +16,6 @@ public enum BossState
 public abstract class BossStateManager : MonoBehaviour, IDamageable
 {
   public static BossStateManager Instance;
-
   public event Action OnDamage;
 
   public bool isFacingRight = false;
@@ -33,6 +33,7 @@ public abstract class BossStateManager : MonoBehaviour, IDamageable
   protected float _minTimeToAttack;
   protected float _maxTimeToAttack;
   protected IBossAction _currentAttack;
+  protected Material _bossMaterial;
   private float _counter;
   private float GenerateTimeToNextAttack()
   {
@@ -64,6 +65,8 @@ public abstract class BossStateManager : MonoBehaviour, IDamageable
       Debug.LogWarning("Found more than one BossStateManager in the scene.");
     }
     _animator = GetComponent<Animator>();
+    _bossMaterial = GetComponent<SpriteRenderer>().material;
+    Debug.Log(_bossMaterial.GetFloat("_IsDamaged"));
   }
   protected virtual void Start() { }
 
@@ -171,16 +174,31 @@ public abstract class BossStateManager : MonoBehaviour, IDamageable
     _counter = time;
   }
 
+  private bool _isDamaged = false;
   public void TakeDamage(float amount)
   {
+    if (_isDamaged) return;
     _bossCurrentHealth -= amount;
-    //CalculateCurrentPhase();
+    StartCoroutine(TookDamage());
     if (_bossCurrentHealth <= 0)
     {
       Die();
     }
     OnDamage?.Invoke();
   }
+
+  /// Sets the correct shaders, waits 2 frames and resets it
+  private IEnumerator TookDamage()
+  {
+    _bossMaterial.SetFloat("_IsDamaged", 1f);
+    _isDamaged = true;
+
+    yield return new WaitForSeconds(0.025f);
+
+    _bossMaterial.SetFloat("_IsDamaged", 0f);
+    _isDamaged = false;
+  }
+
   protected void Die()
   {
     Debug.Log("The boss died!");

@@ -10,7 +10,7 @@ public class SpecterStateManager : BossStateManager
   private AnimationCurve easingArc = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
   private float _firstPhaseHealth = 3000;
-  private float _secondPhaseHealth = 2999;
+  private float _secondPhaseHealth = 2500;
   private float _thirdPhaseHealth = 1000;
 
   protected override void Awake()
@@ -61,7 +61,6 @@ public class SpecterStateManager : BossStateManager
       Debug.Log("Phase 3");
       return;
     }
-    Debug.Log("The boss is dead!");
   }
 
   protected override void GenerateBossfightAttacks()
