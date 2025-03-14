@@ -29,7 +29,7 @@ public class ChaserExBullet : ExBullet {
   }
   
   private void OnDisable() {
-    _cuphead.GetComponent<PlayerInputManager>().OnShootEXPerformed -= HandleExPerformed;  
+    if (_cuphead.GetComponent<PlayerInputManager>() != null) _cuphead.GetComponent<PlayerInputManager>().OnShootEXPerformed -= HandleExPerformed;  
   }
   private void HandleExPerformed() {
     _isFired = true;

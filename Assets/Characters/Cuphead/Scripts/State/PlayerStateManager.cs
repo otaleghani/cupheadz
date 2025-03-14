@@ -7,9 +7,10 @@ using System.Collections;
 /// and action, so that compound states would be easier to pinpoint. This script also hold the
 /// player params, like life points and super meter
 /// </summary>
-public class PlayerStateManager : MonoBehaviour {
+public class PlayerStateManager : MonoBehaviour
+{
   public static PlayerStateManager instance;
-  
+
   public string LastContact;
 
   [Header("Player stats")]
@@ -42,10 +43,14 @@ public class PlayerStateManager : MonoBehaviour {
   private bool isPaused = false;
   public GameObject pauseUI;
 
-  void Awake() {
-    if (instance == null) {
+  void Awake()
+  {
+    if (instance == null)
+    {
       instance = this;
-    } else {
+    }
+    else
+    {
       Debug.LogWarning("Found more than one instances of PlayerStateManager");
     }
     inputManager = GetComponent<PlayerInputManager>();
@@ -63,14 +68,16 @@ public class PlayerStateManager : MonoBehaviour {
   }
 
 
-  private void OnEnable() {
+  private void OnEnable()
+  {
     FightSceneStateManager.Instance.OnChangeState += HandleSceneStateChange;
     parryCollision.OnParryCollision += HandleParryCollision;
     inputManager.OnPausePerformed += HandlePause;
     inputManager.OnShootPerformed += HandleShootPerformed;
     inputManager.OnShootCanceled += HandleShootCanceled;
   }
-  private void OnDisable() {
+  private void OnDisable()
+  {
     FightSceneStateManager.Instance.OnChangeState -= HandleSceneStateChange;
     parryCollision.OnParryCollision -= HandleParryCollision;
     inputManager.OnPausePerformed -= HandlePause;
@@ -78,45 +85,55 @@ public class PlayerStateManager : MonoBehaviour {
     inputManager.OnShootCanceled -= HandleShootCanceled;
   }
 
-  private void HandlePause() {
+  private void HandlePause()
+  {
     isPaused = !isPaused;
-    if (isPaused) {
+    if (isPaused)
+    {
       Pause();
-    } else {
+    }
+    else
+    {
       Resume();
     }
   }
 
-  private void Pause() {
+  private void Pause()
+  {
     pauseUI.SetActive(true);
     Time.timeScale = 0f;
     inputManager.SwitchToUi();
     //inputManager.SwitchActionMap("UI");
   }
-  public void Resume() {
+  public void Resume()
+  {
     pauseUI.SetActive(false);
     Time.timeScale = 1f;
     inputManager.SwitchToPlayer();
     //inputManager.SwitchActionMap("Player");
   }
 
-  private void Start() {
+  private void Start()
+  {
     inputManager.SwitchToPlayer();
     parryCollision.DisableCollider();
 
     movementState.Enter(this, inputManager, movementManager, animatorManager);
     actionState.Enter(this, inputManager, movementManager, animatorManager);
-    
+
     // Handles charms
-    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Heart]) {
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Heart])
+    {
       // Todo: Add negative damage taken modifier
       hearts += 1;
     }
-    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.TwinHeart]) {
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.TwinHeart])
+    {
       // Todo: Add negative damage taken modifier
       hearts += 2;
     }
-    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Coffee]) {
+    if (CupheadCharmsManager.Instance.equippedCharm[GameData.Charm.Coffee])
+    {
       superMeterRateOfChange = 0.005f;
     }
 
@@ -124,19 +141,23 @@ public class PlayerStateManager : MonoBehaviour {
     OnPlayerSuperMeterChange?.Invoke(superMeter);
   }
 
-  private void FixedUpdate() {
+  private void FixedUpdate()
+  {
     movementState.Update();
     actionState.Update();
-    if (superMeter < 5 && superMeterRateOfChange != 0f) {
+    if (superMeter < 5 && superMeterRateOfChange != 0f)
+    {
       AddToSuperMeter(superMeterRateOfChange);
     }
-    Debug.Log(actionState);
-    Debug.Log(movementState);
+    //Debug.Log(actionState);
+    //Debug.Log(movementState);
   }
 
-  private void HandleParryCollision(Collider2D collider) {
+  private void HandleParryCollision(Collider2D collider)
+  {
     IParryable parryableObject = collider.GetComponent<IParryable>();
-    if (parryableObject != null) {
+    if (parryableObject != null)
+    {
       parryableObject.OnParry();
       actionState.PlayAnimation();
     }
@@ -145,13 +166,15 @@ public class PlayerStateManager : MonoBehaviour {
   /// <summary> 
   /// Methods used to change the states
   /// </summary>
-  public void ChangeMovementState(IPlayerMovementState newState) {
+  public void ChangeMovementState(IPlayerMovementState newState)
+  {
     movementState.Exit();
     movementState = newState;
     movementState.Enter(this, inputManager, movementManager, animatorManager);
   }
 
-  public void ChangeActionState(IPlayerActionState newState) {
+  public void ChangeActionState(IPlayerActionState newState)
+  {
     actionState.Exit();
     actionState = newState;
     actionState.Enter(this, inputManager, movementManager, animatorManager);
@@ -171,27 +194,32 @@ public class PlayerStateManager : MonoBehaviour {
   //}
   //
   // Handles enemy and bullet collision
-  private void OnTriggerEnter2D(Collider2D other) {
-    if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet")) {
+  private void OnTriggerEnter2D(Collider2D other)
+  {
+    if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet"))
+    {
       TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false, other.name);
       StartCoroutine(TemporaryInvulnerability(gameObject));
     }
     OnPlayerHealthChange?.Invoke(hearts);
   }
-  private void OnTriggerStay2D(Collider2D other) {
-    if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet")) {
+  private void OnTriggerStay2D(Collider2D other)
+  {
+    if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet"))
+    {
       TakeDamage(CalculateApproximateContactPoint(other).x > 0.5 ? true : false, other.name);
       StartCoroutine(TemporaryInvulnerability(gameObject));
     }
     OnPlayerHealthChange?.Invoke(hearts);
   }
-  private Vector2 CalculateApproximateContactPoint(Collider2D other) {
+  private Vector2 CalculateApproximateContactPoint(Collider2D other)
+  {
     Vector2 ownCenter = GetComponent<Collider2D>().bounds.center;
     Vector2 otherCenter = other.bounds.center;
     Vector2 midPoint = (ownCenter + otherCenter) / 2f;
     return midPoint;
   }
-  
+
   // private void OnCollisionEnter2D(Collision2D collision) {
   //   if (collision.gameObject.CompareTag("Enemy") || 
   //       collision.gameObject.CompareTag("EnemyBullet")) {
@@ -210,7 +238,8 @@ public class PlayerStateManager : MonoBehaviour {
   // }
 
 
-  private IEnumerator TemporaryInvulnerability(GameObject gameObject) {
+  private IEnumerator TemporaryInvulnerability(GameObject gameObject)
+  {
 
     // foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
     //   obj.GetComponent<Rigidbody2D>().simulated = false;
@@ -231,16 +260,20 @@ public class PlayerStateManager : MonoBehaviour {
   /// Helper function to take damage. It also changes the Scene state to Lose, so that the scene
   /// object can notify the other Game Objects.
   /// </summary>
-  private void TakeDamage(bool isFacingRight, string colliderName) {
+  private void TakeDamage(bool isFacingRight, string colliderName)
+  {
     if (hearts <= 0) FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
-    
+
     if (isInvincible) return;
     hearts -= 1;
     isInvincible = true;
-    if (hearts <= 0) {
+    if (hearts <= 0)
+    {
       FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
       LastContact = colliderName;
-    } else {
+    }
+    else
+    {
       ChangeActionState(new PlayerDamagedState(isFacingRight));
     }
   }
@@ -250,13 +283,15 @@ public class PlayerStateManager : MonoBehaviour {
   /// If the scene is "Entry" the player should just stay put and play an animation.
   /// If the scene is "Play" the player should become interactive.
   /// </summary>
-  private void HandleSceneStateChange(FightSceneStateManager.SceneState currentState) {
-    switch (currentState) {
+  private void HandleSceneStateChange(FightSceneStateManager.SceneState currentState)
+  {
+    switch (currentState)
+    {
       case FightSceneStateManager.SceneState.Entry:
         //ChangeMovementState(new PlayerIdleState());
         //ChangeActionState(new PlayerEntryState());
         //ChangeMovementState(new PlayerIntroState());
-        
+
         break;
       case FightSceneStateManager.SceneState.Win:
         ChangeMovementState(new PlayerIdleState());
@@ -264,12 +299,13 @@ public class PlayerStateManager : MonoBehaviour {
         // Disable the colliders
         break;
       case FightSceneStateManager.SceneState.Lose:
-        if (actionState is not PlayerDeathState) {
+        if (actionState is not PlayerDeathState)
+        {
           ChangeActionState(new PlayerDeathState());
           ChangeMovementState(new PlayerDeathMovementState());
         }
         break;
-        
+
       case FightSceneStateManager.SceneState.Play:
         ChangeMovementState(new PlayerIdleState());
         ChangeActionState(new PlayerNoneState());
@@ -283,36 +319,43 @@ public class PlayerStateManager : MonoBehaviour {
     }
   }
 
-  public void EnterInvincibility() {
+  public void EnterInvincibility()
+  {
     spriteRenderer.material = invincibilityMaterial;
     StartCoroutine(InvincibilityState());
   }
-  public void ExitInvincibility() {
+  public void ExitInvincibility()
+  {
     spriteRenderer.material = defaultMaterial;
   }
 
-  private IEnumerator InvincibilityState() {
+  private IEnumerator InvincibilityState()
+  {
     isInvincible = true;
     yield return new WaitForSeconds(invincibilityTime);
     isInvincible = false;
     ExitInvincibility();
   }
 
-  public void AddToSuperMeter(float amount) {
+  public void AddToSuperMeter(float amount)
+  {
     superMeter += amount;
     if (superMeter > 5f) superMeter = 5f;
     OnPlayerSuperMeterChange?.Invoke(superMeter);
   }
-  public void RemoveToSuperMeter(float amount) {
+  public void RemoveToSuperMeter(float amount)
+  {
     superMeter -= amount;
     if (superMeter < 0f) superMeter = 0f;
     OnPlayerSuperMeterChange?.Invoke(superMeter);
   }
 
-  private void HandleShootPerformed() {
+  private void HandleShootPerformed()
+  {
     IsShooting = true;
-  }  
-  private void HandleShootCanceled() {
+  }
+  private void HandleShootCanceled()
+  {
     IsShooting = false;
-  }  
+  }
 }

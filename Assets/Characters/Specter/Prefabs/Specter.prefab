@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 3747050941461272519}
   - component: {fileID: 297718472119539204}
   - component: {fileID: 8256856681235987660}
+  - component: {fileID: 7054384582454860238}
   m_Layer: 8
   m_Name: Specter
   m_TagString: Enemy
@@ -273,6 +274,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0eee0d84e0f19343a7f3bef87f83686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7054384582454860238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107056958972342398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89441a0fb6856c34c92f7a111e6e6406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanTransition: 0
 --- !u!1 &6249430828516760774
 GameObject:
   m_ObjectHideFlags: 0

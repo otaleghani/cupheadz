@@ -177,6 +177,7 @@
     <Compile Include="Assets\Ui\Scripts\UiMenuButton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Misc\ReadyWallupManager.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseTwo\SpecterTransitionPhaseTwo.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerParryingState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Characters\Cuphead\Prefabs\Weapons\Bullets\Scripts\BulletSparkleAbstract.cs" />
