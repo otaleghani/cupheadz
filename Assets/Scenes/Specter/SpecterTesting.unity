@@ -494,10 +494,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpecterMovePoints
       objectReference: {fileID: 0}
-    - target: {fileID: 1484967882323141738, guid: a1c2c23125c0c6e4fb1b17f9e8181868, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3754452065384107271, guid: a1c2c23125c0c6e4fb1b17f9e8181868, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -537,10 +533,6 @@ PrefabInstance:
     - target: {fileID: 3754452065384107271, guid: a1c2c23125c0c6e4fb1b17f9e8181868, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8878313521922834514, guid: a1c2c23125c0c6e4fb1b17f9e8181868, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

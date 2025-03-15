@@ -120,6 +120,7 @@
     <Compile Include="Assets\Characters\Specter\Scripts\PhaseOne\CauldronSpawnerManager.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Movement\PlayerDamagedMovementState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\Characters\Specter\Scripts\PhaseTwo\SpecterIdlePhaseTwo.cs" />
     <Compile Include="Assets\Scripts\Misc\IrisTransitionManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Characters\Cuphead\Scripts\State\Action\PlayerSuperState.cs" />

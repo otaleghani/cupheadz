@@ -1,21 +1,31 @@
 using UnityEngine;
 
-public class TombstonesAnimationManager : MonoBehaviour {
- 
+public class TombstonesAnimationManager : MonoBehaviour
+{
+
   private Animator _animator;
 
-  private void Awake() {
+  private void Awake()
+  {
     _animator = GetComponent<Animator>();
   }
 
-  public void EndOfAttack() {
+  public void EndOfAttack()
+  {
     _animator.Play("Idle");
   }
 
-  public void PlaySwoosh() {
+  public void PlaySwoosh()
+  {
     AudioManager.Instance.Play("Specter__Tombstone__Swoosh");
   }
-  public void PlayBonk() {
+  public void PlayBonk()
+  {
     AudioManager.Instance.Play("Specter__Tombstone__Bonk");
+  }
+
+  public void Destroy()
+  {
+    Destroy(gameObject);
   }
 }

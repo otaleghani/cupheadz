@@ -36,11 +36,16 @@ public class SpecterTransitionPhaseTwo : MonoBehaviour, IBossAction
 
   public void Exit() { }
 
+  private bool hasDoneIt = false;
   public void TP2MoveToPointOne()
   {
-    SpecterStateManager.Instance.Stop();
-    transform.position = GameObject.Find("SpecterMovePoints/Phase__2_Transformation/1").transform.position;
-    TP2SetSize();
+    if (!hasDoneIt)
+    {
+      SpecterStateManager.Instance.Stop();
+      transform.position = GameObject.Find("SpecterMovePoints/Phase__2_Transformation/1").transform.position;
+      TP2SetSize();
+      hasDoneIt = true;
+    }
   }
   public void TP2MoveToPointTwo()
   {
@@ -48,7 +53,7 @@ public class SpecterTransitionPhaseTwo : MonoBehaviour, IBossAction
   }
   public void TP2MoveToPointTree()
   {
-    StartCoroutine(MoveTo(GameObject.Find("SpecterMovePoints/Phase__2_Transformation/3").transform.position, 0.5f));
+    StartCoroutine(MoveTo(GameObject.Find("SpecterMovePoints/Phase__2_Transformation/3").transform.position, 0.25f));
   }
 
   public void TP2SetSize()

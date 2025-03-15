@@ -202,7 +202,6 @@ public abstract class BossStateManager : MonoBehaviour, IDamageable
   protected void Die()
   {
     Debug.Log("The boss died!");
-
     FightSceneStateManager.Instance.ChangeState(FightSceneStateManager.SceneState.Lose);
   }
 

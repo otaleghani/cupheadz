@@ -31,7 +31,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 10.416666
+        time: 10.416667
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -449,7 +449,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 10.416666
+    m_StopTime: 10.416667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -479,7 +479,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 10.416666
+        time: 10.416667
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -522,6 +522,20 @@ AnimationClip:
     messageOptions: 0
   - time: 9.416667
     functionName: TP2MoveToPointTree
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 9.5
+    functionName: SpriteMantisLayer
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 10.333333
+    functionName: AnimEndP2Transition
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

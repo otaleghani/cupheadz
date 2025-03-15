@@ -78,7 +78,7 @@ public class SpecterStateManager : BossStateManager
 
     _bossIdle = new Dictionary<int, IBossAction>();
     _bossIdle[0] = GetComponent<SpecterIdlePhaseOne>();
-    _bossIdle[1] = GetComponent<SpecterIdlePhaseOne>();
+    _bossIdle[1] = GetComponent<SpecterIdlePhaseTwo>();
   }
 
   public override void Move(GameObject destination, string type, float duration)
@@ -144,6 +144,23 @@ public class SpecterStateManager : BossStateManager
       SpecterTransitionPhaseTwo.Instance.DoTransition();
     }
   }
+
+
+  public void AnimEndP2Transition()
+  {
+    SpriteMantisLayer();
+    _state = BossState.Idle;
+    Idle();
+  }
+
+  public void AnimEndP2Idle()
+  {
+    SpriteMantisLayer();
+    /*CalculateCurrentPhase();*/
+    // check for next phase...
+  }
+
+
   public void AnimEndP1CannonTransform()
   {
     if (UnityEngine.Random.Range(0, 2) == 1)
@@ -233,13 +250,17 @@ public class SpecterStateManager : BossStateManager
   }
   public void SpriteSpecterLayer()
   {
-    GetComponent<SpriteRenderer>().sortingLayerName = "Boss";
-    GetComponent<SpriteRenderer>().sortingOrder = 0;
-    gameObject.tag = "Enemy";
-    gameObject.layer = LayerMask.NameToLayer("Enemy");
+    /*GetComponent<SpriteRenderer>().sortingLayerName = "Boss";*/
+    /*GetComponent<SpriteRenderer>().sortingOrder = 0;*/
+    /*gameObject.tag = "Enemy";*/
+    /*gameObject.layer = LayerMask.NameToLayer("Enemy");*/
   }
   public void SpriteMantisLayer()
   {
+    foreach (TombstonesAnimationManager tombstone in GameObject.FindObjectsByType<TombstonesAnimationManager>(FindObjectsSortMode.None))
+    {
+      tombstone.Destroy();
+    }
     GetComponent<SpriteRenderer>().sortingLayerName = "Background";
     GetComponent<SpriteRenderer>().sortingOrder = 5;
     gameObject.tag = "EnemyUnreachable";
